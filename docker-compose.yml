@@ -1,0 +1,24 @@
+version: '3'
+services:
+  node:
+    container_name: aeternity-node
+    image: aeternity/aeternity:master
+    ports:
+      - 3013:3013
+      - 3014:3014
+      - 3113:3113
+      - 3333:3333
+    environment:
+      EPOCH_CONFIG: /home/aeternity/aeternity.yaml
+    #command: -aecore expected_mine_rate ${aeternity_MINE_RATE:-5000}
+    volumes:
+      - ${PWD}/docker/node.yaml:/home/aeternity/aeternity.yaml
+      - ${PWD}/docker/keys/node:/home/aeternity/node/keys
+      - ${PWD}/log:/home/aeternity/node/log
+      - ${PWD}/docker/accounts_test.json:/home/aeternity/node/data/aecore/.genesis/accounts_test.json
+      - node_db:/home/aeternity/node/data/mnesia
+      - node_keys:/home/aeternity/node/keys
+
+volumes:
+  node_db:
+  node_keys:
