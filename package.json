@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "node": "docker-compose up -d",
-    "serve": "npm run node; vue-cli-service serve",
+    "aenode": "docker-compose up -d",
+    "serve": "npm run aenode; vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
