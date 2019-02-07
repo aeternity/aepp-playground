@@ -1,8 +1,13 @@
 import Vue from 'vue'
 import App from './views/app.vue'
 
+import router from './router'
+import store from './store'
+
 Vue.config.productionTip = false
 
-new Vue({
+export default new Vue({
+  router,
+  store,
   render: h => h(App),
 }).$mount('#app')
