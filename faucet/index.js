@@ -44,6 +44,6 @@ express().post('/account/:address', async function (req, res) {
   }
 
   return res.send(JSON.stringify(transaction))
-}).listen(8080, () => {
-  console.log(`Server running at http://localhost:${8080}/`)
+}).listen(9090, () => {
+  console.log(`Server running at http://localhost:${9090}/`)
 })
