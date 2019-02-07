@@ -3,14 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "aenode": "docker-compose up -d",
-    "serve": "npm run aenode; vue-cli-service serve",
+    "faucet": "node -r esm ./faucet/index.js",
+    "node:up": "docker-compose up -d",
+    "node:down": "docker-compose down -v",
+    "serve": "npm run node:up && vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@aeternity/aepp-sdk": "git+ssh://git@github.com/aeternity/aepp-sdk-js.git#feature/channels",
-    "vue": "^2.5.21"
+    "vue": "^2.5.21",
+    "vue-router": "^3.0.2",
+    "vuex": "^3.1.0",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.1.0",
@@ -19,6 +24,8 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
+    "esm": "^3.2.1",
+    "express": "^4.16.4",
     "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {
@@ -30,7 +37,9 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
