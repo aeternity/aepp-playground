@@ -1,17 +1,16 @@
 <template>
-  <div>
-    <h1>Aepp playground</h1>
-    <aepp-channels />
+  <div id="aepp" class="aepp-container">
+    <router-view />
   </div>
 </template>
 <script>
-import aeppChannels from '../components/aepp-channels.vue'
-
 export default {
-  name: 'aepp-playground',
-  components: {
-    aeppChannels
-  }
+  name: 'aepp-playground'
 }
 </script>
-<style></style>
+<style lang="scss" scoped>
+.aepp-container {
+  width: 100%;
+  height: 100%;
+}
+</style>

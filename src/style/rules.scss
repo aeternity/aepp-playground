@@ -38,3 +38,27 @@ html, body {
     box-sizing: inherit;
   }
 }
+
+.resizex{
+  resize:horizontal;
+}
+
+.w-96{
+  width:24rem
+}
+
+.min-w-32{
+  min-width:8rem
+}
+
+.min-w-128{
+  min-width:32rem
+}
+
+.max-w-almost-full{
+  max-width:calc(100vw - 4rem);
+}
+
+.h-160{
+  height:40rem
+}

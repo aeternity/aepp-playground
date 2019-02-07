@@ -4,10 +4,11 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: [{
-    name: 'begin',
+    name: 'index',
     path: '/',
-    component: {}
+    component: require('../views/index/index.vue').default
   }]
 })
