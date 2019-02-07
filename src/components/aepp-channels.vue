@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-const { MemoryAccount, Channel, Crypto, Universal } = require('@aeternity/aepp-sdk')
+const { Channel, Crypto, Universal } = require('@aeternity/aepp-sdk')
 
 const API_URL = 'http://localhost:3001'
 const INTERNAL_API_URL = 'http://localhost:3001'
