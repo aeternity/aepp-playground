@@ -1,5 +1,5 @@
 /**
- * Exporting Mutations
+ * Exporting Vuex Mutations
  *
  * Mutations directly modify the Vuex state.
  * The API/Interface for the functions need to follow
@@ -19,14 +19,14 @@
  * - IF { accounts: '' } THEN createAccount() {}
  *
  * Overall your mutation functions should look like:
- * - updateName() {}
- * - createAccount() {}
+ * @example updateName() {} // Will update the `name`
+ * @example createAccount() {} // Will add an entry to the account array
  *
  * Note: the name of the functions can be either plural
  * or singular, depending on the context which they
  * will be used (ex: in case you're selecting one account
  * then it makes sense to create a function like:
- * - selectAccount() {}
+ * @example selectAccount() {}
  */
 export default {
   /**
