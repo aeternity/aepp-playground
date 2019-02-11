@@ -13,7 +13,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'aepp-index',
+  name: 'aepp-accounts',
   computed: mapState(['accounts']),
   methods: {
     createAccount() {
