@@ -23,12 +23,18 @@
  * @example postFaucet(address) {} // Will top-up an address with AE
  * @example getAccount(address) {} // Will fetch account details given an address
  *
- * The system for singular/plural still is valid in this case.
+ * Note: the name of the functions can be either plural
+ * or singular, depending on the context which they
+ * will be used (ex: in case you're creating multiple
+ * transactions then it makes sense to create a function like:
+ * @example postTransactions() {}
  */
 export default {
   async postFaucet() {},
   async getAccount() {},
   async getAccountBalance() {},
   async getTransaction() {},
+  async getTransactions() {},
   async postTransaction() {},
+  async postTransactions() {},
 };
