@@ -22,7 +22,8 @@ export default {
   name: 'aepp-playground',
 
   /**
-   * Accounts
+   * List of aeternity accounts
+   * @param {Array}
    */
   accounts: [{
     /**
@@ -37,6 +38,7 @@ export default {
 
     /**
      * aeternity node endpoint
+     * @param {String}
      */
     endpoint: ''
   }]

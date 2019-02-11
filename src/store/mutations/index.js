@@ -30,8 +30,7 @@
  */
 export default {
   /**
-   * Updates the name of the
-   * aepp-playground
+   * Updates the name of the aepp-playground
    * @param state {Object}
    * @param name {String}
    */
@@ -40,8 +39,7 @@ export default {
   },
 
   /**
-   * Creates / Inserts an account
-   * into the accounts array
+   * Creates / Inserts an account into the accounts array
    * @param state {Object}
    * @param account {Object}
    */
@@ -61,8 +59,7 @@ export default {
   },
 
   /**
-   * Deletes an account from
-   * the accounts array list
+   * Deletes an account from the accounts array list
    * @param state {Object}
    * @param address {String}
    */
