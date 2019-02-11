@@ -44,12 +44,12 @@ export default {
     url: String,
 
     /**
-     * Public key of account to preselect
+     * Address of the account
      */
     address: String,
 
     /**
-     * Public private key of the account
+     * Public & private key of the account
      */
     keypair: {}
   }]

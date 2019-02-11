@@ -36,11 +36,7 @@ import axios from 'axios'
  */
 export default {
   /**
-   * Top-up an account with AE either locally (through the node faucet)
-   * or for test-net.
-   *
-   * Throws an `Error()` if no account was found in Vuex `state.accounts`
-   *
+   * Top-up an account with AE.
    * @param context {Object}
    * @param address {String}
    * @return {Promise<void>}
