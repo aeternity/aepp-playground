@@ -22,24 +22,35 @@ export default {
   name: 'aepp-playground',
 
   /**
+   * Endpoint of the faucet.
+   *
+   * - http://localhost:9090
+   * - https://testnet.faucet.aepps.com
+   * - https://edge-faucet.aepps.com
+   *
+   * @param faucet {String}
+   */
+  faucet: 'http://localhost:9090',
+
+  /**
    * List of aeternity accounts
    * @param {Array}
    */
   accounts: [{
     /**
+     * aeternity node endpoint
+     * @param {String}
+     */
+    url: String,
+
+    /**
      * Public key of account to preselect
      */
-    address: '',
+    address: String,
 
     /**
      * Public private key of the account
      */
-    keypair: {},
-
-    /**
-     * aeternity node endpoint
-     * @param {String}
-     */
-    endpoint: ''
+    keypair: {}
   }]
 };

@@ -1,4 +1,9 @@
 /**
+ * Importing Global Libraries
+ */
+import axios from 'axios'
+
+/**
  * Exporting Vuex Actions
  *
  * Actions are asynchronous methods/functions that interact
@@ -30,7 +35,19 @@
  * @example postTransactions() {}
  */
 export default {
-  async postFaucet() {},
+  /**
+   * Top-up an account with AE either locally (through the node faucet)
+   * or for test-net.
+   *
+   * Throws an `Error()` if no account was found in Vuex `state.accounts`
+   *
+   * @param context {Object}
+   * @param address {String}
+   * @return {Promise<void>}
+   */
+  async postFaucet({ state }, address) {
+    return await axios.post(`${state.faucet}/account/${address}`)
+  },
   async getAccount() {},
   async getAccountBalance() {},
   async getTransaction() {},

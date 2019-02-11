@@ -39,6 +39,15 @@ export default {
   },
 
   /**
+   * Updates the faucet url endpoint
+   * @param state {Object}
+   * @param url {String}
+   */
+  updateFaucet(state, url) {
+    state.faucet = url
+  },
+
+  /**
    * Creates / Inserts an account into the accounts array
    * @param state {Object}
    * @param account {Object}
