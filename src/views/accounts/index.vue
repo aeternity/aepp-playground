@@ -14,6 +14,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import MemoryAccount from '@aeternity/aepp-sdk/es/account/memory'
 
 export default {
   name: 'aepp-accounts',
@@ -34,6 +35,15 @@ export default {
     deleteAccount(address) {
       this.$store.commit('deleteAccount', address)
     }
+  },
+  mounted() {
+    this.accounts.forEach((account) => {
+      this.$wallet().create(account.address, {
+        networkId: account.networkId,
+        url: account.url,
+        accounts: [MemoryAccount({ keypair: account.keypair })]
+      })
+    })
   }
 }
 </script>

@@ -63,7 +63,9 @@ export default {
    */
   updateAccount(state, updatedAccount) {
     state.accounts = state.accounts.map(
-      (account) => updatedAccount.address === account.address ? updatedAccount : account
+      (account) => updatedAccount.address === account.address ?
+        Object.assign(account, updatedAccount) :
+        account
     )
   },
 
@@ -76,5 +78,8 @@ export default {
     state.accounts = state.accounts.filter(
       (account) => account.address !== address
     )
-  }
+  },
+
+  createGuard(state, guard) {},
+  deleteGuard(state, guard) {}
 };

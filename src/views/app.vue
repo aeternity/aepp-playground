@@ -47,6 +47,7 @@
   </div>
 </template>
 <script>
+<<<<<<< HEAD
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
 import AeppEmoji from '../components/aepp-emoji'
@@ -75,6 +76,22 @@ export default {
     AeppTerminal,
     AeppViews,
     AeppWindow
+=======
+import { mapState } from 'vuex'
+
+export default {
+  name: 'aepp-playground',
+  computed: {
+    ...mapState(['accounts'])
+  },
+  watch: {
+    accounts: function (oldVal, newVal) {
+
+    }
+  },
+  async mounted() {
+
+>>>>>>> Add wallet vue plugin, change interface in store for accounts
   }
 }
 </script>

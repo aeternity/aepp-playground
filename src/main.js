@@ -7,6 +7,9 @@ import App from './views/app.vue'
 
 import router from './router'
 import store from './store'
+import * as wallet from './plugins/wallet'
+
+Vue.use(wallet)
 
 Vue.config.productionTip = false
 

@@ -38,6 +38,11 @@ export default {
    */
   accounts: [{
     /**
+     * Aeternity node Network ID
+     */
+    networkId: String,
+
+    /**
      * aeternity node endpoint
      * @param {String}
      */
@@ -52,5 +57,14 @@ export default {
      * Public & private key of the account
      */
     keypair: {}
-  }]
+  }],
+
+  /**
+   * List of Guard Actions:
+   * - onTx
+   * - onChain
+   * - onAccount
+   * - onContract
+   */
+  guards: []
 };
