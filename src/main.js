@@ -1,3 +1,6 @@
+import '@aeternity/aepp-components/dist/aepp.global.css'
+import './style/rules.scss'
+
 import Vue from 'vue'
 import App from './views/app.vue'
 
