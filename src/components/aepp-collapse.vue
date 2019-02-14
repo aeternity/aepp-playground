@@ -1,5 +1,8 @@
 <template>
   <div class="aepp-collapse">
+    <div class="aepp-collapse-bar">
+      Channel State
+    </div>
     <slot />
   </div>
 </template>

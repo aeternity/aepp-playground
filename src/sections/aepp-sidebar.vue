@@ -16,5 +16,7 @@ export default {
   width: 420px;
   height: 100%;
   background: #282A36;
+  resize: horizontal;
+  overflow: auto;
 }
 </style>

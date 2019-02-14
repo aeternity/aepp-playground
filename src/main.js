@@ -1,4 +1,5 @@
 import '@aeternity/aepp-components/dist/aepp.global.css'
+import '@aeternity/aepp-components/dist/ae-icon/ae-icon.css'
 import './style/rules.scss'
 
 import Vue from 'vue'

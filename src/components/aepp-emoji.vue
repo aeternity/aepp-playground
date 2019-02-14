@@ -9,7 +9,7 @@ import emojis from 'emojis-list';
 export default {
   name: 'aepp-emoji',
   props: {
-    index: Number
+    index: [Number, String]
   },
   computed: {
     emoji() {
