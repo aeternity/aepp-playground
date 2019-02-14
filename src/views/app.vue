@@ -1,30 +1,41 @@
 <template>
   <div id="aepp" class="aepp-container">
-    <div class="aepp-sidebar">
+    <aepp-sidebar>
       <aepp-header />
-      <div class="aepp-sidebar-tools">
+      <aepp-sidebar-tools>
         <aepp-nav />
         <aepp-log />
-      </div>
-    </div>
-    <div class="aepp-views">
-      <aepp-instance />
-    </div>
+      </aepp-sidebar-tools>
+    </aepp-sidebar>
+    <aepp-views>
+      <aepp-window />
+      <aepp-window />
+    </aepp-views>
   </div>
 </template>
 <script>
 import AeppHeader from '../sections/aepp-header'
-import AeppNav from '../sections/aepp-nav'
 import AeppLog from '../sections/aepp-log'
-import AeppInstance from '../sections/aepp-instance'
+import AeppNav from '../sections/aepp-nav'
+import AeppNavList from '../sections/aepp-nav-list'
+import AeppSidebar from '../sections/aepp-sidebar'
+import AeppSidebarTools from '../sections/aepp-sidebar-tools'
+import AeppTerminal from '../sections/aepp-terminal'
+import AeppViews from '../sections/aepp-views'
+import AeppWindow from '../sections/aepp-window'
 
 export default {
   name: 'aepp-playground',
   components: {
     AeppHeader,
-    AeppNav,
     AeppLog,
-    AeppInstance
+    AeppNav,
+    AeppNavList,
+    AeppSidebar,
+    AeppSidebarTools,
+    AeppTerminal,
+    AeppViews,
+    AeppWindow
   }
 }
 </script>
@@ -32,22 +43,7 @@ export default {
 .aepp-container {
   display: flex;
   width: 100%;
+  min-width: 1180px;
   height: 100%;
-}
-
-.aepp-sidebar {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  min-width: 440px;
-}
-
-.aepp-sidebar-tools {
-  display: flex;
-  height: 100%;
-}
-
-.aepp-views {
-  display: flex;
 }
 </style>

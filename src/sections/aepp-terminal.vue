@@ -3,9 +3,9 @@
 </template>
 <script>
 export default {
-  name: 'aepp-instance',
+  name: 'aepp-log',
 }
 </script>
 <style lang="scss" scoped>
-.aepp-instance {}
+.aepp-log {}
 </style>

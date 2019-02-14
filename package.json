@@ -7,7 +7,7 @@
     "example": "cd examples && npm run serve",
     "node:up": "docker-compose up -d",
     "node:down": "docker-compose down -v",
-    "serve": "npm run node:up && vue-cli-service serve",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },

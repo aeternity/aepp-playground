@@ -14,6 +14,7 @@ export default {
 <style lang="scss" scoped>
 .aepp-header {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   height: 72px;
   padding: 0 14px;
