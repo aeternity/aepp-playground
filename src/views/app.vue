@@ -7,7 +7,7 @@
           <aepp-nav-list>
             <li>
               <button type="button">
-                <aepp-emoji index=2 />
+                <aepp-emoji index=500 />
               </button>
             </li>
             <li>

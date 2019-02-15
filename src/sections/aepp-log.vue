@@ -1,6 +1,6 @@
 <template>
   <div>
-    <aepp-code />
+    <aepp-code input="{ hello: 'world', isThisTrue: true }" />
   </div>
 </template>
 <script>

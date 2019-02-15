@@ -16,6 +16,7 @@
     "@aeternity/aepp-sdk": "^2.1.1-0.1.0-next",
     "axios": "^0.18.0",
     "emojis-list": "^2.1.0",
+    "json-format-highlight": "^1.0.1",
     "normalize.css": "^8.0.1",
     "vue": "^2.5.21",
     "vue-router": "^3.0.2",
