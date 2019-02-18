@@ -2,6 +2,7 @@
  * Importing Global Libraries
  */
 import express from 'express'
+import cors from 'cors'
 
 /**
  * Aeternity SDK
@@ -11,9 +12,20 @@ import { isAddressValid } from '@aeternity/aepp-sdk/es/utils/crypto'
 import { importAccount } from './utils'
 
 /**
+ * Express instance
+ * @type {app}
+ */
+const app = express()
+
+/**
+ * Install CORS Plugin
+ */
+app.use(cors())
+
+/**
  * Get Address
  */
-express().post('/account/:address', async function (req, res) {
+app.post('/account/:address', async function (req, res) {
   let keyPair     = null
   let transaction = null
 
