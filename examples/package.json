@@ -1,24 +1,16 @@
 {
-  "name": "aepp-playground",
+  "name": "examples",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "faucet": "node -r esm ./faucet/index.js",
-    "example": "cd examples && npm run serve",
-    "node:up": "docker-compose up -d",
-    "node:down": "docker-compose down -v",
-    "serve": "npm run node:up && vue-cli-service serve",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@aeternity/aepp-components": "git+https://github.com/aeternity/aepp-components.git#develop",
     "@aeternity/aepp-sdk": "^2.1.1-0.1.0-next",
-    "axios": "^0.18.0",
-    "normalize.css": "^8.0.1",
-    "vue": "^2.5.21",
-    "vue-router": "^3.0.2",
-    "vuex": "^3.1.0",
-    "vuex-persistedstate": "^2.5.4"
+    "vue": "^2.5.22"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.1.0",
@@ -27,10 +19,6 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
-    "esm": "^3.2.1",
-    "express": "^4.16.4",
-    "node-sass": "^4.11.0",
-    "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {
@@ -42,9 +30,7 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {
-      "no-console": "off"
-    },
+    "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
     }
