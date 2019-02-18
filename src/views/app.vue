@@ -18,18 +18,21 @@
             <li>
               <button class="aepp-nav-list-add" type="button">
                 <ae-icon name="plus" />
+                <span>Add</span>
               </button>
             </li>
           </aepp-nav-list>
           <aepp-nav-list>
             <li>
-              <button type="button">
-                <aepp-emoji index=4 />
+              <button class="aepp-nav-list-add" type="button">
+                <ae-icon name="diagram" />
+                <span>Share</span>
               </button>
             </li>
             <li>
-              <button type="button">
-                <aepp-emoji index=5 />
+              <button class="aepp-nav-list-add" type="button">
+                <ae-icon name="save" />
+                <span>Save</span>
               </button>
             </li>
           </aepp-nav-list>
@@ -84,6 +87,30 @@ export default {
 }
 
 .aepp-nav-list-add {
-  font-size: rem(45px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+
+  > span,
+  > .ae-icon {
+    color: #929CA6;
+  }
+
+  > span {
+    display: block;
+    font-family: $font-sans;
+    font-size: rem(10px);
+    margin: 4px 0 0 0;
+  }
+
+  > .ae-icon {
+    font-size: rem(24px);
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="aepp-log">
     <aepp-code input="{ hello: 'world', isThisTrue: true }" />
   </div>
 </template>
@@ -14,5 +14,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-log {}
+.aepp-log {
+  width: 100%;
+  padding: 0 10px;
+  overflow: auto;
+}
 </style>

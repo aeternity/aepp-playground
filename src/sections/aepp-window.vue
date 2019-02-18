@@ -6,9 +6,19 @@
         <h3>ak_G2···P1e</h3>
       </div>
       <ul class="aepp-window-header-options">
+        <li class="vertical-collapse">
+          <div class="aepp-window-header-status on-chain">
+            <span>On-chain</span>
+            489.99AE
+          </div>
+          <div class="aepp-window-header-status off-chain">
+            <span>On-channel</span>
+            10.00AE
+          </div>
+        </li>
         <li>
           <button type="button" class="aepp-window-header-action">
-            <ae-icon name="more" />
+            <ae-icon name="receive" />
             <span>Deposit</span>
           </button>
         </li>
@@ -16,12 +26,6 @@
           <div class="aepp-window-header-action">
             <ae-icon name="share" />
             <span>Withdraw</span>
-          </div>
-        </li>
-        <li>
-          <div class="aepp-window-header-action">
-            <ae-icon name="more" />
-            <span>More</span>
           </div>
         </li>
       </ul>
@@ -127,6 +131,39 @@ export default {
     align-items: center;
     padding: 0 20px;
     border-left: 1px solid #191A21;
+  }
+
+  > li.vertical-collapse {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.aepp-window-header-status {
+  display: inline-flex;
+  justify-content: space-between;
+  font-size: rem(12px);
+  font-family: $font-mono;
+  color: $color-white;
+  min-width: 140px;
+  margin-bottom: 8px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.on-chain > span,
+  &.off-chain > span {
+    font-size: rem(10px);
+    font-family: $font-sans;
+    font-weight: 600;
+  }
+
+  &.on-chain > span {
+    color: $color-primary;
+  }
+  &.off-chain > span{
+    color: $color-alternative;
   }
 }
 </style>
