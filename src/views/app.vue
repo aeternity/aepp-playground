@@ -42,7 +42,6 @@
     </aepp-sidebar>
     <aepp-views>
       <aepp-window />
-      <aepp-window />
     </aepp-views>
   </div>
 </template>

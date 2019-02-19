@@ -17,6 +17,8 @@
   </div>
 </template>
 <script>
+import Wallet from '@aeternity/aepp-sdk/es/ae/wallet'
+
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
 export default {
@@ -25,7 +27,37 @@ export default {
     AeIcon
   },
   data: function () {
-    return { url: 'https://aepps.com' };
+    return { url: 'http://localhost:8081' };
+  },
+  async mounted() {
+    const client = await Wallet({
+      url: 'http://localhost:3001',
+      internalUrl: 'http://localhost:3001',
+      keypair: {
+        publicKey: 'ak_MpwgJ4ZD5bctbHBmtdA6XMchpbtBKiYnMzaNwgCHvxL37mrea',
+        secretKey: '96d02824d81fdabfcb7fbcb66e2653a71ba5c4c5461dfd4fbdb0d07c4948c73d2f4a122bb84f9b1b1d65f89e4c0768ab768113a96959f664fa2288227216e71e'
+      },
+      onChain: (...args) => {
+        this.$store.commit('createGuard', args)
+        console.log('onChain', args)
+        return true;
+      },
+      onTx: (...args) => {
+        this.$store.commit('createGuard', args)
+        console.log('onTx',args)
+        return true;
+      },
+      onAccount: (...args) => {
+        this.$store.commit('createGuard', args)
+        console.log('onAccount',args)
+        return true;
+      },
+      onContract: (...args) => {
+        this.$store.commit('createGuard', args)
+        console.log('onContract',args)
+        return true;
+      }
+    })
   }
 }
 </script>
@@ -90,5 +122,6 @@ export default {
   width: 100%;
   height: 100%;
   border: 0;
+  background: $color-white;
 }
 </style>

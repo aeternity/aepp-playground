@@ -80,6 +80,8 @@ export default {
     )
   },
 
-  createGuard(state, guard) {},
+  createGuard(state, guard) {
+    state.guards.push(guard)
+  },
   deleteGuard(state, guard) {}
 };
