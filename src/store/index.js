@@ -1,5 +1,5 @@
 /**
- * Vue
+ * Import Vue Library
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -28,9 +28,9 @@ Vue.use(Vuex)
  */
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
-  plugins: [createPersistedState({
+  plugins: process.env.NODE_ENV === 'production' ? [createPersistedState({
     storage: window.sessionStorage
-  })],
+  })] : [],
   state,
   mutations,
   actions,
