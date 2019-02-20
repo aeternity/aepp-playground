@@ -10,10 +10,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 .aepp-nav {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 0 0 auto;
+  @apply flex;
+  @apply flex-col;
+  @apply justify-between;
+  @apply flex-auto;
+  @apply flex-no-grow;
+  @apply flex-shrink;
+  @apply h-full;
+
   background: #343746;
   border-right: 1px solid #191A21;
   width: 73px;

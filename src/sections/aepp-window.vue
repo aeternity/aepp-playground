@@ -56,7 +56,6 @@ export default {
   flex-direction: column;
   width: 100%;
   background: #282A36;
-  border-left: 1px solid #191A21;
 }
 
 .aepp-window-header {

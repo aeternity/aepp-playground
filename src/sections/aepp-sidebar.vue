@@ -10,13 +10,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 .aepp-sidebar {
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  width: 420px;
-  height: 100%;
+  @apply flex;
+  @apply flex-col;
+  @apply flex-auto;
+  @apply flex-no-grow;
+  @apply flex-no-shrink;
+  @apply h-full;
+  @apply overflow-auto;
+
   background: #282A36;
-  resize: horizontal;
-  overflow: auto;
 }
 </style>

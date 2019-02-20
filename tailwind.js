@@ -109,7 +109,7 @@ let colors = {
    */
   'error':     '#FF0D6A',
   'focus':     '#B300FF',
-  'focus-alt': '#00E8CC'
+  'focus-alt': '#00E8CC',
 }
 
 module.exports = {
