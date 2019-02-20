@@ -52,11 +52,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 .aepp-window {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  @apply flex;
+  @apply flex-col;
+  @apply self-stretch;
+  @apply flex-grow;
+  @apply flex-shrink;
+  @apply flex-auto;
+  @apply w-full;
+  @apply h-full;
+
   background: #282A36;
-  border-left: 1px solid #191A21;
 }
 
 .aepp-window-header {

@@ -10,56 +10,61 @@ export default {
 </script>
 <style lang="scss" scoped>
 .aepp-nav-list {
-  padding: 0;
-  margin: 0;
+  @apply list-reset;
 
-  > li {
-    list-style: none;
-  }
-
-  &:last-child > li:first-child {
-    border-top: 1px solid #191A21;
-  }
   &:last-child > li:last-child {
     border-bottom: none;
   }
 }
 
 .aepp-nav-list > li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 81px;
+  @apply flex;
+  @apply justify-center;
+  @apply items-center;
+
+  height: 72px;
   border-bottom: 1px solid #191A21;
-  color: #929CA6;
+  color: #343746;
 }
 
-.aepp-nav-list > li > a,
-.aepp-nav-list > li > button {
-  transition: all 0.2s;
-  color: inherit;
-  border: 0;
-  background: none;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
+.aepp-nav-list > li /deep/ > a,
+.aepp-nav-list > li /deep/ > button {
+  @apply flex;
+  @apply justify-center;
+  @apply items-center;
+  @apply cursor-pointer;
+  @apply p-0;
+  @apply w-full;
+  @apply h-full;
+  @apply border-0;
 
+  background: none;
+  color: #76818C;
+  transition: all 0.2s;
+
+  &.active,
   &:hover,
-  &:focus,
-  &.active {
+  &:focus {
     background: #282A36;
     box-shadow: inset 3px 0 0 #FF0D6A;
   }
+
+  .ae-icon {
+    @apply text-2xl;
+  }
 }
 
-.aepp-nav-list > li > a {
-  text-decoration: none;
+.aepp-nav-list > li /deep/ > a {
+  @apply no-underline;
 
   &:hover,
   &:focus {
-    color: inherit;
-    text-decoration: none;
+    @apply text-white;
+    @apply no-underline;
+  }
+
+  &:visited {
+    color: #76818C;
   }
 }
 </style>

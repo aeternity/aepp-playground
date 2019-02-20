@@ -1,0 +1,17 @@
+/**
+ * Here you would add global modifications
+ * to the entire application, this allows
+ * you to overwrite browser and dependencies
+ * that modify the global scope.
+ *
+ * Example:
+ *
+ * html { ... }
+ * body { ... }
+ * h1, h2, h3 { ... }
+ */
+html, body {
+  background: #191A21;
+  height: 100%;
+  min-height: 100%;
+}
