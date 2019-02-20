@@ -12,9 +12,6 @@ export default {
 .aepp-nav-list {
   @apply list-reset;
 
-  &:last-child > li:first-child {
-    border-top: 1px solid #191A21;
-  }
   &:last-child > li:last-child {
     border-bottom: none;
   }

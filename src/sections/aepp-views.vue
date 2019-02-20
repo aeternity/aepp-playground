@@ -10,7 +10,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .aepp-views {
-  display: flex;
+  @apply flex;
+  @apply flex-col;
+
   flex: 1 1 auto;
   justify-content: stretch;
   align-items: stretch;

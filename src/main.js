@@ -16,7 +16,7 @@ import '@aeternity/aepp-components/dist/ae-icon/ae-icon.css'
  * Import Vue Library
  */
 import Vue from 'vue'
-import App from './views/app.vue'
+import Aepp from './aepp.vue'
 
 /**
  * Import local configuration
@@ -24,12 +24,12 @@ import App from './views/app.vue'
  */
 import router from './router'
 import store from './store'
-import * as wallet from './plugins/wallet'
+import * as Wallet from './plugins/wallet'
 
 /**
  * Install plugins in Vue
  */
-Vue.use(wallet)
+Vue.use(Wallet)
 
 /**
  * Export Aepp-Playground Instance
@@ -37,5 +37,5 @@ Vue.use(wallet)
 export default new Vue({
   router,
   store,
-  render: h => h(App),
+  render: h => h(Aepp),
 }).$mount('#aepp')

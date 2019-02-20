@@ -9,5 +9,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-toolbar {}
+.aepp-toolbar {
+  @apply flex;
+  @apply flex-no-shrink;
+
+  height: 72px;
+  background: #191A21;
+}
 </style>
