@@ -1,12 +1,12 @@
 <template>
-  <aepp-views class="aepp-goggles">
+  <aepp-views class="aepp-browser">
     <aepp-toolbar>
-      <aepp-toolbar-tab to="asdfasdfas">
+      <aepp-toolbar-tab to="#">
         <ae-icon name="aeternity" />
-        Goggles
+        supercool.aepps.com
       </aepp-toolbar-tab>
     </aepp-toolbar>
-    <h1>Goggles</h1>
+    <aepp-window />
   </aepp-views>
 </template>
 <script>
@@ -15,17 +15,19 @@ import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 import AeppToolbar from '../../sections/aepp-toolbar'
 import AeppToolbarTab from '../../sections/aepp-toolbar-tab'
 import AeppViews from '../../sections/aepp-views'
+import AeppWindow from '../../sections/aepp-window'
 
 export default {
-  name: 'goggles',
+  name: 'browser',
   components: {
     AeIcon,
     AeppToolbar,
     AeppToolbarTab,
-    AeppViews
+    AeppViews,
+    AeppWindow
   }
 }
 </script>
 <style lang="scss" scoped>
-.aepp-goggles {}
+.aepp-browser {}
 </style>

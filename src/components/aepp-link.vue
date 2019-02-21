@@ -1,14 +1,15 @@
 <template>
-  <router-link :to="to" class="aepp-link">
+  <router-link class="aepp-link" v-bind="$attrs">
     <slot />
   </router-link>
 </template>
 <script>
+/**
+ * TODO: Complete aepp-link with link styles
+ */
 export default {
   name: 'aepp-link',
-  props: {
-    to: [Object, String]
-  }
+  inheritAttrs: false
 }
 </script>
 <style lang="scss" scoped>

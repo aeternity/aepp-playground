@@ -1,17 +1,21 @@
 <template>
   <div id="aepp" class="aepp-container">
+    <!-- Sidebar Container -->
     <aepp-sidebar>
+      <!-- Aeternity logo -->
       <aepp-header />
+
+      <!-- Navigation menu -->
       <aepp-nav>
         <aepp-nav-list>
           <li>
             <router-link :to="{ name: 'views/contracts' }">
-              <ae-icon name="paste" />
+              <ae-icon name="grid" />
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'views/channels' }">
-              <ae-icon name="device" />
+            <router-link :to="{ name: 'views/browser' }">
+              <ae-icon name="globe" />
             </router-link>
           </li>
           <li>
@@ -22,13 +26,16 @@
         </aepp-nav-list>
         <aepp-nav-list>
           <li>
-            <router-link :to="{ name: 'views/settings' }">
-              <ae-icon name="settings" />
+            <router-link :to="{ name: 'views/configs' }">
+              <ae-icon name="filter" />
+              <span>Configs</span>
             </router-link>
           </li>
         </aepp-nav-list>
       </aepp-nav>
     </aepp-sidebar>
+
+    <!-- Render Main Views -->
     <router-view />
   </div>
 </template>
