@@ -2,7 +2,7 @@
   <aepp-views class="aepp-goggles">
     <aepp-toolbar>
       <aepp-toolbar-tab to="asdfasdfas">
-        <ae-icon name="aeternity" />
+        <ae-icon name="search" />
         Goggles
       </aepp-toolbar-tab>
     </aepp-toolbar>

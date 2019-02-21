@@ -2,8 +2,8 @@
   <aepp-views class="aepp-browser">
     <aepp-toolbar>
       <aepp-toolbar-tab to="#">
-        <ae-icon name="aeternity" />
-        supercool.aepps.com
+        <ae-icon name="globe" />
+        aepp.dronegraffiti.com
       </aepp-toolbar-tab>
     </aepp-toolbar>
     <aepp-window />
