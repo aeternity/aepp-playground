@@ -15,12 +15,12 @@ export default {
   /*
    * Route name
    */
-  name: 'views/contracts',
+  name: 'views/editor',
 
   /*
    * Route path
    */
-  path: 'contracts',
+  path: 'editor',
 
   /*
    * Route component

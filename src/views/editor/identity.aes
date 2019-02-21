@@ -1,0 +1,11 @@
+contract Identity =
+  type state = ()
+
+/*
+ * **Main** function Lorem ipsum dolor sit amet,
+ * consectetur adipiscing elit. Donec sed felis neque.
+ * Pellentesque sit amet diam **x** and **y** porttitor,
+ * tristique tellus at, pretium ligula. In eu diam convallis,
+ * interdum sapien ultrices, scelerisque.
+ */
+  function main(x : int, y : int) = x + y
