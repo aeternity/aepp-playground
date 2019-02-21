@@ -12,8 +12,10 @@ export default {
 .aepp-views {
   @apply flex;
   @apply flex-col;
+  @apply flex-shrink;
+  @apply flex-grow;
+  @apply flex-auto;
 
-  flex: 1 1 auto;
   justify-content: stretch;
   align-items: stretch;
 }

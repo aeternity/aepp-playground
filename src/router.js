@@ -1,17 +1,19 @@
 /**
- * This is the Router main file. In here
- * we instantiate and configure the vue-router.
+ * Here is the Router main file. In here we
+ * instantiate and configure the vue-router.
+ *
+ * @link https://router.vuejs.org/guide
  */
 import Vue from 'vue';
 import Router from 'vue-router';
 
 /**
- * The list of routes pulled from the pages
+ * The main list of routes of the app
  */
 import routes from './views/routes';
 
 /**
- * Install plugins in Vue
+ * Install Plugins
  */
 Vue.use(Router)
 

@@ -2,7 +2,6 @@
   <div class="aepp-window">
     <div class="aepp-window-header">
       <div class="aepp-window-header-account">
-        <aepp-emoji index="222" />
         <h3>ak_G2···P1e</h3>
       </div>
       <ul class="aepp-window-header-options">
@@ -38,14 +37,12 @@
 <script>
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
-import AeppEmoji from '../components/aepp-emoji'
 import AeppIframe from '../components/aepp-iframe'
 
 export default {
   name: 'aepp-window',
   components: {
     AeIcon,
-    AeppEmoji,
     AeppIframe
   }
 }

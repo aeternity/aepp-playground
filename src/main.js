@@ -1,6 +1,5 @@
 /**
- * Import TailwindCSS Utility first
- * css library.
+ * Import TailwindCSS Utility first css library.
  *
  * @link https://tailwindcss.com/docs/what-is-tailwind/
  */
@@ -19,8 +18,7 @@ import Vue from 'vue'
 import Aepp from './aepp.vue'
 
 /**
- * Import local configuration
- * for vue.
+ * Import local configuration for vue.
  */
 import router from './router'
 import store from './store'

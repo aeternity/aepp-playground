@@ -1,24 +1,29 @@
 <template>
-  <button class="aepp-button" :class="[{ extend }]">
+  <router-link class="aepp-button-link" :class="[{ extend }]" v-bind="$attrs">
     <slot />
-  </button>
+  </router-link>
 </template>
 <script>
 export default {
   name: 'aepp-button',
+  inheritAttrs: false,
   props: {
     /**
-     * Extend the button to full width
+     * Extend the button link to full width
      */
     extend: Boolean
   }
 }
 </script>
 <style lang="scss" scoped>
-.aepp-button {
+.aepp-button-link {
+  @apply inline-flex;
+  @apply items-center;
+  @apply justify-center;
   @apply rounded;
   @apply pl-4;
   @apply pr-4;
+  @apply no-underline;
 
   height: 55px;
   background: #191A21;
@@ -27,15 +32,19 @@ export default {
 
   &:hover,
   &:focus {
+    @apply no-underline;
+
     background: #282A36;
+  }
+
+  &:visited {
+    color: #D3DCE6;
   }
 }
 
-.aepp-button.extend {
+.aepp-button-link.extend {
   @apply flex-grow;
   @apply flex-shrink;
   @apply flex-auto;
-
-  width: 100%;
 }
 </style>

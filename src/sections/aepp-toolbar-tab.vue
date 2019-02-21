@@ -1,17 +1,12 @@
 <template>
-  <router-link :to="to" class="aepp-toolbar-tab">
+  <router-link class="aepp-toolbar-tab" v-bind="$attrs">
     <slot />
   </router-link>
 </template>
 <script>
 export default {
   name: 'aepp-toolbar-tab',
-  props: {
-    to: {
-      type: [String, Object],
-      default: '/'
-    }
-  }
+  inheritAttrs: false
 }
 </script>
 <style lang="scss" scoped>
@@ -25,6 +20,8 @@ export default {
 
   background: #282A36;
   border-bottom: 2px solid #21222C;
+  color: #76818C;
+  transition: all 0.2s;
 
   &:hover,
   &:focus {
@@ -34,6 +31,10 @@ export default {
 
   &:visited {
     color: #76818C;
+  }
+
+  /deep/ > .ae-icon {
+    @apply mr-2;
   }
 }
 </style>
