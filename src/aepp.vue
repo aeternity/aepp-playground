@@ -10,12 +10,12 @@
         <aepp-nav-list>
           <li>
             <router-link :to="{ name: 'views/contracts' }">
-              <ae-icon name="paste" />
+              <ae-icon name="grid" />
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'views/channels' }">
-              <ae-icon name="device" />
+            <router-link :to="{ name: 'views/browser' }">
+              <ae-icon name="globe" />
             </router-link>
           </li>
           <li>

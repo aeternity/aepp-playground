@@ -1,11 +1,11 @@
 <template>
-  <div></div>
+  <div class="aepp-terminal"></div>
 </template>
 <script>
 export default {
-  name: 'aepp-log',
+  name: 'aepp-terminal',
 }
 </script>
 <style lang="scss" scoped>
-.aepp-log {}
+.aepp-terminal {}
 </style>

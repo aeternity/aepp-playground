@@ -7,7 +7,7 @@ import index from './index.vue';
 /**
  * List of nested views/routes
  */
-import channels from './channels/routes';
+import browser from './browser/routes';
 import configs from './configs/routes';
 import contracts from './contracts/routes';
 import goggles from './goggles/routes';
@@ -46,7 +46,7 @@ export default [
      * Route children
      */
     children: [
-      channels,
+      browser,
       configs,
       contracts,
       goggles

@@ -15,12 +15,12 @@ export default {
   /*
    * Route name
    */
-  name: 'views/channels',
+  name: 'views/browser',
 
   /*
    * Route path
    */
-  path: 'channels',
+  path: 'browser',
 
   /*
    * Route component

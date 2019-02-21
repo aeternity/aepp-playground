@@ -1,9 +1,9 @@
 <template>
-  <aepp-views class="aepp-channels">
+  <aepp-views class="aepp-browser">
     <aepp-toolbar>
       <aepp-toolbar-tab to="#">
         <ae-icon name="aeternity" />
-        Channels
+        supercool.aepps.com
       </aepp-toolbar-tab>
     </aepp-toolbar>
     <aepp-window />
@@ -18,7 +18,7 @@ import AeppViews from '../../sections/aepp-views'
 import AeppWindow from '../../sections/aepp-window'
 
 export default {
-  name: 'channels',
+  name: 'browser',
   components: {
     AeIcon,
     AeppToolbar,
@@ -29,5 +29,5 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-channels {}
+.aepp-browser {}
 </style>
