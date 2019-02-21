@@ -9,7 +9,7 @@
       <aepp-nav>
         <aepp-nav-list>
           <li>
-            <router-link :to="{ name: 'views/contracts' }">
+            <router-link :to="{ name: 'views/editor' }">
               <ae-icon name="grid" />
             </router-link>
           </li>

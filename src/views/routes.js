@@ -9,7 +9,7 @@ import index from './index.vue';
  */
 import browser from './browser/routes';
 import configs from './configs/routes';
-import contracts from './contracts/routes';
+import editor from './editor/routes';
 import goggles from './goggles/routes';
 
 /**
@@ -39,7 +39,7 @@ export default [
     * Route redirect
     */
     redirect: {
-      name: 'views/channels'
+      name: 'views/editor'
     },
 
     /*
@@ -48,7 +48,7 @@ export default [
     children: [
       browser,
       configs,
-      contracts,
+      editor,
       goggles
     ]
   }
