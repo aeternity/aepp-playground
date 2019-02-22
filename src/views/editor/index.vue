@@ -15,19 +15,23 @@
       <h1>Hello world</h1>
     </aepp-collapse>
     <div class="aepp-editor-settings">
-      <aepp-button extend="">Compile Contract</aepp-button>
+      <aepp-select class="w-5/6 mr-2" label="Compiler Version">
+        <option value="1.0.2">Roma v1.0.2</option>
+        <option value="1.0.1">Roma v1.0.1</option>
+        <option value="1.0.0">Roma v1.0.0</option>
+      </aepp-select>
+      <aepp-button class="w-1/6">
+        Compile Contract
+      </aepp-button>
     </div>
   </aepp-views>
 </template>
 <script>
-// or import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-// if shipping only a subset of the features & languages is desired
-import * as monaco from 'monaco-editor'
-
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
 import AeppButton from '../../components/aepp-button'
 import AeppCollapse from '../../components/aepp-collapse'
+import AeppSelect from '../../components/aepp-select'
 
 import AeppToolbar from '../../sections/aepp-toolbar'
 import AeppToolbarTab from '../../sections/aepp-toolbar-tab'
@@ -39,27 +43,16 @@ export default {
     AeIcon,
     AeppButton,
     AeppCollapse,
+    AeppSelect,
     AeppToolbar,
     AeppToolbarTab,
     AeppViews
   },
   mounted() {
-    monaco.editor.defineTheme('aeternity-dark', {
-      inherit: true,
-      base: 'vs-dark',
-      rules: [{ background: '#343746' }],
-      colors: {
-        'editor.foreground': '#282A36',
-        'editor.background': '#282A36',
-        'editor.lineHighlightBackground': '#343746',
-        'editorLineNumber.foreground': '#343746',
-      }
-    });
-
-    return monaco.editor.create(this.$refs.monaco, {
+    this.$editor.create(this.$refs.monaco, {
       value: require('!raw-loader!./identity.aes'),
       language: 'javascript',
-      theme: "aeternity-dark",
+      theme: 'aeternity-dark'
     });
   }
 }
@@ -78,9 +71,10 @@ export default {
 
 .aepp-editor-settings {
   @apply flex;
+  @apply justify-between;
   @apply flex-no-shrink;
   @apply flex-no-grow;
-  @apply p-3;
+  @apply p-2;
 
   background: #343746;
   height: 71px;
