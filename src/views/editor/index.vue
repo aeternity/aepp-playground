@@ -6,7 +6,7 @@
         identity.aes
       </aepp-toolbar-tab>
     </aepp-toolbar>
-    <div class="aepp-editor-monaco" ref="monaco"></div>
+    <aepp-editor :options="{ value: require('!raw-loader!./identity.aes') }"/>
     <aepp-collapse>
       <template slot="bar">
         Console
@@ -31,6 +31,7 @@ import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
 import AeppButton from '../../components/aepp-button'
 import AeppCollapse from '../../components/aepp-collapse'
+import AeppEditor from '../../components/aepp-editor'
 import AeppSelect from '../../components/aepp-select'
 
 import AeppToolbar from '../../sections/aepp-toolbar'
@@ -43,17 +44,11 @@ export default {
     AeIcon,
     AeppButton,
     AeppCollapse,
+    AeppEditor,
     AeppSelect,
     AeppToolbar,
     AeppToolbarTab,
     AeppViews
-  },
-  mounted() {
-    this.$editor.create(this.$refs.monaco, {
-      value: require('!raw-loader!./identity.aes'),
-      language: 'javascript',
-      theme: 'aeternity-dark'
-    });
   }
 }
 </script>
