@@ -22,12 +22,14 @@ import Aepp from './aepp.vue'
  */
 import router from './router'
 import store from './store'
-import * as Wallet from './plugins/wallet'
+import * as editor from './plugins/editor';
+import * as wallet from './plugins/wallet'
 
 /**
  * Install plugins in Vue
  */
-Vue.use(Wallet)
+Vue.use(editor)
+Vue.use(wallet)
 
 /**
  * Export Aepp-Playground Instance

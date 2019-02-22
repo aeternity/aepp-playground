@@ -69,5 +69,19 @@ export default {
    * - onAccount
    * - onContract
    */
-  guards: []
+  guards: [],
+
+  /**
+   * Global Playground Configuration Object
+   *
+   * Here are the default config values, of the
+   * aepp-playground.
+   */
+  configs: {
+    host: "",
+    accounts: [{
+      privateKey: '',
+      publicKey: ''
+    }]
+  }
 };
