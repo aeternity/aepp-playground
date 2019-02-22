@@ -83,5 +83,14 @@ export default {
   createGuard(state, guard) {
     state.guards.push(guard)
   },
-  deleteGuard(state, guard) {}
+  deleteGuard(state, guard) {},
+
+  /**
+   * Updates the config values
+   * @param state
+   * @param configs
+   */
+  updateConfigs(state, configs) {
+    state.configs = Object.assign(state.configs, configs)
+  },
 };

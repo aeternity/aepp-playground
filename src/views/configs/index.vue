@@ -10,8 +10,6 @@
   </aepp-views>
 </template>
 <script>
-import { mapState } from 'vuex'
-
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
 import AeppEditor from '../../components/aepp-editor'
@@ -29,7 +27,20 @@ export default {
     AeppToolbarTab,
     AeppViews
   },
-  computed: mapState(['configs'])
+  computed: {
+    /**
+     * Making `Configs` Vuex state property
+     * changeable with computed properties
+     */
+    configs: {
+      get: function () {
+        return this.$store.state.configs;
+      },
+      set: function (configs) {
+        this.$store.commit('updateConfigs', configs)
+      }
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
