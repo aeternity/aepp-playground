@@ -63,5 +63,7 @@ export default {
   @apply flex;
   @apply w-full;
   @apply h-full;
+
+  min-width: 1024px;
 }
 </style>

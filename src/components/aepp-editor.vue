@@ -1,14 +1,19 @@
 <template>
-  <!-- Maybe not so good idea to rewrite the root component -->
-  <div class="aepp-editor" ref="monaco"></div>
+  <div class="aepp-editor">
+    <div class="aepp-editor-instance" ref="monaco"></div>
+  </div>
 </template>
 <script>
 export default {
   name: 'aepp-editor',
   data: function () {
     return {
-      language: 'javascript',
-      theme: 'aeternity-dark'
+      instance: null,
+      defaultOptions: {
+        language: 'javascript',
+        theme: 'aeternity-dark',
+        automaticLayout: true
+      }
     }
   },
   props: {
@@ -18,10 +23,24 @@ export default {
     options: Object
   },
   mounted() {
-    this.$editor.create(
+    /**
+     * Pass the instance to a $data Property
+     * so we can make use of it later on.
+     */
+    this.instance = this.$editor.create(
+      /**
+       * HTMLReference to the
+       * `div` element to bootstrap
+       * monaco editor
+       */
       this.$refs.monaco,
+
+      /**
+       * Overwrite the defaultOptions from
+       * the property passed down to the component
+       */
       Object.assign(
-        this.$data,
+        this.defaultOptions,
         this.options
       )
     )
@@ -30,11 +49,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 .aepp-editor {
+  @apply flex;
   @apply flex-auto;
-  @apply flex-no-grow;
+  @apply flex-grow;
   @apply flex-shrink;
   @apply w-full;
   @apply h-full;
   @apply overflow-hidden;
+}
+
+.aepp-editor-instance {
+  @apply self-stretch;
+  @apply w-full;
+  @apply h-full;
 }
 </style>
