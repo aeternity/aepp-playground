@@ -1,5 +1,14 @@
 <template>
   <div id="aepp" class="aepp-container">
+
+    <!-- Notifications -->
+    <aepp-notification :type="n.type" visible v-for="(n, i) in notifications" :key="i">
+      {{ n.text }}
+      <button type="button" class="text-white" @click="deleteNotification(i)">
+        <ae-icon name="close" />
+      </button>
+    </aepp-notification>
+
     <!-- Sidebar Container -->
     <aepp-sidebar>
       <!-- Aeternity logo -->
@@ -40,7 +49,11 @@
   </div>
 </template>
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
+
+import AeppNotification from './components/aepp-notification'
 
 import AeppHeader from './sections/aepp-header'
 import AeppNav from './sections/aepp-nav'
@@ -51,10 +64,17 @@ export default {
   name: 'aepp',
   components: {
     AeIcon,
+    AeppNotification,
     AeppHeader,
     AeppNav,
     AeppNavList,
     AeppSidebar
+  },
+  computed: {
+    ...mapState(['notifications'])
+  },
+  methods: {
+    ...mapMutations(['deleteNotification'])
   }
 }
 </script>

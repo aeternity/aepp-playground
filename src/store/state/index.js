@@ -63,19 +63,16 @@ export default {
   }],
 
   /**
-   * List of Guard Actions:
-   * - onTx
-   * - onChain
-   * - onAccount
-   * - onContract
-   */
-  guards: [],
-
-  /**
    * Global Playground Configuration Object
    *
    * Here are the default config values, of the
    * aepp-playground.
+   *
+   * @param configs {Object}
+   * @param configs.host
+   * @param configs.accounts
+   * @param configs.accounts.privateKey
+   * @param configs.accounts.publicKey
    */
   configs: {
     host: "",
@@ -83,5 +80,25 @@ export default {
       privateKey: '',
       publicKey: ''
     }]
-  }
+  },
+
+  /**
+   * List of notifications
+   * thrown by the application
+   *
+   * @param notifications [Object]
+   * @param notifications.time {Date}
+   * @param notifications.type {success|error}
+   * @param notifications.text {String}
+   */
+  notifications: [],
+
+  /**
+   * List of Guard Actions:
+   * - onTx
+   * - onChain
+   * - onAccount
+   * - onContract
+   */
+  guards: []
 };
