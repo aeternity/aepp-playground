@@ -6,12 +6,18 @@
         configs.yml
       </aepp-toolbar-tab>
     </aepp-toolbar>
-    <aepp-editor :options="{ value: JSON.stringify(configs) }" />
+    <aepp-editor :options="{ language: 'json' }" :value="configs" />
+    <div class="aepp-configs-settings">
+      <aepp-button extend>
+        Save Configuration
+      </aepp-button>
+    </div>
   </aepp-views>
 </template>
 <script>
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
+import AeppButton from '../../components/aepp-button'
 import AeppEditor from '../../components/aepp-editor'
 
 import AeppToolbar from '../../sections/aepp-toolbar'
@@ -22,6 +28,7 @@ export default {
   name: 'configs',
   components: {
     AeIcon,
+    AeppButton,
     AeppEditor,
     AeppToolbar,
     AeppToolbarTab,
@@ -34,10 +41,10 @@ export default {
      */
     configs: {
       get: function () {
-        return this.$store.state.configs;
+        return JSON.stringify(this.$store.state.configs);
       },
       set: function (configs) {
-        this.$store.commit('updateConfigs', configs)
+        this.$store.commit('updateConfigs', JSON.parse(configs))
       }
     }
   }
@@ -45,4 +52,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 .aepp-configs {}
+
+.aepp-configs-settings {
+  @apply flex;
+  @apply justify-between;
+  @apply flex-no-shrink;
+  @apply flex-no-grow;
+  @apply p-2;
+
+  background: #343746;
+  border-top: 1px;
+  border-style: solid;
+  border-color: #191A21;
+  height: 72px;
+}
 </style>

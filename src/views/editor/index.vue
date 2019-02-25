@@ -6,7 +6,7 @@
         identity.aes
       </aepp-toolbar-tab>
     </aepp-toolbar>
-    <aepp-editor :options="{ value: require('!raw-loader!./identity.aes') }"/>
+    <aepp-editor :value="require('!raw-loader!./identity.aes')" />
     <aepp-collapse>
       <template slot="bar">
         Console
@@ -72,6 +72,9 @@ export default {
   @apply p-2;
 
   background: #343746;
-  height: 71px;
+  border-top: 1px;
+  border-style: solid;
+  border-color: #191A21;
+  height: 72px;
 }
 </style>

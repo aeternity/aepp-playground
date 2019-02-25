@@ -8,4 +8,4 @@ contract Identity =
  * tristique tellus at, pretium ligula. In eu diam convallis,
  * interdum sapien ultrices, scelerisque.
  */
-  function main(x : int, y : int) = x + y
+ function main(x : int, y : int) = x + y

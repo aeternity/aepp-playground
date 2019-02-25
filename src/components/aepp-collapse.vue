@@ -53,7 +53,6 @@ export default {
   height: 42px;
   background: #343746;
   border-top: 1px;
-  border-bottom: 1px;
   border-style: solid;
   border-color: #191A21;
 
