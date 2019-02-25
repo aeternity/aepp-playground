@@ -1,6 +1,5 @@
 <template>
   <div id="aepp" class="aepp-container">
-
     <!-- Notifications -->
     <aepp-notification :type="n.type" visible v-for="(n, i) in notifications" :key="i">
       {{ n.text }}
