@@ -80,6 +80,38 @@ export default {
     )
   },
 
+  /**
+   * Updates the config values
+   * @param state {Object}
+   * @param configs {Object}
+   */
+  updateConfigs(state, configs) {
+    state.configs = Object.assign(state.configs, configs)
+  },
+
+  /**
+   * Creates a notification and puts
+   * it into the store object
+   * @param state {Object}
+   * @param notification {Object}
+   * @param notification.time {Date}
+   * @param notification.type {success|error}
+   * @param notification.text {String}
+   */
+  createNotification(state, notification) {
+    state.notifications.push(notification)
+  },
+
+  /**
+   * Removes a notification from the
+   * notifications store object
+   * @param state {Object}
+   * @param index {Number}
+   */
+  deleteNotification(state, index) {
+    state.notifications.splice(index, 1)
+  },
+
   createGuard(state, guard) {
     state.guards.push(guard)
   },

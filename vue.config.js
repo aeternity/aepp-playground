@@ -23,14 +23,6 @@ module.exports = {
     plugins: [
       new MonacoWebpackPlugin({
         /**
-         * output (string) - custom output path for worker scripts, relative to
-         * the main webpack output.path.
-         *
-         * default value: ''.
-         */
-        output: '',
-
-        /**
          * languages (string[]) - include only a subset of the languages supported.
          *
          * default value: [
@@ -53,7 +45,7 @@ module.exports = {
          * handlebars > html
          * scss, less > css
          */
-        languages: ['html', 'css', 'typescript', 'json', 'solidity'],
+        languages: ['typescript', 'json'],
 
         /**
          * features (string[]) - include only a subset of the editor features.
@@ -71,7 +63,7 @@ module.exports = {
          * excluded features: It is also possible to exclude certain default features prefixing them
          * with an exclamation mark '!'.
          */
-        features: ['!accessibilityHelp', '!find', '!snippets']
+        features: ['coreCommands']
       })
     ]
   }
