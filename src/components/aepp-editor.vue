@@ -88,7 +88,7 @@ export default {
      *
      * @event monacoInit
      */
-    this.$emit('monacoInit', this.instance)
+    this.$emit('init', this.instance)
   },
   watch: {
     /**

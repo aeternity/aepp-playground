@@ -6,9 +6,13 @@
         configs.yml
       </aepp-toolbar-tab>
     </aepp-toolbar>
-    <aepp-editor :options="{ language: 'json' }" :value="configs" />
+    <aepp-editor
+      :options="{ language: 'json' }"
+      :value="configs"
+      @init="(e) => this.editor = e"
+    />
     <div class="aepp-configs-settings">
-      <aepp-button extend>
+      <aepp-button @click.native="saveConfiguration" extend>
         Save Configuration
       </aepp-button>
     </div>
@@ -26,6 +30,9 @@ import AeppViews from '../../sections/aepp-views'
 
 export default {
   name: 'configs',
+  data: function () {
+    return { editor: null }
+  },
   components: {
     AeIcon,
     AeppButton,
@@ -38,14 +45,34 @@ export default {
     /**
      * Making `Configs` Vuex state property
      * changeable with computed properties
+     *
+     * @return {String}
      */
-    configs: {
-      get: function () {
-        return JSON.stringify(this.$store.state.configs);
-      },
-      set: function (configs) {
-        this.$store.commit('updateConfigs', JSON.parse(configs))
+    configs() {
+      return JSON.stringify(this.$store.state.configs, null, 2);
+    }
+  },
+  methods: {
+    /**
+     * Update the configuration store
+     */
+    saveConfiguration() {
+      try {
+        this.$store.commit('updateConfigs', JSON.parse(
+          this.editor.getValue())
+        )
+      } catch (e) {
+        return this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
       }
+      return this.$store.commit('createNotification', {
+        time: Date.now(),
+        type: 'success',
+        text: 'Configuration saved!'
+      })
     }
   }
 }
