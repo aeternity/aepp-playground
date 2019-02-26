@@ -15,9 +15,7 @@ export default {
   @apply flex-shrink;
   @apply flex-grow;
   @apply flex-auto;
+  @apply items-stretch;
   @apply w-full;
-
-  justify-content: stretch;
-  align-items: stretch;
 }
 </style>

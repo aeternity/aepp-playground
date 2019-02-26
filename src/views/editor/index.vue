@@ -6,23 +6,47 @@
         identity.aes
       </aepp-toolbar-tab>
     </aepp-toolbar>
-    <aepp-editor :value="require('!raw-loader!./identity.aes')"/>
-    <aepp-collapse>
-      <template slot="bar">
-        Console
-      </template>
-      <h1>Hello world</h1>
-      <h1>Hello world</h1>
-    </aepp-collapse>
-    <div class="aepp-editor-settings">
-      <aepp-select class="w-5/6 mr-2" label="Compiler Version">
-        <option value="1.0.2">Roma v1.0.2</option>
-        <option value="1.0.1">Roma v1.0.1</option>
-        <option value="1.0.0">Roma v1.0.0</option>
-      </aepp-select>
-      <aepp-button class="w-1/6">
-        Compile Contract
-      </aepp-button>
+    <div class="aepp-editor-container">
+      <aepp-views>
+        <aepp-editor :value="require('!raw-loader!./identity.aes')"/>
+        <aepp-collapse>
+          <template slot="bar">
+            Console
+          </template>
+          <h1>Hello world</h1>
+          <h1>Hello world</h1>
+        </aepp-collapse>
+        <div class="aepp-editor-settings">
+          <aepp-select class="w-5/6 mr-2" label="Compiler Version">
+            <option value="1.0.2">Roma v1.0.2</option>
+            <option value="1.0.1">Roma v1.0.1</option>
+            <option value="1.0.0">Roma v1.0.0</option>
+          </aepp-select>
+          <aepp-button class="w-1/6">
+            Compile Contract
+          </aepp-button>
+        </div>
+      </aepp-views>
+      <aepp-sidebar>
+        <aepp-collapse>
+          <template slot="bar">
+            Contract Info
+          </template>
+          <h2>Contract</h2>
+        </aepp-collapse>
+        <aepp-collapse>
+          <template slot="bar">
+            Deploy Contract
+          </template>
+          <h2>Deploy</h2>
+        </aepp-collapse>
+        <aepp-collapse>
+          <template slot="bar">
+            Run Function
+          </template>
+          <h2>Function</h2>
+        </aepp-collapse>
+      </aepp-sidebar>
     </div>
   </aepp-views>
 </template>
@@ -34,6 +58,7 @@ import AeppCollapse from '../../components/aepp-collapse'
 import AeppEditor from '../../components/aepp-editor'
 import AeppSelect from '../../components/aepp-select'
 
+import AeppSidebar from '../../sections/aepp-sidebar'
 import AeppToolbar from '../../sections/aepp-toolbar'
 import AeppToolbarTab from '../../sections/aepp-toolbar-tab'
 import AeppViews from '../../sections/aepp-views'
@@ -46,6 +71,7 @@ export default {
     AeppCollapse,
     AeppEditor,
     AeppSelect,
+    AeppSidebar,
     AeppToolbar,
     AeppToolbarTab,
     AeppViews
@@ -53,7 +79,23 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-editor {
+.aepp-editor {}
+
+.aepp-editor-container {
+  @apply flex;
+  @apply flex-auto;
+  @apply flex-no-grow;
+  @apply flex-shrink;
+  @apply w-full;
+  @apply h-full;
+}
+
+.aepp-editor-container > .aepp-views {
+  border-right: 1px solid #191A21;
+}
+
+.aepp-editor-container > .aepp-sidebar {
+  min-width: 25%;
 }
 
 .aepp-editor-monaco {

@@ -13,6 +13,5 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-link {
-}
+.aepp-link {}
 </style>

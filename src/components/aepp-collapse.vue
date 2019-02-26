@@ -31,11 +31,14 @@ export default {
 .aepp-collapse {
   @apply flex;
   @apply flex-col;
-}
 
-.aepp-collapse.opened > .aepp-collapse-container {
-  @apply flex;
-  @apply visible;
+  &.opened > .aepp-collapse-container {
+    @apply flex;
+    @apply visible;
+  }
+  &.opened .aepp-collapse-bar > .ae-icon {
+    transform: rotate(90deg);
+  }
 }
 
 .aepp-collapse-bar {
@@ -47,6 +50,7 @@ export default {
   @apply pr-3;
   @apply cursor-pointer;
   @apply uppercase;
+  @apply select-none;
 
   color: #EDF3F7;
   font-size: rem(10px);

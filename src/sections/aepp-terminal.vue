@@ -7,6 +7,5 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-terminal {
-}
+.aepp-terminal {}
 </style>
