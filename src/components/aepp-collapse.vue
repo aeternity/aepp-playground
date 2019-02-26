@@ -1,11 +1,11 @@
 <template>
   <div class="aepp-collapse" :class="[{ opened }]">
     <div class="aepp-collapse-bar" @click="toggle">
-      <ae-icon name="left-more" />
-      <slot name="bar" />
+      <ae-icon name="left-more"/>
+      <slot name="bar"/>
     </div>
     <div class="aepp-collapse-container">
-      <slot />
+      <slot/>
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
     AeIcon
   },
   methods: {
-    toggle() {
+    toggle () {
       this.opened = !this.opened
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="aepp-views">
-    <slot />
+    <slot/>
   </div>
 </template>
 <script>

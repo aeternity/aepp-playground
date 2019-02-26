@@ -2,7 +2,7 @@
  * The view/component that this route
  * is suppose to render.
  */
-import index from './index.vue';
+import index from './index.vue'
 
 /**
  * List of nested views/routes
@@ -31,4 +31,4 @@ export default {
    * Route children
    */
   children: []
-};
+}

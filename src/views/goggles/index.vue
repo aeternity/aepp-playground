@@ -2,7 +2,7 @@
   <aepp-views class="aepp-goggles">
     <aepp-toolbar>
       <aepp-toolbar-tab to="asdfasdfas">
-        <ae-icon name="search" />
+        <ae-icon name="search"/>
         Goggles
       </aepp-toolbar-tab>
     </aepp-toolbar>
@@ -27,5 +27,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-goggles {}
+.aepp-goggles {
+}
 </style>

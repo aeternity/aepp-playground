@@ -2,13 +2,13 @@
   <div class="aepp-iframe">
     <div class="aepp-iframe-header">
       <div class="aepp-iframe-input">
-        <input v-model="url" type="text" placeholder="https://aepps.com" />
+        <input v-model="url" type="text" placeholder="https://aepps.com"/>
         <button class="aepp-iframe-button">
-          <ae-icon name="reload" />
+          <ae-icon name="reload"/>
         </button>
       </div>
       <button class="aepp-iframe-button">
-        <ae-icon name="settings" />
+        <ae-icon name="settings"/>
       </button>
     </div>
     <div class="aepp-iframe-container">
@@ -25,7 +25,7 @@ export default {
     AeIcon
   },
   data: function () {
-    return { url: 'http://aepp.dronegraffiti.com' };
+    return { url: 'http://aepp.dronegraffiti.com' }
   }
 }
 </script>

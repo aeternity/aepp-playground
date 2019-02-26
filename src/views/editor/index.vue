@@ -2,11 +2,11 @@
   <aepp-views class="aepp-editor">
     <aepp-toolbar>
       <aepp-toolbar-tab to="#">
-        <ae-icon name="grid" />
+        <ae-icon name="grid"/>
         identity.aes
       </aepp-toolbar-tab>
     </aepp-toolbar>
-    <aepp-editor :value="require('!raw-loader!./identity.aes')" />
+    <aepp-editor :value="require('!raw-loader!./identity.aes')"/>
     <aepp-collapse>
       <template slot="bar">
         Console
@@ -53,7 +53,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-editor {}
+.aepp-editor {
+}
 
 .aepp-editor-monaco {
   @apply flex-auto;

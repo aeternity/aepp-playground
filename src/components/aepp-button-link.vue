@@ -1,6 +1,6 @@
 <template>
   <router-link class="aepp-button-link" :class="[{ extend }]" v-bind="$attrs">
-    <slot />
+    <slot/>
   </router-link>
 </template>
 <script>

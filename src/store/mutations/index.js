@@ -34,7 +34,7 @@ export default {
    * @param state {Object}
    * @param name {String}
    */
-  updateName(state, name) {
+  updateName (state, name) {
     state.name = name
   },
 
@@ -43,7 +43,7 @@ export default {
    * @param state {Object}
    * @param url {String}
    */
-  updateFaucet(state, url) {
+  updateFaucet (state, url) {
     state.faucet = url
   },
 
@@ -52,7 +52,7 @@ export default {
    * @param state {Object}
    * @param account {Object}
    */
-  createAccount(state, account) {
+  createAccount (state, account) {
     state.accounts.push(account)
   },
 
@@ -61,7 +61,7 @@ export default {
    * @param state {Object}
    * @param updatedAccount {Object}
    */
-  updateAccount(state, updatedAccount) {
+  updateAccount (state, updatedAccount) {
     state.accounts = state.accounts.map(
       (account) => updatedAccount.address === account.address ?
         Object.assign(account, updatedAccount) :
@@ -74,7 +74,7 @@ export default {
    * @param state {Object}
    * @param address {String}
    */
-  deleteAccount(state, address) {
+  deleteAccount (state, address) {
     state.accounts = state.accounts.filter(
       (account) => account.address !== address
     )
@@ -85,7 +85,7 @@ export default {
    * @param state {Object}
    * @param configs {Object}
    */
-  updateConfigs(state, configs) {
+  updateConfigs (state, configs) {
     state.configs = Object.assign(state.configs, configs)
   },
 
@@ -98,7 +98,7 @@ export default {
    * @param notification.type {success|error}
    * @param notification.text {String}
    */
-  createNotification(state, notification) {
+  createNotification (state, notification) {
     state.notifications.push(notification)
   },
 
@@ -108,12 +108,13 @@ export default {
    * @param state {Object}
    * @param index {Number}
    */
-  deleteNotification(state, index) {
+  deleteNotification (state, index) {
     state.notifications.splice(index, 1)
   },
 
-  createGuard(state, guard) {
+  createGuard (state, guard) {
     state.guards.push(guard)
   },
-  deleteGuard(state, guard) {}
-};
+  deleteGuard (state, guard) {
+  }
+}

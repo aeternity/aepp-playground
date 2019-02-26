@@ -1,6 +1,6 @@
 <template>
   <div class="aepp-toolbar">
-    <slot />
+    <slot/>
   </div>
 </template>
 <script>

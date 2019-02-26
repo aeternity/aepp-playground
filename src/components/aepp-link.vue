@@ -1,6 +1,6 @@
 <template>
   <router-link class="aepp-link" v-bind="$attrs">
-    <slot />
+    <slot/>
   </router-link>
 </template>
 <script>
@@ -13,5 +13,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-link {}
+.aepp-link {
+}
 </style>

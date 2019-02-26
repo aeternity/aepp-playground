@@ -2,7 +2,7 @@
   <label class="aepp-select" :for="id">
     <span class="aepp-select-label">{{ label }}</span>
     <select class="aepp-select-element" :id="id">
-      <slot />
+      <slot/>
     </select>
   </label>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <ul class="aepp-nav-list">
-    <slot />
+    <slot/>
   </ul>
 </template>
 <script>
@@ -15,6 +15,7 @@ export default {
   &:last-child > li:first-child {
     border-top: 1px solid #191A21;
   }
+
   &:last-child > li:last-child {
     border-bottom: none;
   }

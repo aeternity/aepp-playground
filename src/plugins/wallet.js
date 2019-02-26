@@ -16,7 +16,7 @@ export const install = function (Vue) {
    * to reference wallets internally.
    * @type {Object}
    */
-  const wallets = {};
+  const wallets = {}
 
   /**
    * $wallet function is a wrapper
@@ -41,9 +41,9 @@ export const install = function (Vue) {
        * @param options {Object}
        * @return {Object}
        */
-      create(name, options = {}) {
+      create (name, options = {}) {
         if (wallets[name])
-          return wallets[name];
+          return wallets[name]
         return wallets[name] = new Wallet(options)
       },
 
@@ -53,7 +53,7 @@ export const install = function (Vue) {
        * @param name {String}
        * @param options {Object}
        */
-      update(name, options = {}) {
+      update (name, options = {}) {
         return wallets[name] = new Wallet(options)
       },
 
@@ -62,7 +62,7 @@ export const install = function (Vue) {
        * internal wallets object.
        * @param name {String}
        */
-      remove(name) {
+      remove (name) {
         delete wallets[name]
       },
 
@@ -72,11 +72,11 @@ export const install = function (Vue) {
        * @param name {String}
        * @return {Object}
        */
-      select(name) {
+      select (name) {
         if (!wallets[name])
           throw Error('Wallet not found')
         return wallets[name]
       }
     }
-  };
-};
+  }
+}

@@ -2,7 +2,7 @@
   <aepp-views class="aepp-configs">
     <aepp-toolbar>
       <aepp-toolbar-tab to="#">
-        <ae-icon name="aeternity" />
+        <ae-icon name="aeternity"/>
         configs.yml
       </aepp-toolbar-tab>
     </aepp-toolbar>
@@ -48,15 +48,15 @@ export default {
      *
      * @return {String}
      */
-    configs() {
-      return JSON.stringify(this.$store.state.configs, null, 2);
+    configs () {
+      return JSON.stringify(this.$store.state.configs, null, 2)
     }
   },
   methods: {
     /**
      * Update the configuration store
      */
-    saveConfiguration() {
+    saveConfiguration () {
       try {
         this.$store.commit('updateConfigs', JSON.parse(
           this.editor.getValue())
@@ -78,7 +78,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-configs {}
+.aepp-configs {
+}
 
 .aepp-configs-settings {
   @apply flex;

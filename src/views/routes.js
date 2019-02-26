@@ -2,15 +2,15 @@
  * The view/component that this route
  * is suppose to render.
  */
-import index from './index.vue';
+import index from './index.vue'
 
 /**
  * List of nested views/routes
  */
-import browser from './browser/routes';
-import configs from './configs/routes';
-import editor from './editor/routes';
-import goggles from './goggles/routes';
+import browser from './browser/routes'
+import configs from './configs/routes'
+import editor from './editor/routes'
+import goggles from './goggles/routes'
 
 /**
  * Exporting Routes Object
@@ -52,4 +52,4 @@ export default [
       goggles
     ]
   }
-];
+]
