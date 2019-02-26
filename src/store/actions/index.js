@@ -5,8 +5,6 @@ import axios from 'axios'
 import Wallet from '@aeternity/aepp-sdk/es/ae/wallet'
 
 /**
- * Exporting Vuex Actions
- *
  * Actions are asynchronous methods/functions that interact
  * with API endpoints that commit mutations
  * to the state. The API/Interface of each method/function
@@ -45,16 +43,10 @@ export default {
   async postFaucet ({ state }, address) {
     return await axios.post(`${state.faucet}/account/${address}`)
   },
-  async getAccount ({ commit }, address) {
-  },
-  async getAccountBalance () {
-  },
-  async getTransaction () {
-  },
-  async getTransactions () {
-  },
-  async postTransaction () {
-  },
-  async postTransactions () {
-  }
+  async getAccount ({ commit }, address) {},
+  async getAccountBalance () {},
+  async getTransaction () {},
+  async getTransactions () {},
+  async postTransaction () {},
+  async postTransactions () {}
 }

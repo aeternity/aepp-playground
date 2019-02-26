@@ -8,15 +8,17 @@
     </aepp-toolbar>
     <div class="aepp-editor-container">
       <aepp-views>
-        <aepp-editor :value="require('!raw-loader!./identity.aes')"/>
+        <aepp-editor
+          @init="(e) => this.editor = e"
+          :value="require('!raw-loader!./identity.aes')"
+        />
         <aepp-collapse>
           <template slot="bar">
             Console
           </template>
-          <div class="p-3">
-            <h1>Hello world</h1>
-            <h1>Hello world</h1>
-          </div>
+          <code class="aepp-editor-console">
+            {{ this.result.bytecode }}
+          </code>
         </aepp-collapse>
         <div class="aepp-editor-settings">
           <aepp-select class="w-5/6 mr-2" label="Compiler Version">
@@ -24,7 +26,7 @@
             <option value="1.0.1">Roma v1.0.1</option>
             <option value="1.0.0">Roma v1.0.0</option>
           </aepp-select>
-          <aepp-button class="w-1/6">
+          <aepp-button @click.native="compile" class="w-1/6">
             Compile Contract
           </aepp-button>
         </div>
@@ -32,21 +34,22 @@
       <aepp-sidebar>
         <aepp-collapse opened>
           <template slot="bar">
-            Contract Info
+            Configs Details
           </template>
-          <div class="pl-2 pr-2 pb-2">
-            <aepp-input class="mb-2" label="Host" placeholder="//sdk-testnet.aepps.com/"/>
-            <aepp-input class="mb-2" label="Private Key" placeholder="a7a695f999b1872acb13d5b63a830a8ee060ba688a478a08c6e" />
-            <aepp-input class="mb-2" label="Public Key" placeholder="ak_6A2vcm1Sz6aqJezkLCssUXcyZTX7X8D5UwbuS2fRJr9KkYpRU" />
-            <aepp-button extend>Save Changes</aepp-button>
-          </div>
+          <form class="pl-2 pr-2 pb-2">
+            <aepp-input class="mb-2" label="Private Key" :value="getAccountPrivateKey" readonly />
+            <aepp-input class="mb-2" label="Public Key" :value="getAccountPublicKey" readonly />
+            <aepp-input class="mb-2" label="Internal URL" :value="getNodeInternalUrl" readonly/>
+            <aepp-input class="mb-2" label="URL" :value="getNodeUrl" readonly/>
+            <aepp-input class="mb-2" label="Network ID" :value="getNodeNetworkId" readonly/>
+          </form>
         </aepp-collapse>
         <aepp-collapse>
           <template slot="bar">
             Deploy Contract
           </template>
-          <div class="pl-2 pr-2 pb-2">
-            <aepp-textarea class="mb-2" label="Byte Code" readonly/>
+          <form class="pl-2 pr-2 pb-2">
+            <aepp-textarea class="mb-2" label="Byte Code" :value="result.bytecode" readonly/>
             <aepp-input class="mb-2" label="Function" />
             <aepp-input class="mb-2" label="Arguments" />
             <aepp-input class="mb-2" label="Deposit" />
@@ -54,25 +57,25 @@
             <aepp-input class="mb-2" label="Amount" />
             <aepp-input class="mb-2" label="Fee" />
             <aepp-input class="mb-2" label="Gas Limit" />
-            <aepp-button extend>Deploy</aepp-button>
-          </div>
+            <aepp-button type="submit" extend>Deploy</aepp-button>
+          </form>
         </aepp-collapse>
         <aepp-collapse>
           <template slot="bar">
             Call Static Function
           </template>
-          <div class="pl-2 pr-2 pb-2">
+          <form class="pl-2 pr-2 pb-2">
             <aepp-input class="mb-2" label="Function" />
             <aepp-input class="mb-2" label="Arguments" />
             <aepp-input class="mb-2" label="Return Type" />
             <aepp-button extend>Call Static</aepp-button>
-          </div>
+          </form>
         </aepp-collapse>
         <aepp-collapse>
           <template slot="bar">
             Call Function
           </template>
-          <div class="pl-2 pr-2 pb-2">
+          <form class="pl-2 pr-2 pb-2">
             <aepp-input class="mb-2" label="Function" />
             <aepp-input class="mb-2" label="Arguments" />
             <aepp-input class="mb-2" label="Return Type" />
@@ -82,13 +85,15 @@
             <aepp-input class="mb-2" label="Fee" />
             <aepp-input class="mb-2" label="Gas Limit" />
             <aepp-button extend>Call Function</aepp-button>
-          </div>
+          </form>
         </aepp-collapse>
       </aepp-sidebar>
     </div>
   </aepp-views>
 </template>
 <script>
+import { mapState, mapGetters } from 'vuex'
+import MemoryAccount from '@aeternity/aepp-sdk/es/account/memory'
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
 import AeppButton from '../../components/aepp-button'
@@ -107,13 +112,10 @@ export default {
   name: 'editor',
   data: function () {
     return {
-      account: {
-        internalUrl: null,
-        url: null,
-        keypair: {
-          privateKey: null,
-          publicKey: null
-        }
+      client: null,
+      editor: null,
+      result: {
+        bytecode: null
       }
     }
   },
@@ -130,20 +132,36 @@ export default {
     AeppToolbarTab,
     AeppViews
   },
+  computed: {
+    ...mapState(['configs']),
+    ...mapGetters([
+      'getAccountAddress',
+      'getAccountPrivateKey',
+      'getAccountPublicKey',
+      'getAccountKeyPair',
+      'getNodeUrl',
+      'getNodeInternalUrl',
+      'getNodeNetworkId'
+    ]),
+  },
   methods: {
     /**
      * Function to compile Contract code
      * returns byteCode from contract
-     * @param code {String}
      * @return {String}
      */
-    async compile(code) {
+    async compile() {
+      console.log('hu')
       try {
-        return await this.client.contractCompile(code)
+        this.result = await this.client.contractCompile(
+          this.editor.getValue()
+        )
+
+        console.log(this.result, this.result.bytecode)
       } catch (e) {
         return this
         .$store
-        .dispatch('createNotification', {
+        .commit('createNotification', {
           time: Date.now(),
           type: 'error',
           text: e.message
@@ -166,12 +184,33 @@ export default {
           options
         })
       } catch (e) {
-        return this.$store.dispatch('createNotification', {
+        return this.$store.commit('createNotification', {
           time: Date.now(),
           type: 'error',
           text: e.message
         })
       }
+    }
+  },
+  async mounted() {
+    try {
+      this.client = await this.$wallet().create(this.getAccountAddress, {
+        url: this.getNodeUrl,
+        internalUrl: this.getNodeInternalUrl,
+        address: this.getAccountAddress,
+        accounts: [MemoryAccount({
+          keypair: this.getAccountKeyPair
+        })],
+        onChain: true,
+        onTx: true,
+        onAccount: true
+      })
+    } catch (e) {
+      return this.$store.commit('createNotification', {
+        time: Date.now(),
+        type: 'error',
+        text: e.message
+      })
     }
   }
 }
@@ -204,6 +243,23 @@ export default {
   @apply w-full;
   @apply h-full;
   @apply overflow-hidden;
+}
+
+.aepp-editor-console {
+  // TODO: this does not work
+  @apply flex;
+  @apply flex-auto;
+  @apply flex-shrink;
+  @apply flex-grow;
+  @apply text-white;
+  @apply bg-black;
+  @apply whitespace-pre-wrap;
+  @apply break-words;
+  @apply p-3;
+  @apply w-full;
+  @apply overflow-hidden;
+
+  overflow-wrap: break-word;
 }
 
 .aepp-editor-settings {

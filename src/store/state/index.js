@@ -1,6 +1,4 @@
 /**
- * Exporting Vuex State
- *
  * The Vuex state is the central information
  * repository of the application, when adding
  * more options to the state, you need to
@@ -8,11 +6,10 @@
  *
  * Generally if you want to reference a multitude
  * of a specific data, then name the keys of the object
- * in a plural format, in case its a singular item
- * then use singular.
+ * should be in a plural format, etc.
  *
- * Global elements of the application stay at the rootState
- * in case the rootState becomes too crowded with data then
+ * Global elements of the application stay at the _rootState_
+ * in case the _rootState_ becomes too crowded with data then
  * group similar states and move them into a module.
  */
 export default {
@@ -33,32 +30,15 @@ export default {
   faucet: 'http://localhost:9090',
 
   /**
-   *
+   * The default account being used to interact with
+   * the blockchain
+   * @param account {Object}
+   * @param account.address {String}
+   * @param account.keypair {Object}
+   * @param account.keypair.privateKey {String}
+   * @param account.keypair.publicKey {String}
    */
   account: {
-    address: null,
-    keypair: {
-      privateKey: null,
-      publicKey: null
-    }
-  },
-
-  /**
-   * List of aeternity accounts
-   * @param {Array}
-   */
-  accounts: [{
-    /**
-     * Aeternity node Network ID
-     */
-    networkId: String,
-
-    /**
-     * aeternity node endpoint
-     * @param {String}
-     */
-    url: String,
-
     /**
      * Address of the account
      */
@@ -68,31 +48,32 @@ export default {
      * Public & private key of the account
      */
     keypair: {
-      pubKey: 'ak_6A2vcm1Sz6aqJezkLCssUXcyZTX7X8D5UwbuS2fRJr9KkYpRU',
-      privKey: 'a7a695f999b1872acb13d5b63a830a8ee060ba688a478a08c6e65dfad8a01cd70bb4ed7927f97b51e1bcb5e1340d12335b2a2b12c8bc5221d63c4bcb39d41e61'
+      privateKey: String,
+      publicKey: String
+    }
+  },
+
+  /**
+   * List of aeternity accounts
+   * @param {Array}
+   */
+  accounts: [{
+    /**
+     * Address of the account
+     */
+    address: String,
+
+    /**
+     * Public & private key of the account
+     */
+    keypair: {
+      pubKey: String,
+      privKey: String
     }
   }],
 
   /**
-   * Global Playground Configuration Object
-   *
-   * Here are the default config values, of the
-   * aepp-playground.
-   *
-   * @param configs {Object}
-   * @param configs.host
-   * @param configs.accounts
-   * @param configs.accounts.privateKey
-   * @param configs.accounts.publicKey
-   */
-  configs: {
-    internalUrl: null,
-    url: null
-  },
-
-  /**
-   * List of notifications
-   * thrown by the application
+   * List of notifications thrown by the application
    *
    * @param notifications [Object]
    * @param notifications.time {Date}
@@ -108,5 +89,61 @@ export default {
    * - onAccount
    * - onContract
    */
-  guards: []
+  guards: [],
+
+  /**
+   * List of raw outputs:
+   * - API Errors
+   * - API Response
+   *
+   * @param console {Array}
+   * @param console[index].time {String}
+   * @param console[index].type {String}
+   * @param console[index].text {String}
+   */
+  console: [],
+
+  /**
+   * Global Playground Configuration Object
+   *
+   * Here are the default config values, of the
+   * aepp-playground.
+   *
+   * @param configs {Object}
+   *
+   * @param configs.account {Object}
+   * @param configs.account.address {String}
+   * @param configs.account.keypair {Object}
+   * @param configs.account.keypair.privateKey {String}
+   * @param configs.account.keypair.publicKey {String}
+   *
+   * @param configs.node {Object}
+   * @param configs.node.internalUrl {String}
+   * @param configs.node.url {String}
+   * @param configs.node.networkId {String}
+   */
+  configs: {
+    /**
+     * This is the Aeternity Account that is
+     * set up globally in the entire aepp.
+     */
+    account: {
+      address: null,
+      keypair: {
+        privateKey: null,
+        publicKey: null
+      }
+    },
+
+    /**
+     * Aeternity node configuration
+     * this data goes directly to the SDK
+     * instance.
+     */
+    node: {
+      internalUrl: process.env.VUE_APP_NODE_INTERNAL_URL,
+      url: process.env.VUE_APP_NODE_URL,
+      networkId: process.env.VUE_APP_NODE_NETWORK_ID
+    }
+  }
 }

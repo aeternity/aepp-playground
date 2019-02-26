@@ -12,6 +12,9 @@
 <script>
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
+/**
+ * TODO: Prop is being mutated, find a different approach
+ */
 export default {
   name: 'aepp-collapse',
   props: {

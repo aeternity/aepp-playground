@@ -88,5 +88,9 @@ export default {
 
   font-size: rem(15px);
   color: #D3DCE6;
+
+  &[readonly] {
+    cursor: not-allowed;
+  }
 }
 </style>

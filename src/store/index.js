@@ -28,9 +28,11 @@ Vue.use(Vuex)
  */
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
-  plugins: process.env.NODE_ENV === 'production' ? [createPersistedState({
-    storage: window.sessionStorage
-  })] : [],
+  plugins: [createPersistedState({
+    key: 'playground',
+    storage: window.sessionStorage,
+    paths: ['configs']
+  })],
   state,
   mutations,
   actions,
