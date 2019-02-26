@@ -1,17 +1,25 @@
 <template>
-  <label class="aepp-select" :for="id">
-    <span class="aepp-select-label">{{ label }}</span>
-    <select class="aepp-select-element" :id="id">
-      <slot/>
-    </select>
+  <label class="aepp-textarea" :for="id">
+    <span class="aepp-textarea-label">
+      {{ label }}
+    </span>
+    <textarea
+      type="text"
+      class="aepp-textarea-element"
+      @input="propagateEventValue"
+      :value="value"
+      :id="id"
+      v-bind="$attrs"
+    ></textarea>
   </label>
 </template>
 <script>
-/**
- * TODO: Finish up feature where v-model works for select item
- */
+import { mixins } from '@aeternity/aepp-components'
+
 export default {
-  name: 'aepp-select',
+  name: 'aepp-textarea',
+  inheritAttrs: false,
+  mixins: [mixins.events],
   props: {
     /**
      * Component Label
@@ -43,7 +51,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-select {
+.aepp-textarea {
   @apply flex;
   @apply flex-col;
   @apply flex-auto;
@@ -53,27 +61,22 @@ export default {
   @apply rounded;
   @apply p-2;
 
-  height: 55px;
-  background-repeat: no-repeat;
-  background-color: #282A36;
-  background-image: url('../assets/icons/select.svg');
-  background-size: 32px;
-  background-position: right 23px center;
-
+  min-height: 120px;
+  height: auto;
+  background: #282A36;
 }
 
-.aepp-select-label {
+.aepp-textarea-label {
   @aplpy font-sans;
   @apply leading-tight;
   @apply tracking-wide;
   @apply mb-1;
-  @apply cursor-pointer;
 
   font-size: rem(11px);
   color: rgba($color-white, 0.4);
 }
 
-.aepp-select-element {
+.aepp-textarea-element {
   @apply flex;
   @apply flex-auto;
   @apply flex-shrink;
@@ -81,8 +84,6 @@ export default {
   @apply font-sans;
   @apply font-normal;
   @apply bg-transparent;
-  @apply cursor-pointer;
-  @apply appearance-none;
   @apply w-full;
 
   font-size: rem(15px);

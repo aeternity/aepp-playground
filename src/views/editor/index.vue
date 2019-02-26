@@ -13,8 +13,10 @@
           <template slot="bar">
             Console
           </template>
-          <h1>Hello world</h1>
-          <h1>Hello world</h1>
+          <div class="p-3">
+            <h1>Hello world</h1>
+            <h1>Hello world</h1>
+          </div>
         </aepp-collapse>
         <div class="aepp-editor-settings">
           <aepp-select class="w-5/6 mr-2" label="Compiler Version">
@@ -28,23 +30,59 @@
         </div>
       </aepp-views>
       <aepp-sidebar>
-        <aepp-collapse>
+        <aepp-collapse opened>
           <template slot="bar">
             Contract Info
           </template>
-          <h2>Contract</h2>
+          <div class="pl-2 pr-2 pb-2">
+            <aepp-input class="mb-2" label="Host" placeholder="//sdk-testnet.aepps.com/"/>
+            <aepp-input class="mb-2" label="Private Key" placeholder="a7a695f999b1872acb13d5b63a830a8ee060ba688a478a08c6e" />
+            <aepp-input class="mb-2" label="Public Key" placeholder="ak_6A2vcm1Sz6aqJezkLCssUXcyZTX7X8D5UwbuS2fRJr9KkYpRU" />
+            <aepp-button extend>Save Changes</aepp-button>
+          </div>
         </aepp-collapse>
         <aepp-collapse>
           <template slot="bar">
             Deploy Contract
           </template>
-          <h2>Deploy</h2>
+          <div class="pl-2 pr-2 pb-2">
+            <aepp-textarea class="mb-2" label="Byte Code" />
+            <aepp-input class="mb-2" label="Function" />
+            <aepp-input class="mb-2" label="Arguments" />
+            <aepp-input class="mb-2" label="Deposit" />
+            <aepp-input class="mb-2" label="Gas Price" />
+            <aepp-input class="mb-2" label="Amount" />
+            <aepp-input class="mb-2" label="Fee" />
+            <aepp-input class="mb-2" label="Gas Limit" />
+            <aepp-button extend>Deploy</aepp-button>
+          </div>
         </aepp-collapse>
         <aepp-collapse>
           <template slot="bar">
-            Run Function
+            Call Static Function
           </template>
-          <h2>Function</h2>
+          <div class="pl-2 pr-2 pb-2">
+            <aepp-input class="mb-2" label="Function" />
+            <aepp-input class="mb-2" label="Arguments" />
+            <aepp-input class="mb-2" label="Return Type" />
+            <aepp-button extend>Call Static</aepp-button>
+          </div>
+        </aepp-collapse>
+        <aepp-collapse>
+          <template slot="bar">
+            Call Function
+          </template>
+          <div class="pl-2 pr-2 pb-2">
+            <aepp-input class="mb-2" label="Function" />
+            <aepp-input class="mb-2" label="Arguments" />
+            <aepp-input class="mb-2" label="Return Type" />
+            <aepp-input class="mb-2" label="Deposit" />
+            <aepp-input class="mb-2" label="Gas Price" />
+            <aepp-input class="mb-2" label="Amount" />
+            <aepp-input class="mb-2" label="Fee" />
+            <aepp-input class="mb-2" label="Gas Limit" />
+            <aepp-button extend>Call Function</aepp-button>
+          </div>
         </aepp-collapse>
       </aepp-sidebar>
     </div>
@@ -56,7 +94,9 @@ import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 import AeppButton from '../../components/aepp-button'
 import AeppCollapse from '../../components/aepp-collapse'
 import AeppEditor from '../../components/aepp-editor'
+import AeppInput from '../../components/aepp-input'
 import AeppSelect from '../../components/aepp-select'
+import AeppTextarea from '../../components/aepp-textarea'
 
 import AeppSidebar from '../../sections/aepp-sidebar'
 import AeppToolbar from '../../sections/aepp-toolbar'
@@ -70,7 +110,9 @@ export default {
     AeppButton,
     AeppCollapse,
     AeppEditor,
+    AeppInput,
     AeppSelect,
+    AeppTextarea,
     AeppSidebar,
     AeppToolbar,
     AeppToolbarTab,
@@ -95,7 +137,8 @@ export default {
 }
 
 .aepp-editor-container > .aepp-sidebar {
-  min-width: 25%;
+  min-width: 20%;
+  background: #343746;
 }
 
 .aepp-editor-monaco {
