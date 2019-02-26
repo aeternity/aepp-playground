@@ -33,6 +33,17 @@ export default {
   faucet: 'http://localhost:9090',
 
   /**
+   *
+   */
+  account: {
+    address: null,
+    keypair: {
+      privateKey: null,
+      publicKey: null
+    }
+  },
+
+  /**
    * List of aeternity accounts
    * @param {Array}
    */
@@ -75,11 +86,8 @@ export default {
    * @param configs.accounts.publicKey
    */
   configs: {
-    host: '',
-    accounts: [{
-      privateKey: '',
-      publicKey: ''
-    }]
+    internalUrl: null,
+    url: null
   },
 
   /**

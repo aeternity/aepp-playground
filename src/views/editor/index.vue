@@ -46,7 +46,7 @@
             Deploy Contract
           </template>
           <div class="pl-2 pr-2 pb-2">
-            <aepp-textarea class="mb-2" label="Byte Code" />
+            <aepp-textarea class="mb-2" label="Byte Code" readonly/>
             <aepp-input class="mb-2" label="Function" />
             <aepp-input class="mb-2" label="Arguments" />
             <aepp-input class="mb-2" label="Deposit" />
@@ -105,6 +105,18 @@ import AeppViews from '../../sections/aepp-views'
 
 export default {
   name: 'editor',
+  data: function () {
+    return {
+      account: {
+        internalUrl: null,
+        url: null,
+        keypair: {
+          privateKey: null,
+          publicKey: null
+        }
+      }
+    }
+  },
   components: {
     AeIcon,
     AeppButton,
@@ -117,6 +129,50 @@ export default {
     AeppToolbar,
     AeppToolbarTab,
     AeppViews
+  },
+  methods: {
+    /**
+     * Function to compile Contract code
+     * returns byteCode from contract
+     * @param code {String}
+     * @return {String}
+     */
+    async compile(code) {
+      try {
+        return await this.client.contractCompile(code)
+      } catch (e) {
+        return this
+        .$store
+        .dispatch('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
+      }
+    },
+
+    /**
+     * Deploys smart contract to the blockchain
+     * @param initState {String}
+     * @param byteCode {String}
+     * @param options {Object}
+     * @return {Promise<*>}
+     */
+    async deploy(initState, byteCode, options = {}) {
+      initState = initState ? `(${initState})` : '()'
+      try {
+        return this.client.contractDeploy(byteCode, 'sophia', {
+          initState,
+          options
+        })
+      } catch (e) {
+        return this.$store.dispatch('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
+      }
+    }
   }
 }
 </script>
