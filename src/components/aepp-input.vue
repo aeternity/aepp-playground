@@ -1,17 +1,25 @@
 <template>
-  <label class="aepp-select" :for="id">
-    <span class="aepp-select-label">{{ label }}</span>
-    <select class="aepp-select-element" :id="id">
-      <slot/>
-    </select>
+  <label class="aepp-input" :for="id">
+    <span class="aepp-input-label">
+      {{ label }}
+    </span>
+    <input
+      type="text"
+      class="aepp-input-element"
+      @input="propagateEventValue"
+      :value="value"
+      :id="id"
+      v-bind="$attrs"
+    />
   </label>
 </template>
 <script>
-/**
- * TODO: Finish up feature where v-model works for select item
- */
+import { mixins } from '@aeternity/aepp-components'
+
 export default {
-  name: 'aepp-select',
+  name: 'aepp-input',
+  inheritAttrs: false,
+  mixins: [mixins.events],
   props: {
     /**
      * Component Label
@@ -43,7 +51,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-select {
+.aepp-input {
   @apply flex;
   @apply flex-col;
   @apply flex-auto;
@@ -54,15 +62,10 @@ export default {
   @apply p-2;
 
   height: 55px;
-  background-repeat: no-repeat;
-  background-color: #282A36;
-  background-image: url('../assets/icons/select.svg');
-  background-size: 32px;
-  background-position: right 23px center;
-
+  background: #282A36;
 }
 
-.aepp-select-label {
+.aepp-input-label {
   @aplpy font-sans;
   @apply leading-tight;
   @apply tracking-wide;
@@ -73,7 +76,7 @@ export default {
   color: rgba($color-white, 0.4);
 }
 
-.aepp-select-element {
+.aepp-input-element {
   @apply flex;
   @apply flex-auto;
   @apply flex-shrink;
@@ -81,8 +84,6 @@ export default {
   @apply font-sans;
   @apply font-normal;
   @apply bg-transparent;
-  @apply cursor-pointer;
-  @apply appearance-none;
   @apply w-full;
 
   font-size: rem(15px);

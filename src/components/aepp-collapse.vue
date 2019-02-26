@@ -14,8 +14,12 @@ import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
 export default {
   name: 'aepp-collapse',
-  data: function () {
-    return { opened: false }
+  props: {
+    /**
+     * Displays the container and
+     * everything whats inside.
+     */
+    opened: Boolean
   },
   components: {
     AeIcon
@@ -43,6 +47,8 @@ export default {
 
 .aepp-collapse-bar {
   @apply flex;
+  @apply flex-no-grow;
+  @apply flex-no-shrink;
   @apply items-center;
   @apply w-full;
   @apply font-sans;
