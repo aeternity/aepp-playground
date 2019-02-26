@@ -1,4 +1,4 @@
 /**
  * Export Modules
  */
-export default {};
+export default {}

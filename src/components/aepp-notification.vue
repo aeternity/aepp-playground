@@ -1,6 +1,6 @@
 <template>
   <div class="aepp-notification" :class="[{ visible }, { [type]: Boolean(type) }]">
-    <slot />
+    <slot/>
   </div>
 </template>
 <script>

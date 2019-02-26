@@ -1,6 +1,6 @@
 <template>
   <button class="aepp-button" :class="[{ extend }]">
-    <slot />
+    <slot/>
   </button>
 </template>
 <script>

@@ -1,6 +1,6 @@
 <template>
   <router-link class="aepp-toolbar-tab" v-bind="$attrs">
-    <slot />
+    <slot/>
   </router-link>
 </template>
 <script>

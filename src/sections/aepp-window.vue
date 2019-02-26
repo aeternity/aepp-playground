@@ -1,7 +1,7 @@
 <template>
   <div class="aepp-window">
     <div class="aepp-window-container">
-      <aepp-iframe />
+      <aepp-iframe/>
     </div>
   </div>
 </template>

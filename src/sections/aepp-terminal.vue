@@ -3,9 +3,10 @@
 </template>
 <script>
 export default {
-  name: 'aepp-terminal',
+  name: 'aepp-terminal'
 }
 </script>
 <style lang="scss" scoped>
-.aepp-terminal {}
+.aepp-terminal {
+}
 </style>

@@ -35,7 +35,7 @@ export default {
      */
     value: String
   },
-  mounted() {
+  mounted () {
     /**
      * Pass the instance to a $data Property
      * so we can make use of it later on.
@@ -98,7 +98,7 @@ export default {
      */
     options: {
       deep: true,
-      handler() {
+      handler () {
         if (this.instance) {
           this.instance.updateOptions(Object.assign(
             this.defaultOptions,
@@ -111,7 +111,7 @@ export default {
     /**
      * Watch the value property change
      */
-    value(newValue) {
+    value (newValue) {
       if (this.instance) {
         if (newValue !== this.instance.getValue()) {
           this.instance.setValue(newValue)
@@ -124,7 +124,7 @@ export default {
    * the editor up and running, in case
    * there is destroy the session
    */
-  beforeDestroy() {
+  beforeDestroy () {
     this.instance && this.instance.dispose()
   }
 }

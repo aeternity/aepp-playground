@@ -1,11 +1,11 @@
 <template>
   <nav class="aepp-nav">
-    <slot />
+    <slot/>
   </nav>
 </template>
 <script>
 export default {
-  name: 'aepp-nav',
+  name: 'aepp-nav'
 }
 </script>
 <style lang="scss" scoped>

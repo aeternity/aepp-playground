@@ -2,11 +2,11 @@
   <aepp-views class="aepp-browser">
     <aepp-toolbar>
       <aepp-toolbar-tab to="#">
-        <ae-icon name="globe" />
+        <ae-icon name="globe"/>
         aepp.dronegraffiti.com
       </aepp-toolbar-tab>
     </aepp-toolbar>
-    <aepp-window />
+    <aepp-window/>
   </aepp-views>
 </template>
 <script>
@@ -29,5 +29,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-browser {}
+.aepp-browser {
+}
 </style>

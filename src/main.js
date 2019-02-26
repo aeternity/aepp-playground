@@ -22,7 +22,7 @@ import Aepp from './aepp.vue'
  */
 import router from './router'
 import store from './store'
-import * as editor from './plugins/editor';
+import * as editor from './plugins/editor'
 import * as wallet from './plugins/wallet'
 
 /**
@@ -37,5 +37,5 @@ Vue.use(wallet)
 export default new Vue({
   router,
   store,
-  render: h => h(Aepp),
+  render: h => h(Aepp)
 }).$mount('#aepp')

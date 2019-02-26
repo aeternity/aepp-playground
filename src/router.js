@@ -4,13 +4,13 @@
  *
  * @link https://router.vuejs.org/guide
  */
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from 'vue'
+import Router from 'vue-router'
 
 /**
  * The main list of routes of the app
  */
-import routes from './views/routes';
+import routes from './views/routes'
 
 /**
  * Install Plugins
@@ -25,9 +25,9 @@ const router = new Router({
   linkExactActiveClass: 'exact-active',
   linkActiveClass: 'active',
   routes
-});
+})
 
 /**
  * Exporting router Object
  */
-export default router;
+export default router

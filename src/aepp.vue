@@ -4,38 +4,38 @@
     <aepp-notification :type="n.type" visible v-for="(n, i) in notifications" :key="i">
       {{ n.text }}
       <button type="button" class="text-white" @click="deleteNotification(i)">
-        <ae-icon name="close" />
+        <ae-icon name="close"/>
       </button>
     </aepp-notification>
 
     <!-- Sidebar Container -->
     <aepp-sidebar>
       <!-- Aeternity logo -->
-      <aepp-header />
+      <aepp-header/>
 
       <!-- Navigation menu -->
       <aepp-nav>
         <aepp-nav-list>
           <li>
             <router-link :to="{ name: 'views/editor' }">
-              <ae-icon name="grid" />
+              <ae-icon name="grid"/>
             </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'views/browser' }">
-              <ae-icon name="globe" />
+              <ae-icon name="globe"/>
             </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'views/goggles' }">
-              <ae-icon name="search" />
+              <ae-icon name="search"/>
             </router-link>
           </li>
         </aepp-nav-list>
         <aepp-nav-list>
           <li>
             <router-link :to="{ name: 'views/configs' }">
-              <ae-icon name="filter" />
+              <ae-icon name="filter"/>
               <span>Configs</span>
             </router-link>
           </li>
@@ -44,7 +44,7 @@
     </aepp-sidebar>
 
     <!-- Render Main Views -->
-    <router-view />
+    <router-view/>
   </div>
 </template>
 <script>

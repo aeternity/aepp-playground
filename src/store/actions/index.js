@@ -42,13 +42,19 @@ export default {
    * @param address {String}
    * @return {Promise<void>}
    */
-  async postFaucet({ state }, address) {
+  async postFaucet ({ state }, address) {
     return await axios.post(`${state.faucet}/account/${address}`)
   },
-  async getAccount({ commit }, address) {},
-  async getAccountBalance() {},
-  async getTransaction() {},
-  async getTransactions() {},
-  async postTransaction() {},
-  async postTransactions() {},
-};
+  async getAccount ({ commit }, address) {
+  },
+  async getAccountBalance () {
+  },
+  async getTransaction () {
+  },
+  async getTransactions () {
+  },
+  async postTransaction () {
+  },
+  async postTransactions () {
+  }
+}
