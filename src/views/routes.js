@@ -15,41 +15,36 @@ import goggles from './goggles/routes'
 /**
  * Exporting Routes Object
  */
-export default [
+export default [{
   /*
-   * App route
+   * Route name
    */
-  {
-    /*
-     * Route name
-     */
-    name: 'views',
+  name: 'views',
 
-    /*
-     * Route path
-     */
-    path: '/',
+  /*
+   * Route path
+   */
+  path: '/',
 
-    /*
-     * Route component
-     */
-    component: index,
+  /*
+   * Route component
+   */
+  component: index,
 
-    /*
-    * Route redirect
-    */
-    redirect: {
-      name: 'views/editor'
-    },
+  /*
+  * Route redirect
+  */
+  redirect: {
+    name: 'views/editor'
+  },
 
-    /*
-     * Route children
-     */
-    children: [
-      browser,
-      configs,
-      editor,
-      goggles
-    ]
-  }
-]
+  /*
+   * Route children
+   */
+  children: [
+    browser,
+    configs,
+    editor,
+    goggles
+  ]
+}]
