@@ -33,12 +33,12 @@ export default {
 .aepp-iframe {
   @apply flex;
   @apply flex-col;
+  @apply bg-neutral-positive-2;
   @apply rounded;
   @apply overflow-hidden;
 
   height: 85%;
   width: 85%;
-  background: #EDF3F7;
 }
 
 .aepp-iframe-header {
@@ -66,14 +66,14 @@ export default {
   @apply font-sans;
   @apply text-base;
   @apply w-full;
+  @apply text-neutral-negative-2;
 
-  color: #4E5A66;
   background: none;
   border: none;
   padding-left: 10px;
 
   &::placeholder {
-    color: #929CA6;
+    @apply text-neutral;
   }
 }
 
