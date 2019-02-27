@@ -66,7 +66,7 @@ export default {
 }
 
 .aepp-input-label {
-  @aplpy font-sans;
+  @apply font-sans;
   @apply leading-tight;
   @apply tracking-wide;
   @apply mb-1;

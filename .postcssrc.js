@@ -1,7 +1,9 @@
+// PurgeCSS
+
 module.exports = {
-  "plugins": [
+  plugins: [
     require('postcss-import')(),
-    require('tailwindcss')(),
-    require('autoprefixer')(),
+    require('tailwindcss')('tailwind.js'),
+    require('autoprefixer')()
   ]
 }
