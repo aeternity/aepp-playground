@@ -12,7 +12,7 @@
       </button>
     </div>
     <div class="aepp-iframe-container">
-      <iframe :src="url"></iframe>
+      <iframe :src="url" :sandbox="sandbox.join(' ')"></iframe>
     </div>
   </div>
 </template>
@@ -25,7 +25,14 @@ export default {
     AeIcon
   },
   data: function () {
-    return { url: 'http://aepp.dronegraffiti.com' }
+    return {
+      url: 'http://aepp.dronegraffiti.com',
+      sandbox: [
+        'allow-forms',
+        'allow-same-origin',
+        'allow-scripts'
+      ]
+    }
   }
 }
 </script>
