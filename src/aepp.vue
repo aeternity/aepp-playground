@@ -26,11 +26,12 @@
               <ae-icon name="globe"/>
             </router-link>
           </li>
-          <li>
-            <router-link :to="{ name: 'views/goggles' }">
-              <ae-icon name="search"/>
-            </router-link>
-          </li>
+          <!-- Hide goggles route for now -->
+          <!--<li>-->
+            <!--<router-link :to="{ name: 'views/goggles' }">-->
+              <!--<ae-icon name="search"/>-->
+            <!--</router-link>-->
+          <!--</li>-->
         </aepp-nav-list>
         <aepp-nav-list>
           <li>
