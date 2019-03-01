@@ -12,14 +12,13 @@
           @init="(e) => this.editor = e"
           :value="require('!raw-loader!./identity.aes')"
         />
-        <aepp-collapse :opened="deployInfo">
+        <aepp-collapse opened>
           <template slot="bar">
             Console
           </template>
-          <div class="aepp-editor-console">
-            <label class="text-xs block mb-1 mr-2 text-red">Logs:</label>
+          <div class="aepp-editor-console" style="background-color: #191A21;">
             <textarea
-              class="w-full border border-solid border-black bg-neutral-negative-3 font-mono text-red text-sm"
+              class="w-full bg-transparent font-mono text-neutral text-xs"
               :value="JSON.stringify({
                 deployInfo,
                 deployedDataObj,
