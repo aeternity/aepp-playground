@@ -15,7 +15,7 @@ import '@aeternity/aepp-components/dist/ae-icon/ae-icon.css'
  * Import Vue Library
  */
 import Vue from 'vue'
-import Aepp from './aepp.vue'
+import Aepp from './aepp'
 
 /**
  * Import local configuration for vue.

@@ -55,7 +55,7 @@
             <aepp-input class="mb-2" label="Network ID" :value="getNodeNetworkId" readonly/>
           </form>
         </aepp-collapse>
-        <aepp-collapse v-if="byteCode" opened>
+        <aepp-collapse v-if="byteCode">
           <template slot="bar">
             Deploy Contract
           </template>
@@ -96,7 +96,7 @@
           <template slot="bar">
             Call Function
           </template>
-          <form class="pl-2 pr-2 pb-2">
+          <form @submit.prevent="onCallDataAndFunction" class="pl-2 pr-2 pb-2">
             <aepp-input class="mb-2" label="Function" placeholder="function" v-model="nonStaticFunc"/>
             <aepp-input class="mb-2" label="Arguments" placeholder="()" v-model="nonStaticArgs"/>
             <aepp-input class="mb-2" label="Return Type" placeholder="Sophia Type" v-model="sophiaType"/>
@@ -236,9 +236,8 @@ export default {
       'getNodeUrl',
       'getNodeInternalUrl',
       'getNodeNetworkId'
-    ]),
+    ])
   },
-
   methods: {
     /**
      * Contract Compilation Function
@@ -319,7 +318,6 @@ export default {
       })
     },
 
-
     /**
      * Call Static Function
      */
@@ -352,7 +350,6 @@ export default {
      * Get Wallet and Contract Client
      */
     async getClient() {
-
       if (this.getAccountKeyPair.privateKey && this.getAccountKeyPair.publicKey && this.getNodeUrl) {
 
         const keypair = {
@@ -425,7 +422,9 @@ export default {
       this.byteCode = false
     },
 
-    // TODO: on hold
+    /**
+     * onCallStatic
+     */
     onCallStatic () {
       if (this.staticFunc) {
         this.callStatic(this.staticFunc, this.staticArgs)
@@ -441,6 +440,10 @@ export default {
         this.callStaticError = 'Please enter a Function and 1 or more Arguments.'
       }
     },
+
+    /**
+     * onCallDataAndFunction
+     */
     onCallDataAndFunction () {
       const extraOpts = {
         'owner': this.getAccountAddress,
