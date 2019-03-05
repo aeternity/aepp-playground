@@ -17,12 +17,8 @@ import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
  */
 export default {
   name: 'aepp-collapse',
-  props: {
-    /**
-     * Displays the container and
-     * everything whats inside.
-     */
-    opened: Boolean
+  data: function () {
+    return { opened: false }
   },
   components: {
     AeIcon
