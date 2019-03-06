@@ -8,6 +8,7 @@ leafs are its modules, and the leafs of the modules are the specifications and f
 _I've termed the parts of the app as `modules` instead of `components` to not confuse it with Vue Components._
 
 ---
+
 __Some things here don't work yet. This is a work in progress. Hit up the 'Issues' if you wanna discuss
 something, or wanna know more.__
 ---
