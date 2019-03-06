@@ -4,7 +4,7 @@ Things here don't work yet. This is a work in progress. Hit up the 'Issues' if y
 something, or wanna know more.
 
 ### Overview
-[Imgur](https://i.imgur.com/ZRXdwPB.png)
+![Overview](https://i.imgur.com/ZRXdwPB.png)
 
 #### Identity Provider
 The identity provider is an internal business logic within aepp-playground that lets the user:
