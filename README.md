@@ -7,7 +7,7 @@ leafs are its modules, and the leafs of the modules are the specifications and f
 
 _I've termed the parts of the app as `modules` instead of `components` to not confuse it with Vue Components._
 
-![Overview](https://i.imgur.com/6ZA6pvo.png)
+![Overview](https://i.imgur.com/VOAN6r4.png)
 
 #### Identity Provider
 The identity provider is an internal business logic within aepp-playground that lets the user:
@@ -70,12 +70,12 @@ The contract editor emphasis is on:
 The contract editor can also sync with local files, we can create a local http server that syncs `forgae` `contracts/` 
 folder with `aepp-playground` contracts browser.
 
-#### Contract Debugger
-The contract debugger, helps manage and debug Aeternity Smart Contracts.
+#### Contract Executor
+The contract executor, helps manage and debug Aeternity Smart Contracts.
 
-With the contract debugger, every contract you ever compile and deploy is going to be saved locally within the app.
+With the contract executor, every contract you ever compile and deploy is going to be saved locally within the app.
 
-With this ability, the contract debugger, you can:
+With this ability, the contract executor, you can:
 
 - Add Contract address
 - List All Deployed contracts
@@ -84,8 +84,8 @@ With this ability, the contract debugger, you can:
   - Byte code
   - Static Functions
   - Functions
-- Call Functions & Static Functions
-- Output of the function results will be printed on a terminal, or output log placeholder.
+- Execute: Call Functions & Static Functions
+- Execute: Output of the function results will be printed on a terminal, or output log placeholder.
 
 #### DApp Browser
 App Browser is an iframe instance that communicates with the Aepp iframe provider/protocol.
