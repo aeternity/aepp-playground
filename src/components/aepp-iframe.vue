@@ -26,7 +26,7 @@ export default {
   },
   data: function () {
     return {
-      url: 'http://aepp.dronegraffiti.com',
+      url: 'https://aepp.dronegraffiti.com',
       sandbox: [
         'allow-forms',
         'allow-same-origin',
