@@ -1,12 +1,12 @@
 <template>
-  <aepp-views class="aepp-goggles">
+  <aepp-views class="aepp-executor">
     <aepp-toolbar>
-      <aepp-toolbar-tab to="asdfasdfas">
+      <aepp-toolbar-tab to="executor">
         <ae-icon name="search"/>
-        Goggles
+        Executor
       </aepp-toolbar-tab>
     </aepp-toolbar>
-    <h1>Goggles</h1>
+    <h1>Executor</h1>
   </aepp-views>
 </template>
 <script>
@@ -17,7 +17,7 @@ import AeppToolbarTab from '../../sections/aepp-toolbar-tab'
 import AeppViews from '../../sections/aepp-views'
 
 export default {
-  name: 'goggles',
+  name: 'executor',
   components: {
     AeIcon,
     AeppToolbar,
@@ -27,6 +27,5 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-goggles {
-}
+.aepp-executor {}
 </style>

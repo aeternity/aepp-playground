@@ -10,7 +10,10 @@ import index from './index.vue'
 import browser from './browser/routes'
 import configs from './configs/routes'
 import editor from './editor/routes'
-import goggles from './goggles/routes'
+import executor from './executor/routes'
+import explorer from './explorer/routes'
+import identity from './identity/routes'
+import inspector from './inspector/routes'
 
 /**
  * Exporting Routes Object
@@ -45,6 +48,9 @@ export default [{
     browser,
     configs,
     editor,
-    goggles
+    executor,
+    explorer,
+    identity,
+    inspector
   ]
 }]

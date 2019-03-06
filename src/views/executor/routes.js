@@ -15,12 +15,12 @@ export default {
   /*
    * Route name
    */
-  name: 'views/goggles',
+  name: 'views/executor',
 
   /*
    * Route path
    */
-  path: 'goggles',
+  path: 'executor',
 
   /*
    * Route component

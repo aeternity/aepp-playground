@@ -78,8 +78,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-configs {
-}
+.aepp-configs {}
 
 .aepp-configs-settings {
   @apply flex;

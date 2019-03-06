@@ -18,17 +18,32 @@
         <aepp-nav-list>
           <li>
             <router-link :to="{ name: 'views/editor' }">
-              <ae-icon name="grid"/>
+              <ae-icon name="edit"/>
+              <span>Editor</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'views/executor' }">
+              <ae-icon name="active"/>
+              <span>Executor</span>
             </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'views/browser' }">
               <ae-icon name="globe"/>
+              <span>Browser</span>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'views/goggles' }">
+            <router-link :to="{ name: 'views/inspector' }">
               <ae-icon name="search"/>
+              <span>Inspector</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'views/explorer' }">
+              <ae-icon name="grid"/>
+              <span>Explorer</span>
             </router-link>
           </li>
         </aepp-nav-list>

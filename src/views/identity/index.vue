@@ -1,12 +1,12 @@
 <template>
-  <aepp-views class="aepp-browser">
+  <aepp-views class="aepp-identity">
     <aepp-toolbar>
-      <aepp-toolbar-tab to="#">
-        <ae-icon name="globe"/>
-        aepp.dronegraffiti.com
+      <aepp-toolbar-tab to="identity">
+        <ae-icon name="search"/>
+        Identity
       </aepp-toolbar-tab>
     </aepp-toolbar>
-    <aepp-window/>
+    <h1>Identity</h1>
   </aepp-views>
 </template>
 <script>
@@ -15,19 +15,17 @@ import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 import AeppToolbar from '../../sections/aepp-toolbar'
 import AeppToolbarTab from '../../sections/aepp-toolbar-tab'
 import AeppViews from '../../sections/aepp-views'
-import AeppWindow from '../../sections/aepp-window'
 
 export default {
-  name: 'browser',
+  name: 'identity',
   components: {
     AeIcon,
     AeppToolbar,
     AeppToolbarTab,
-    AeppViews,
-    AeppWindow
+    AeppViews
   }
 }
 </script>
 <style lang="scss" scoped>
-.aepp-browser {}
+.aepp-identity {}
 </style>
