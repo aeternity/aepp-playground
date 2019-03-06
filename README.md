@@ -109,7 +109,7 @@ A tiny blockchain explorer to see what's happening with Aeternity.
 
 #### Under the Hood
 - æternity middleware
- - https://github.com/aeternity/aepp-middleware
+  - https://github.com/aeternity/aepp-middleware
 - Standalone Sophia Compiler
   - A micro service with Sophia compiler, that if a message is sent, replies with the byte code of the contract.
   - https://github.com/aeternity/aesophia
