@@ -1,16 +1,16 @@
 # Aepp Playground
-
-__Some things here don't work yet. This is a work in progress. Hit up the 'Issues' if you wanna discuss
-something, or wanna know more.__
-
-### Aepp Playground Modules Overview
 Aepp Playground will be comprised of single purpose application modules, in the image below, you'll see
 the high level overview of aepp-playground. 
 
 In the image below you'll notice that the structure follows a tree, as the root its `aepp-playground` and as its
 leafs are its modules, and the leafs of the modules are the specifications and functionality of that specific module.
 
-_PS: I've termed the parts of the app as `modules` instead of `components` to not confuse it with Vue Components._
+_I've termed the parts of the app as `modules` instead of `components` to not confuse it with Vue Components._
+
+---
+__Some things here don't work yet. This is a work in progress. Hit up the 'Issues' if you wanna discuss
+something, or wanna know more.__
+---
 
 ![Overview](https://i.imgur.com/6ZA6pvo.png)
 
