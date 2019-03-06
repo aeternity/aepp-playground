@@ -9,6 +9,7 @@ _I've termed the parts of the app as `modules` instead of `components` to not co
 
 ---
 ![Architecture Overview](./architecture.png)
+---
 
 #### Identity Provider
 The identity provider is an internal business logic within aepp-playground that lets the user:
