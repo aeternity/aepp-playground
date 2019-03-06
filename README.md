@@ -1,9 +1,17 @@
-# aepp-playground
+# Aepp Playground
 
-Things here don't work yet. This is a work in progress. Hit up the 'Issues' if you wanna discuss
-something, or wanna know more.
+__Some things here don't work yet. This is a work in progress. Hit up the 'Issues' if you wanna discuss
+something, or wanna know more.__
 
-### Overview
+### Aepp Playground Modules Overview
+Aepp Playground will be comprised of single purpose application modules, in the image below, you'll see
+the high level overview of aepp-playground. 
+
+In the image below you'll notice that the structure follows a tree, as the root its `aepp-playground` and as its
+leafs are its modules, and the leafs of the modules are the specifications and functionality of that specific module.
+
+_PS: I've termed the parts of the app as `modules` instead of `components` to not confuse it with Vue Components._
+
 ![Overview](https://i.imgur.com/ZRXdwPB.png)
 
 #### Identity Provider
@@ -12,6 +20,38 @@ The identity provider is an internal business logic within aepp-playground that 
 - Create an Aeternity account
 - Import an Aeternity account
 - Export an Aeternity account
+
+This module of the application will be connected with other modules of the application to make sure that user can:
+
+- View Balances
+- Sign transactions
+- Deploy contracts
+
+##### Create Account
+With this functionality the user will be able to generate accounts from within the application.
+
+##### Import Account
+The user will have the ability to import his Aeternity account from multiple sources:
+
+- QR Code Scan
+  - AirGap Vault
+- Chrome Ext
+- Base App
+- Import keystore.json file
+- Ledger Connection
+
+##### Export Account
+Ability to export the accounts as:
+
+- keystore.json file
+- QR Code
+
+##### Manage Account
+Give the ability to the user of the application to view some information related to the accounts:
+
+- Topup account with Faucet
+- View balance
+- View sub accounts
 
 #### Contract Editor
 The contracts Editor, manages contracts internally and externally within the application.
