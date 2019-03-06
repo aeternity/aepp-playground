@@ -107,8 +107,16 @@ A REPL console that injects AE-JS-SDK, AECLI and other CLI tools that help commu
 #### Explorer
 A tiny blockchain explorer to see what's happening with Aeternity.
 
-#### Standalone Sophia Compiler
-A micro service with Sophia compiler, that if a message is sent, replies with the byte code of the contract. 
+#### Under the Hood
+- æternity middleware
+ - https://github.com/aeternity/aepp-middleware
+- Standalone Sophia Compiler
+  - A micro service with Sophia compiler, that if a message is sent, replies with the byte code of the contract.
+  - https://github.com/aeternity/aesophia
+- Faucet (testnet, unstable)
+  - https://faucet.aepps.com
+
+---
 
 ## Project setup
 ```
