@@ -2,7 +2,7 @@
 Aepp Playground will be comprised of single purpose application modules, in the image below, you'll see
 the high level overview of aepp-playground. 
 
-In the image below you'll notice that the structure follows a tree, as the root its `aepp-playground` and as its
+In the image below you'll notice that the structure follows a tree, the root it's the application `aepp-playground` and the
 leafs are its modules, and the leafs of the modules are the specifications and functionality of that specific module.
 
 _I've termed the parts of the app as `modules` instead of `components` to not confuse it with Vue Components._
