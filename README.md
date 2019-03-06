@@ -12,7 +12,7 @@ leafs are its modules, and the leafs of the modules are the specifications and f
 
 _PS: I've termed the parts of the app as `modules` instead of `components` to not confuse it with Vue Components._
 
-![Overview](https://i.imgur.com/ZRXdwPB.png)
+![Overview](https://i.imgur.com/6ZA6pvo.png)
 
 #### Identity Provider
 The identity provider is an internal business logic within aepp-playground that lets the user:
