@@ -1,5 +1,5 @@
 <template>
-  <div class="aepp-collapse" :class="[{ opened }]">
+  <div :id="id" class="aepp-collapse" :class="[{ opened }]">
     <div class="aepp-collapse-bar" @click="toggle">
       <ae-icon name="left-more"/>
       <slot name="bar"/>
@@ -12,26 +12,30 @@
 <script>
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
-/**
- * TODO: Prop is being mutated, find a different approach
- */
 export default {
   name: 'aepp-collapse',
+  data: function () {
+    return { opened: false }
+  },
   props: {
-    /**
-     * Displays the container and
-     * everything whats inside.
-     */
-    opened: Boolean
+    id: String
   },
   components: {
     AeIcon
   },
   methods: {
-    toggle () {
+    toggle() {
       this.opened = !this.opened
     }
-  }
+  },
+  watch: {
+    opened(opened) {
+      this.$emit('toggle', { id: this.id, opened })
+    }
+  },
+  mounted() {
+    this.$emit('init', { id: this.id, opened: this.opened })
+  },
 }
 </script>
 <style lang="scss" scoped>

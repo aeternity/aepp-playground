@@ -32,61 +32,36 @@
         </div>
       </aepp-views>
       <aepp-sidebar>
-        <aepp-collapse opened>
-          <template slot="bar">
-            Configs Details
-          </template>
-          <form class="pl-2 pr-2 pb-2">
-            <aepp-input class="mb-2" label="Private Key" :value="getAccountPrivateKey" readonly />
-            <aepp-input class="mb-2" label="Public Key" :value="getAccountPublicKey" readonly />
-            <aepp-input class="mb-2" label="Internal URL" :value="getNodeInternalUrl" readonly/>
-            <aepp-input class="mb-2" label="URL" :value="getNodeUrl" readonly/>
-            <aepp-input class="mb-2" label="Network ID" :value="getNodeNetworkId" readonly/>
-          </form>
-        </aepp-collapse>
-        <aepp-collapse>
-          <template slot="bar">
-            Deploy Contract
-          </template>
-          <form class="pl-2 pr-2 pb-2">
-            <aepp-textarea class="mb-2" label="Byte Code" :value="result.bytecode" readonly/>
-            <aepp-input class="mb-2" label="Function" />
-            <aepp-input class="mb-2" label="Arguments" />
-            <aepp-input class="mb-2" label="Deposit" />
-            <aepp-input class="mb-2" label="Gas Price" />
-            <aepp-input class="mb-2" label="Amount" />
-            <aepp-input class="mb-2" label="Fee" />
-            <aepp-input class="mb-2" label="Gas Limit" />
-            <aepp-button type="submit" extend>Deploy</aepp-button>
-          </form>
-        </aepp-collapse>
-        <aepp-collapse>
-          <template slot="bar">
-            Call Static Function
-          </template>
-          <form class="pl-2 pr-2 pb-2">
-            <aepp-input class="mb-2" label="Function" />
-            <aepp-input class="mb-2" label="Arguments" />
-            <aepp-input class="mb-2" label="Return Type" />
-            <aepp-button extend>Call Static</aepp-button>
-          </form>
-        </aepp-collapse>
-        <aepp-collapse>
-          <template slot="bar">
-            Call Function
-          </template>
-          <form class="pl-2 pr-2 pb-2">
-            <aepp-input class="mb-2" label="Function" />
-            <aepp-input class="mb-2" label="Arguments" />
-            <aepp-input class="mb-2" label="Return Type" />
-            <aepp-input class="mb-2" label="Deposit" />
-            <aepp-input class="mb-2" label="Gas Price" />
-            <aepp-input class="mb-2" label="Amount" />
-            <aepp-input class="mb-2" label="Fee" />
-            <aepp-input class="mb-2" label="Gas Limit" />
-            <aepp-button extend>Call Function</aepp-button>
-          </form>
-        </aepp-collapse>
+        <aepp-accordion>
+          <aepp-collapse opened>
+            <template slot="bar">
+              Configs Details
+            </template>
+            <form class="pl-2 pr-2 pb-2">
+              <aepp-input class="mb-2" label="Private Key" :value="getAccountPrivateKey" readonly />
+              <aepp-input class="mb-2" label="Public Key" :value="getAccountPublicKey" readonly />
+              <aepp-input class="mb-2" label="Internal URL" :value="getNodeInternalUrl" readonly/>
+              <aepp-input class="mb-2" label="URL" :value="getNodeUrl" readonly/>
+              <aepp-input class="mb-2" label="Network ID" :value="getNodeNetworkId" readonly/>
+            </form>
+          </aepp-collapse>
+          <aepp-collapse>
+            <template slot="bar">
+              Deploy Contract
+            </template>
+            <form class="pl-2 pr-2 pb-2">
+              <aepp-textarea class="mb-2" label="Byte Code" :value="result.bytecode" readonly/>
+              <aepp-input class="mb-2" label="Function" />
+              <aepp-input class="mb-2" label="Arguments" />
+              <aepp-input class="mb-2" label="Deposit" />
+              <aepp-input class="mb-2" label="Gas Price" />
+              <aepp-input class="mb-2" label="Amount" />
+              <aepp-input class="mb-2" label="Fee" />
+              <aepp-input class="mb-2" label="Gas Limit" />
+              <aepp-button type="submit" extend>Deploy</aepp-button>
+            </form>
+          </aepp-collapse>
+        </aepp-accordion>
       </aepp-sidebar>
     </div>
   </aepp-views>
@@ -96,6 +71,7 @@ import { mapState, mapGetters } from 'vuex'
 import MemoryAccount from '@aeternity/aepp-sdk/es/account/memory'
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
+import AeppAccordion from '../../components/aepp-accordion'
 import AeppButton from '../../components/aepp-button'
 import AeppCollapse from '../../components/aepp-collapse'
 import AeppEditor from '../../components/aepp-editor'
@@ -121,6 +97,7 @@ export default {
   },
   components: {
     AeIcon,
+    AeppAccordion,
     AeppButton,
     AeppCollapse,
     AeppEditor,
@@ -153,11 +130,7 @@ export default {
     async compile() {
       console.log('hu')
       try {
-        this.result = await this.client.contractCompile(
-          this.editor.getValue()
-        )
-
-        console.log(this.result, this.result.bytecode)
+        Object.assign(this.result, await this.client.contractCompile(this.editor.getValue()))
       } catch (e) {
         return this
         .$store

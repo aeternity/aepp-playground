@@ -30,7 +30,7 @@ export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   plugins: [createPersistedState({
     key: 'playground',
-    storage: window.sessionStorage,
+    storage: window.localStorage,
     paths: ['configs']
   })],
   state,
