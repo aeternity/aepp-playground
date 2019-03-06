@@ -7,12 +7,6 @@ leafs are its modules, and the leafs of the modules are the specifications and f
 
 _I've termed the parts of the app as `modules` instead of `components` to not confuse it with Vue Components._
 
----
-
-__Some things here don't work yet. This is a work in progress. Hit up the 'Issues' if you wanna discuss
-something, or wanna know more.__
----
-
 ![Overview](https://i.imgur.com/6ZA6pvo.png)
 
 #### Identity Provider
@@ -138,6 +132,9 @@ npm run test
 ```
 npm run lint
 ```
+
+__Some things here don't work yet. This is a work in progress. Hit up the 'Issues' if you wanna discuss
+something, or wanna know more.__
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
