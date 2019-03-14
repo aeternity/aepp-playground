@@ -15,5 +15,11 @@ export default {
 
   height: 72px;
   background: #191A21;
+
+  /**
+   * TODO: Hide for now
+   */
+  display: none;
+  visibility: hidden;
 }
 </style>
