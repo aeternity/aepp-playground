@@ -1,4 +1,4 @@
 /**
  * Exporting State
  */
-export default {};
+export default {}

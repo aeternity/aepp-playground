@@ -1,10 +1,10 @@
 /**
  * Importing Components
  */
-import state from './state';
-import mutations from './mutations';
-import actions from './actions';
-import getters from './getters';
+import state from './state'
+import mutations from './mutations'
+import actions from './actions'
+import getters from './getters'
 
 /**
  * Exporting
@@ -15,4 +15,4 @@ export default {
   mutations,
   actions,
   getters
-};
+}

@@ -1,4 +1,4 @@
 /**
  * Exporting Actions
  */
-export default {};
+export default {}
