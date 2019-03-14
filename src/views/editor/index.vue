@@ -21,12 +21,12 @@
           </code>
         </aepp-collapse>
         <div class="aepp-editor-settings">
-          <aepp-select class="w-5/6 mr-2" label="Compiler Version">
+          <aepp-select class="w-5/6 mr-2" style="display: none; visibility: hidden;" label="Compiler Version">
             <option value="1.0.2">Roma v1.0.2</option>
             <option value="1.0.1">Roma v1.0.1</option>
             <option value="1.0.0">Roma v1.0.0</option>
           </aepp-select>
-          <aepp-button @click.native="compile" class="w-1/6">
+          <aepp-button @click.native="compile" class="w-full">
             Compile Contract
           </aepp-button>
         </div>
