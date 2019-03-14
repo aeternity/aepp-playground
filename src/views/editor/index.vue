@@ -10,7 +10,7 @@
       <aepp-views>
         <aepp-editor
           @init="(e) => this.editor = e"
-          :value="require('!raw-loader!./identity.aes')"
+          :value="require('!raw-loader!../../assets/templates/identity.aes')"
         />
         <aepp-collapse>
           <template slot="bar">
