@@ -1,4 +1,4 @@
 /**
  * Exporting Getters
  */
-export default {};
+export default {}

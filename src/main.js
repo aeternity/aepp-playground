@@ -20,8 +20,9 @@ import Aepp from './aepp.vue'
 /**
  * Import local configuration for vue.
  */
-import router from './router'
 import store from './store'
+import router from './router'
+import wait from './wait'
 import * as editor from './plugins/editor'
 import * as wallet from './plugins/wallet'
 
@@ -35,7 +36,8 @@ Vue.use(wallet)
  * Export Aepp-Playground Instance
  */
 export default new Vue({
-  router,
   store,
+  router,
+  wait,
   render: h => h(Aepp)
 }).$mount('#aepp')

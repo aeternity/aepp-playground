@@ -1,7 +1,7 @@
 /**
  * Importing Global Libraries
  */
-import Universal from '@aeternity/aepp-sdk/es/ae/universal'
+import Ae from '@aeternity/aepp-sdk/es/ae/universal'
 
 /**
  * A Vue.js plugin should expose an install method.
@@ -41,10 +41,10 @@ export const install = function (Vue) {
        * @param options {Object}
        * @return {Object}
        */
-      create (name, options = {}) {
+      async create (name, options = {}) {
         if (wallets[name])
           return wallets[name]
-        return wallets[name] = new Universal(options)
+        return wallets[name] = await Ae(options)
       },
 
       /**
@@ -53,8 +53,8 @@ export const install = function (Vue) {
        * @param name {String}
        * @param options {Object}
        */
-      update (name, options = {}) {
-        return wallets[name] = new Universal(options)
+      async update (name, options = {}) {
+        return wallets[name] = await Ae(options)
       },
 
       /**

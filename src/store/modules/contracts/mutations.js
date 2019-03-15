@@ -1,4 +1,4 @@
 /**
  * Exporting Mutations
  */
-export default {};
+export default {}

@@ -20,8 +20,8 @@ export default {
    * @param state {Object}
    * @return {String|Null}
    */
-  getAccountPrivateKey(state) {
-    return state.configs.account.keypair.privateKey
+  getAccountSecretKey(state) {
+    return state.configs.account.keypair.secretKey
   },
 
   /**

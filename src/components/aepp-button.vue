@@ -29,6 +29,12 @@ export default {
   &:focus {
     background: #282A36;
   }
+
+  &[disabled] {
+    @apply bg-neutral-negative-2;
+    @apply bg-neutral-negative-1;
+    @apply cursor-not-allowed;
+  }
 }
 
 .aepp-button.extend {

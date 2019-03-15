@@ -130,7 +130,7 @@ export default {
     account: {
       address: null,
       keypair: {
-        privateKey: null,
+        secretKey: null,
         publicKey: null
       }
     },
