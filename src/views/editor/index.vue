@@ -21,6 +21,7 @@
             <code class="aepp-editor-console">{{ JSON.stringify({instance, callStaticFn, callFunction}, null, 2) }}</code>
           </aepp-scrollbar>
         </aepp-collapse>
+        <!--<aepp-terminal></aepp-terminal>-->
         <div class="aepp-editor-settings">
           <!-- TODO: Compiler Selection is hidden, work on fixing it later -->
           <aepp-select class="w-5/6 mr-2" label="Compiler Version" v-if="false">
@@ -257,6 +258,7 @@ import AeppEditor from '../../components/aepp-editor'
 import AeppInput from '../../components/aepp-input'
 import AeppSelect from '../../components/aepp-select'
 import AeppScrollbar from '../../components/aepp-scrollbar'
+import AeppTerminal from '../../components/aepp-terminal'
 import AeppTextarea from '../../components/aepp-textarea'
 
 import AeppSidebar from '../../sections/aepp-sidebar'
@@ -331,11 +333,12 @@ export default {
     AeppInput,
     AeppSelect,
     AeppScrollbar,
+    AeppTerminal,
     AeppTextarea,
     AeppSidebar,
     AeppToolbar,
     AeppToolbarTab,
-    AeppViews
+    AeppViews,
   },
   computed: {
     ...mapState(['configs']),
