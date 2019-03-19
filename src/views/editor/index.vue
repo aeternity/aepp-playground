@@ -17,9 +17,7 @@
           <template slot="bar">
             Console
           </template>
-          <code class="aepp-editor-console">
-            {{ this.callStaticFn.staticResult }}
-          </code>
+          <code class="aepp-editor-console">{{ JSON.stringify({ compiled, deployed, callStaticFn, callFunction}, null, 2) }}</code>
         </aepp-collapse>
         <div class="aepp-editor-settings">
           <!-- TODO: Compiler Selection is hidden, work on fixing it later -->
@@ -153,6 +151,84 @@
               </aepp-button>
             </form>
           </aepp-collapse>
+          <aepp-collapse v-if="deployed.address">
+            <template slot="bar">
+              Call Function
+            </template>
+            <form @submit.prevent="() => onCallFunction(callFunction)" class="pl-2 pr-2 pb-2">
+              <aepp-input
+                label="Function Name"
+                class="mb-2"
+                placeholder="function"
+                v-model="callFunction.functionName"
+              />
+              <aepp-input
+                label="Arguments"
+                class="mb-2"
+                placeholder="()"
+                v-model="callFunction.functionArgs"
+              />
+              <aepp-input
+                label="Return Type"
+                class="mb-2"
+                placeholder="Sophia Type"
+                v-model="callFunction.fnReturnType"
+              />
+              <aepp-input
+                label="Deposit"
+                class="mb-2"
+                type="number"
+                min="0"
+                placeholder="deposit"
+                v-model.number="callFunction.callFnConfig.deposit"
+              />
+              <aepp-input
+                label="Gas Price"
+                class="mb-2"
+
+                type="number"
+                min="1000000"
+                placeholder="gas price"
+                v-model.number="callFunction.callFnConfig.gasPrice"
+              />
+              <aepp-input
+                label="Amount"
+                class="mb-2"
+                type="number"
+                min="0"
+                placeholder="amount"
+                v-model.number="callFunction.callFnConfig.amount"
+              />
+              <aepp-input
+                label="Fee"
+                class="mb-2"
+                type="number"
+                placeholder="auto"
+                v-model.number="callFunction.callFnConfig.fee"
+              />
+              <aepp-input
+                label="Gas Limit"
+                class="mb-2"
+                type="number"
+                min="0"
+                placeholder="gas"
+                v-model.number="callFunction.callFnConfig.gas"
+              />
+
+              <!-- Hidden input -->
+              <input v-model="callFunction.callFnConfig.callData" type="hidden" value="callData">
+
+              <!-- Submit Button -->
+              <aepp-button type="submit" :disabled="$wait.is('callFunction')" extend>
+                <template v-if="$wait.is('callFunction')">
+                  Calling...
+                </template>
+                <template v-else>
+                  Call Function
+                </template>
+              </aepp-button>
+            </form>
+          </aepp-collapse>
         </aepp-accordion>
       </aepp-sidebar>
     </div>
@@ -232,6 +308,14 @@ export default {
         functionName: null,
         functionArgs: null,
         fnReturnType: null,
+        callFnConfig: {
+          deposit: 0,
+          gasPrice: 1000000000,
+          amount: 0,
+          fee: null, // sdk will automatically select this
+          gas: 1000000,
+          callData: ''
+        },
         callFnResult: {}
       }
     }
@@ -361,6 +445,23 @@ export default {
           fnReturnType: null,
           staticResult: {}
         })
+        /**
+         * Reset callFunction when user-redeploys
+         */
+        Object.assign(this.callFunction, {
+          functionName: null,
+          functionArgs: null,
+          fnReturnType: null,
+          callFnConfig: {
+            deposit: 0,
+            gasPrice: 1000000000,
+            amount: 0,
+            fee: null, // sdk will automatically select this
+            gas: 1000000,
+            callData: ''
+          },
+          callFnResult: {}
+        })
 
         /**
          * Notify user contract has deployed
@@ -439,21 +540,110 @@ export default {
       }
 
       /**
-       * Return the results of the call
+       * Results of the Static call
        *
        * @return {Object}.decode
        * @return {Object}.result
        */
-      return this.$set(this.callStaticFn, 'staticResult', {
-        decode: await response.decode(args.fnReturnType),
-        result: response.result
-      })
+      try {
+        this.$set(this.callStaticFn, 'staticResult', {
+          decode: await response.decode(args.fnReturnType),
+          result: response.result
+        })
+      } catch (e) {
+        return this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
+      }
     },
 
     /**
-     *
+     * Return the result of the function
+     * call to the smart contract
      */
-    async onCallFunction() {}
+    async onCallFunction(args) {
+      let response
+
+      this.$wait.start('callFunction')
+
+      try {
+        response = await this.client.contractCall(
+          /**
+           * Contract byte code
+           */
+          this.compiled.bytecode,
+
+          /**
+           * Type of call
+           */
+          'sophia',
+
+          /**
+           * Address of the contract
+           */
+          this.deployed.address,
+
+          /**
+           * Function to call
+           */
+          args.functionName,
+
+          /**
+           * Pass Static Function arguments
+           */
+          {
+            /**
+             * Function Arguments
+             */
+            args: args.functionArgs ?
+              `(${args.functionArgs})` :
+              '()',
+
+            /**
+             * Executor context
+             */
+            options: Object.assign({
+              owner: this.getAccountAddress,
+              code: this.editor.getValue()
+            }, args.callFnConfig)
+          }
+        )
+
+        this.$wait.end('callFunction')
+      } catch (e) {
+        this.$wait.end('callFunction')
+
+        return this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
+      }
+
+      /**
+       * Results of the call
+       *
+       * @return {Object}.decode
+       * @return {Object}.result
+       */
+      try {
+        this.$set(this.callFunction, 'callFnResult', {
+          decode: await this.client.contractDecodeData(
+            args.fnReturnType,
+            response.result.returnValue
+          ),
+          result: response.result
+        })
+      } catch (e) {
+        return this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
+      }
+    }
   },
 
   /**
@@ -530,18 +720,21 @@ export default {
 .aepp-editor-console {
   // TODO: this does not work
   @apply flex;
-  @apply flex-auto;
   @apply flex-shrink;
-  @apply flex-grow;
+  @apply flex-no-grow;
   @apply text-white;
   @apply bg-black;
   @apply whitespace-pre-wrap;
-  @apply break-words;
-  @apply p-3;
+  @apply p-2;
   @apply w-full;
-  @apply overflow-hidden;
+  @apply overflow-auto;
+  @apply bg-neutral-negative-3;
 
-  overflow-wrap: break-word;
+  width: 100%;
+  font-size: rem(12px);
+  word-break: break-all;
+  min-height: 369px;
+  max-width: 100%;
 }
 
 .aepp-editor-settings {
