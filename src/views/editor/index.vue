@@ -365,6 +365,12 @@ export default {
           .contractCompile(code)
         )
 
+        this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'success',
+          text: 'Contract compiled successfully!'
+        })
+
         this.$wait.end('compiling')
       } catch (e) {
         this.$wait.end('compiling')
