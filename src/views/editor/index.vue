@@ -13,15 +13,16 @@
           :value="require('!raw-loader!../../assets/templates/identity.aes')"
         />
         <!-- TODO: Work on the console -->
-        <aepp-collapse v-if="false">
+        <aepp-collapse>
           <template slot="bar">
             Console
           </template>
           <code class="aepp-editor-console">
-            {{ this.compiled }}
+            {{ this.callStaticFn.staticResult }}
           </code>
         </aepp-collapse>
         <div class="aepp-editor-settings">
+          <!-- TODO: Compiler Selection is hidden, work on fixing it later -->
           <aepp-select class="w-5/6 mr-2" style="display: none; visibility: hidden;" label="Compiler Version">
             <option value="1.0.2">Roma v1.0.2</option>
             <option value="1.0.1">Roma v1.0.1</option>
@@ -118,6 +119,40 @@
               </aepp-button>
             </form>
           </aepp-collapse>
+          <aepp-collapse v-if="deployed.address">
+            <template slot="bar">
+              Call Static Function
+            </template>
+            <form @submit.prevent="() => onCallStaticFn(callStaticFn)" class="pl-2 pr-2 pb-2">
+              <aepp-input
+                label="Function Name"
+                class="mb-2"
+                v-model="callStaticFn.functionName"
+                placeholder="function"
+              />
+              <aepp-input
+                label="Arguments"
+                class="mb-2"
+                v-model="callStaticFn.functionArgs"
+                placeholder="()"
+              />
+              <aepp-input
+                label="Return Type"
+                class="mb-2"
+                v-model="callStaticFn.fnReturnType"
+                placeholder="Sophia Type"
+                value="int"
+              />
+              <aepp-button type="submit" :disabled="$wait.is('callStaticFn')" extend>
+                <template v-if="$wait.is('callStaticFn')">
+                  Calling...
+                </template>
+                <template v-else>
+                  Call Static
+                </template>
+              </aepp-button>
+            </form>
+          </aepp-collapse>
         </aepp-accordion>
       </aepp-sidebar>
     </div>
@@ -178,7 +213,27 @@ export default {
       /**
        * After deployed
        */
-      deployed: {}
+      deployed: {},
+
+      /**
+       * Data State/store for callStaticFn
+       */
+      callStaticFn: {
+        functionName: null,
+        functionArgs: null,
+        fnReturnType: null,
+        staticResult: {}
+      },
+
+      /**
+       * Data State/store for function calls
+       */
+      callFunction: {
+        functionName: null,
+        functionArgs: null,
+        fnReturnType: null,
+        callFnResult: {}
+      }
     }
   },
   components: {
@@ -216,20 +271,20 @@ export default {
      * @return {String}
      */
     async compile(code) {
-      /**
-       * Start Vue Wait loading
-       */
       this.$wait.start('compiling')
 
       try {
-        Object.assign(this.compiled, await this.client.contractCompile(code))
+        Object.assign(
+          this.compiled,
+          await this
+          .client
+          .contractCompile(code)
+        )
 
-        /**
-         * End load waiting after completion
-         */
         this.$wait.end('compiling')
       } catch (e) {
         this.$wait.end('compiling')
+
         return this
         .$store
         .commit('createNotification', {
@@ -257,9 +312,6 @@ export default {
         })
       }
 
-      /**
-       * Start Vue Wait loading
-       */
       this.$wait.start('deploying')
 
       /**
@@ -271,58 +323,137 @@ export default {
        * - Reset deploy configuration
        * - Catch any errors
        */
-      try {
-        return this
-        .compiled
-        .deploy(Object.assign(this.deployConfig, {
-          owner: this.getAccountAddress,
-          code: this.editor.getValue()
-        }))
-        .then((deployed) => {
-          /**
-           * Return deployed contract details
-           */
-          Object.assign(this.deployed, deployed)
+      return this
+      .compiled
+      .deploy(Object.assign(this.deployConfig, {
+        owner: this.getAccountAddress,
+        code: this.editor.getValue()
+      }))
+      .then((deployed) => {
+        /**
+         * Return deployed contract details
+         */
+        Object.assign(this.deployed, deployed)
 
-          /**
-           * Reset to defaultConfigs. Reasoning behind this
-           * is that, when we callFunctions/Deploy we want to
-           * input different arguments etc...
-           *
-           * TODO: Maybe not a good idea?
-           */
-          Object.assign(this.deployConfig, {
-            deposit: 0,
-            gasPrice: 1000000000,
-            amount: 0,
-            fee: null,
-            gas: 1000000,
-            callData: ''
-          })
-
-          /**
-           * Notify user contract has deployed
-           */
-          this.$store.commit('createNotification', {
-            time: Date.now(),
-            type: 'success',
-            text: `Contract: ${deployed.address} has been deployed!`
-          })
-
-          /**
-           * End load waiting after completion
-           */
-          this.$wait.end('deploying')
+        /**
+         * Reset to defaultConfigs. Reasoning behind this
+         * is that, when we callFunctions/Deploy we want to
+         * input different arguments etc...
+         *
+         * TODO: Maybe not a good idea?
+         */
+        Object.assign(this.deployConfig, {
+          deposit: 0,
+          gasPrice: 1000000000,
+          amount: 0,
+          fee: null,
+          gas: 1000000,
+          callData: ''
         })
-      } catch (e) {
+        /**
+         * Reset CallStaticFn when user-redeploys
+         *
+         * TODO: Abstract this into another function
+         */
+        Object.assign(this.callStaticFn, {
+          functionName: null,
+          functionArgs: null,
+          fnReturnType: null,
+          staticResult: {}
+        })
+
+        /**
+         * Notify user contract has deployed
+         */
+        this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'success',
+          text: `Contract: ${deployed.address} has been deployed!`
+        })
+
         this.$wait.end('deploying')
+      })
+      .catch((e) => {
+        this.$wait.end('deploying')
+
+        return this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
+      })
+    },
+
+    /**
+     * Call a contract static function given:
+     *
+     * @param args.functionName {String}
+     * @param args.functionArgs {String}
+     * @param args.fnReturnType {String}
+     *
+     * @return {Object}
+     */
+    async onCallStaticFn(args) {
+      let response
+
+      this.$wait.start('callStaticFn')
+
+      try {
+        response = await this
+        .client
+        .contractCallStatic(
+          /**
+           * Address of the contract
+           */
+          this.deployed.address,
+
+          /**
+           * Type of call
+           */
+          'sophia-address',
+
+          /**
+           * Function to call
+           */
+          args.functionName,
+
+          /**
+           * Pass Static Function arguments
+           */
+          {
+            args: args.functionArgs ?
+              `(${args.functionArgs})` :
+              '()'
+          }
+        )
+
+        this.$wait.end('callStaticFn')
+      } catch (e) {
+        this.$wait.end('callStaticFn')
+
         return this.$store.commit('createNotification', {
           time: Date.now(),
           type: 'error',
           text: e.message
         })
       }
-    }
+
+      /**
+       * Return the results of the call
+       *
+       * @return {Object}.decode
+       * @return {Object}.result
+       */
+      return this.$set(this.callStaticFn, 'staticResult', {
+        decode: await response.decode(args.fnReturnType),
+        result: response.result
+      })
+    },
+
+    /**
+     *
+     */
+    async onCallFunction() {}
   },
 
   /**
