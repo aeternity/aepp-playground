@@ -185,7 +185,6 @@
               <aepp-input
                 label="Gas Price"
                 class="mb-2"
-
                 type="number"
                 min="1000000"
                 placeholder="gas price"
