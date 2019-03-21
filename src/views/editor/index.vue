@@ -723,17 +723,22 @@ export default {
 }
 
 .aepp-editor-console {
-  // TODO: this does not work
+  // TODO: This has some layout issues
   @apply flex;
   @apply flex-shrink;
   @apply flex-no-grow;
-  @apply text-white;
-  @apply bg-black;
   @apply whitespace-pre-wrap;
-  @apply p-2;
-  @apply w-full;
+  @apply text-neutral;
+  @apply bg-custom-black;
   @apply overflow-auto;
-  @apply bg-neutral-negative-3;
+  @apply w-full;
+  @apply p-3;
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
 
   width: 100%;
   font-size: rem(12px);
