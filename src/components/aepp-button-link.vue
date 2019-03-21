@@ -4,6 +4,9 @@
   </router-link>
 </template>
 <script>
+/**
+ * TODO: Button link, for what use-case?
+ */
 export default {
   name: 'aepp-button',
   inheritAttrs: false,
