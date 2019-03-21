@@ -17,7 +17,9 @@
           <template slot="bar">
             Console
           </template>
-          <code class="aepp-editor-console">{{ JSON.stringify({ compiled, deployed, callStaticFn, callFunction}, null, 2) }}</code>
+          <aepp-scrollbar>
+            <code class="aepp-editor-console" >{{ JSON.stringify({ compiled, deployed, callStaticFn, callFunction}, null, 2) }}</code>
+          </aepp-scrollbar>
         </aepp-collapse>
         <div class="aepp-editor-settings">
           <!-- TODO: Compiler Selection is hidden, work on fixing it later -->
@@ -243,6 +245,7 @@ import AeppCollapse from '../../components/aepp-collapse'
 import AeppEditor from '../../components/aepp-editor'
 import AeppInput from '../../components/aepp-input'
 import AeppSelect from '../../components/aepp-select'
+import AeppScrollbar from '../../components/aepp-scrollbar'
 import AeppTextarea from '../../components/aepp-textarea'
 
 import AeppSidebar from '../../sections/aepp-sidebar'
@@ -323,6 +326,7 @@ export default {
     AeppEditor,
     AeppInput,
     AeppSelect,
+    AeppScrollbar,
     AeppTextarea,
     AeppSidebar,
     AeppToolbar,

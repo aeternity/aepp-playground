@@ -9,6 +9,7 @@
  *
  * @import "tailwindcss/preflight";
  */
+
 @import "tailwindcss/preflight";
 
 /**
@@ -24,6 +25,7 @@
  * html { ... }
  * code { ... }
  */
+
 @import "local/rules.css";
 
 /**
@@ -33,6 +35,7 @@
  *
  * @import "tailwindcss/components";
  */
+
 @import "tailwindcss/components";
 
 /**
@@ -58,6 +61,7 @@
  *
  * @import "tailwindcss/utilities";
  */
+
 @import "tailwindcss/utilities";
 
 /**
@@ -74,3 +78,5 @@
  * @import "utilities/background-patterns";
  * @import "utilities/skew-transforms";
  */
+
+@import "libraries/vuebar.css";
