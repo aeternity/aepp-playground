@@ -30,6 +30,13 @@ export default {
     },
 
     /**
+     * Unique Identifier that gets
+     * appended at the end of the input
+     * element.
+     */
+    uid: String,
+
+    /**
      * Component Value
      */
     value: null
@@ -45,6 +52,7 @@ export default {
       return this
       .label
       .replace(/\s+/g, '-')
+      .concat('-', this.uid || this._uid) // append user uid OR apply internal component uid
       .toLowerCase()
     }
   }
