@@ -4,6 +4,9 @@
   </div>
 </template>
 <script>
+/**
+ * TODO: Start development for accordion
+ */
 export default {
   name: 'aepp-accordion'
 }

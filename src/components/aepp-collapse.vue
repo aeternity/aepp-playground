@@ -12,6 +12,9 @@
 <script>
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
+/**
+ * TODO: Implement logic for internal and external open/close functionality
+ */
 export default {
   name: 'aepp-collapse',
   data: function () {

@@ -25,7 +25,7 @@ export default {
     AeIcon
   },
   data: function () {
-    return { url: 'http://aepp.dronegraffiti.com' }
+    return { url: process.env.VUE_APP_AEPP_EXAMPLE_APP }
   }
 }
 </script>

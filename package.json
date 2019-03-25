@@ -1,7 +1,7 @@
 {
+  "private": true,
   "name": "aepp-playground",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "faucet": "node -r esm ./faucet/index.js",
     "example": "cd examples && npm run serve",
