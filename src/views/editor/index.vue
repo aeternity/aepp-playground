@@ -13,7 +13,7 @@
           :value="require('!raw-loader!../../assets/templates/identity.aes')"
         />
         <!-- TODO: Work on the console -->
-        <aepp-collapse>
+        <aepp-collapse name="console">
           <template slot="bar">
             Console
           </template>
@@ -38,7 +38,7 @@
       </aepp-views>
       <aepp-sidebar>
         <aepp-accordion>
-          <aepp-collapse opened>
+          <aepp-collapse name="configs">
             <template slot="bar">
               Configs Details
             </template>
@@ -50,7 +50,7 @@
               <aepp-input class="mb-2" label="Network ID" :value="getNodeNetworkId" readonly/>
             </form>
           </aepp-collapse>
-          <aepp-collapse v-if="compiled.bytecode">
+          <aepp-collapse name="deploy-contract" :open="Boolean(compiled.bytecode)">
             <template slot="bar">
               Deploy Contract
             </template>
@@ -117,7 +117,7 @@
               </aepp-button>
             </form>
           </aepp-collapse>
-          <aepp-collapse v-if="deployed.address">
+          <aepp-collapse name="call-static" :open="Boolean(deployed.address)">
             <template slot="bar">
               Call Static Function
             </template>
@@ -151,7 +151,7 @@
               </aepp-button>
             </form>
           </aepp-collapse>
-          <aepp-collapse v-if="deployed.address">
+          <aepp-collapse name="call-function" :open="Boolean(deployed.address)">
             <template slot="bar">
               Call Function
             </template>
@@ -723,27 +723,26 @@ export default {
 }
 
 .aepp-editor-console {
-  // TODO: This has some layout issues
   @apply flex;
-  @apply flex-shrink;
   @apply flex-no-grow;
+  @apply flex-shrink;
   @apply whitespace-pre-wrap;
   @apply text-neutral;
   @apply bg-custom-black;
-  @apply overflow-auto;
   @apply w-full;
   @apply p-3;
+  @apply overflow-x-hidden;
+  @apply overflow-y-auto;
 
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-all;
-  word-break: break-word;
   hyphens: auto;
 
   width: 100%;
   font-size: rem(12px);
-  word-break: break-all;
   min-height: 369px;
+  max-height: 500px;
   max-width: 100%;
 }
 
