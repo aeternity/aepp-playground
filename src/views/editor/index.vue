@@ -39,196 +39,198 @@
         </div>
       </aepp-views>
       <aepp-sidebar>
-        <aepp-collapse name="configs">
-          <template slot="bar">
-            Configs Details
-          </template>
-          <form class="pl-2 pr-2 pb-2">
-            <aepp-input class="mb-2" label="Private Key" :value="getAccountSecretKey" readonly/>
-            <aepp-input class="mb-2" label="Public Key" :value="getAccountPublicKey" readonly/>
-            <aepp-input class="mb-2" label="Internal URL" :value="getNodeInternalUrl" readonly/>
-            <aepp-input class="mb-2" label="URL" :value="getNodeUrl" readonly/>
-            <aepp-input class="mb-2" label="Network ID" :value="getNodeNetworkId" readonly/>
-          </form>
-        </aepp-collapse>
-        <aepp-collapse name="deploy-contract" :open="Boolean(compiled.bytecode)">
-          <template slot="bar">
-            Deploy Contract
-          </template>
-          <form @submit.prevent="deploy" class="pl-2 pr-2 pb-2">
-            <aepp-textarea
-              class="mb-2"
-              label="Byte Code"
-              :value="compiled.bytecode"
-              readonly
-            />
-            <aepp-input
-              class="mb-2"
-              label="Deposit"
-              type="number"
-              min="0"
-              placeholder="Deposit"
-              v-model.number="deployConfig.deposit"
-            />
-            <aepp-input
-              class="mb-2"
-              label="Gas Price"
-              type="number"
-              min="1000000"
-              placeholder="Gas Price"
-              v-model.number="deployConfig.gasPrice"
-            />
-            <aepp-input
-              class="mb-2"
-              label="Amount"
-              type="number"
-              min="0"
-              placeholder="Amount"
-              v-model.number="deployConfig.amount"
-            />
-            <aepp-input
-              class="mb-2"
-              label="Fee"
-              type="number"
-              placeholder="Auto"
-              v-model.number="deployConfig.fee"
-            />
-            <aepp-input
-              class="mb-2"
-              label="Gas Limit"
-              type="number"
-              min="0"
-              placeholder="Gas"
-              v-model.number="deployConfig.gas"
-            />
+        <aepp-scrollbar>
+          <aepp-collapse name="configs">
+            <template slot="bar">
+              Configs Details
+            </template>
+            <form class="pl-2 pr-2 pb-2">
+              <aepp-input class="mb-2" label="Private Key" :value="getAccountSecretKey" readonly/>
+              <aepp-input class="mb-2" label="Public Key" :value="getAccountPublicKey" readonly/>
+              <aepp-input class="mb-2" label="Internal URL" :value="getNodeInternalUrl" readonly/>
+              <aepp-input class="mb-2" label="URL" :value="getNodeUrl" readonly/>
+              <aepp-input class="mb-2" label="Network ID" :value="getNodeNetworkId" readonly/>
+            </form>
+          </aepp-collapse>
+          <aepp-collapse name="deploy-contract" :open="Boolean(compiled.bytecode)">
+            <template slot="bar">
+              Deploy Contract
+            </template>
+            <form @submit.prevent="deploy" class="pl-2 pr-2 pb-2">
+              <aepp-textarea
+                class="mb-2"
+                label="Byte Code"
+                :value="compiled.bytecode"
+                readonly
+              />
+              <aepp-input
+                class="mb-2"
+                label="Deposit"
+                type="number"
+                min="0"
+                placeholder="Deposit"
+                v-model.number="deployConfig.deposit"
+              />
+              <aepp-input
+                class="mb-2"
+                label="Gas Price"
+                type="number"
+                min="1000000"
+                placeholder="Gas Price"
+                v-model.number="deployConfig.gasPrice"
+              />
+              <aepp-input
+                class="mb-2"
+                label="Amount"
+                type="number"
+                min="0"
+                placeholder="Amount"
+                v-model.number="deployConfig.amount"
+              />
+              <aepp-input
+                class="mb-2"
+                label="Fee"
+                type="number"
+                placeholder="Auto"
+                v-model.number="deployConfig.fee"
+              />
+              <aepp-input
+                class="mb-2"
+                label="Gas Limit"
+                type="number"
+                min="0"
+                placeholder="Gas"
+                v-model.number="deployConfig.gas"
+              />
 
-            <!-- Hidden Input Field -->
-            <input
-              type="hidden"
-              value="callData"
-              v-model="deployConfig.callData"
-            />
-            <aepp-button type="submit" :disabled="$wait.is('deploying')" extend>
-              <template v-if="$wait.is('deploying')">
-                Deploying...
-              </template>
-              <template v-else>
-                Deploy
-              </template>
-            </aepp-button>
-          </form>
-        </aepp-collapse>
-        <aepp-collapse name="call-static" :open="Boolean(deployed.address)">
-          <template slot="bar">
-            Call Static Function
-          </template>
-          <form @submit.prevent="() => onCallStaticFn(callStaticFn)" class="pl-2 pr-2 pb-2">
-            <aepp-input
-              label="Function Name"
-              class="mb-2"
-              v-model="callStaticFn.functionName"
-              placeholder="function"
-            />
-            <aepp-input
-              label="Arguments"
-              class="mb-2"
-              v-model="callStaticFn.functionArgs"
-              placeholder="()"
-            />
-            <aepp-input
-              label="Return Type"
-              class="mb-2"
-              v-model="callStaticFn.fnReturnType"
-              placeholder="Sophia Type"
-              value="int"
-            />
-            <aepp-button type="submit" :disabled="$wait.is('callStaticFn')" extend>
-              <template v-if="$wait.is('callStaticFn')">
-                Calling...
-              </template>
-              <template v-else>
-                Call Static
-              </template>
-            </aepp-button>
-          </form>
-        </aepp-collapse>
-        <aepp-collapse name="call-function" :open="Boolean(deployed.address)">
-          <template slot="bar">
-            Call Function
-          </template>
-          <form @submit.prevent="() => onCallFunction(callFunction)" class="pl-2 pr-2 pb-2">
-            <aepp-input
-              label="Function Name"
-              class="mb-2"
-              placeholder="function"
-              v-model="callFunction.functionName"
-            />
-            <aepp-input
-              label="Arguments"
-              class="mb-2"
-              placeholder="()"
-              v-model="callFunction.functionArgs"
-            />
-            <aepp-input
-              label="Return Type"
-              class="mb-2"
-              placeholder="Sophia Type"
-              v-model="callFunction.fnReturnType"
-            />
-            <aepp-input
-              label="Deposit"
-              class="mb-2"
-              type="number"
-              min="0"
-              placeholder="deposit"
-              v-model.number="callFunction.callFnConfig.deposit"
-            />
-            <aepp-input
-              label="Gas Price"
-              class="mb-2"
-              type="number"
-              min="1000000"
-              placeholder="gas price"
-              v-model.number="callFunction.callFnConfig.gasPrice"
-            />
-            <aepp-input
-              label="Amount"
-              class="mb-2"
-              type="number"
-              min="0"
-              placeholder="amount"
-              v-model.number="callFunction.callFnConfig.amount"
-            />
-            <aepp-input
-              label="Fee"
-              class="mb-2"
-              type="number"
-              placeholder="auto"
-              v-model.number="callFunction.callFnConfig.fee"
-            />
-            <aepp-input
-              label="Gas Limit"
-              class="mb-2"
-              type="number"
-              min="0"
-              placeholder="gas"
-              v-model.number="callFunction.callFnConfig.gas"
-            />
+              <!-- Hidden Input Field -->
+              <input
+                type="hidden"
+                value="callData"
+                v-model="deployConfig.callData"
+              />
+              <aepp-button type="submit" :disabled="$wait.is('deploying')" extend>
+                <template v-if="$wait.is('deploying')">
+                  Deploying...
+                </template>
+                <template v-else>
+                  Deploy
+                </template>
+              </aepp-button>
+            </form>
+          </aepp-collapse>
+          <aepp-collapse name="call-static" :open="Boolean(deployed.address)">
+            <template slot="bar">
+              Call Static Function
+            </template>
+            <form @submit.prevent="() => onCallStaticFn(callStaticFn)" class="pl-2 pr-2 pb-2">
+              <aepp-input
+                label="Function Name"
+                class="mb-2"
+                v-model="callStaticFn.functionName"
+                placeholder="function"
+              />
+              <aepp-input
+                label="Arguments"
+                class="mb-2"
+                v-model="callStaticFn.functionArgs"
+                placeholder="()"
+              />
+              <aepp-input
+                label="Return Type"
+                class="mb-2"
+                v-model="callStaticFn.fnReturnType"
+                placeholder="Sophia Type"
+                value="int"
+              />
+              <aepp-button type="submit" :disabled="$wait.is('callStaticFn')" extend>
+                <template v-if="$wait.is('callStaticFn')">
+                  Calling...
+                </template>
+                <template v-else>
+                  Call Static
+                </template>
+              </aepp-button>
+            </form>
+          </aepp-collapse>
+          <aepp-collapse name="call-function" :open="Boolean(deployed.address)">
+            <template slot="bar">
+              Call Function
+            </template>
+            <form @submit.prevent="() => onCallFunction(callFunction)" class="pl-2 pr-2 pb-2">
+              <aepp-input
+                label="Function Name"
+                class="mb-2"
+                placeholder="function"
+                v-model="callFunction.functionName"
+              />
+              <aepp-input
+                label="Arguments"
+                class="mb-2"
+                placeholder="()"
+                v-model="callFunction.functionArgs"
+              />
+              <aepp-input
+                label="Return Type"
+                class="mb-2"
+                placeholder="Sophia Type"
+                v-model="callFunction.fnReturnType"
+              />
+              <aepp-input
+                label="Deposit"
+                class="mb-2"
+                type="number"
+                min="0"
+                placeholder="deposit"
+                v-model.number="callFunction.callFnConfig.deposit"
+              />
+              <aepp-input
+                label="Gas Price"
+                class="mb-2"
+                type="number"
+                min="1000000"
+                placeholder="gas price"
+                v-model.number="callFunction.callFnConfig.gasPrice"
+              />
+              <aepp-input
+                label="Amount"
+                class="mb-2"
+                type="number"
+                min="0"
+                placeholder="amount"
+                v-model.number="callFunction.callFnConfig.amount"
+              />
+              <aepp-input
+                label="Fee"
+                class="mb-2"
+                type="number"
+                placeholder="auto"
+                v-model.number="callFunction.callFnConfig.fee"
+              />
+              <aepp-input
+                label="Gas Limit"
+                class="mb-2"
+                type="number"
+                min="0"
+                placeholder="gas"
+                v-model.number="callFunction.callFnConfig.gas"
+              />
 
-            <!-- Hidden input -->
-            <input v-model="callFunction.callFnConfig.callData" type="hidden" value="callData">
+              <!-- Hidden input -->
+              <input v-model="callFunction.callFnConfig.callData" type="hidden" value="callData">
 
-            <!-- Submit Button -->
-            <aepp-button type="submit" :disabled="$wait.is('callFunction')" extend>
-              <template v-if="$wait.is('callFunction')">
-                Calling...
-              </template>
-              <template v-else>
-                Call Function
-              </template>
-            </aepp-button>
-          </form>
-        </aepp-collapse>
+              <!-- Submit Button -->
+              <aepp-button type="submit" :disabled="$wait.is('callFunction')" extend>
+                <template v-if="$wait.is('callFunction')">
+                  Calling...
+                </template>
+                <template v-else>
+                  Call Function
+                </template>
+              </aepp-button>
+            </form>
+          </aepp-collapse>
+        </aepp-scrollbar>
       </aepp-sidebar>
     </div>
   </aepp-views>
