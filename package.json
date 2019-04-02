@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test": "jest"
   },
   "dependencies": {
     "@aeternity/aepp-components": "git+https://github.com/aeternity/aepp-components.git#develop",
@@ -25,25 +26,45 @@
     "@vue/cli-plugin-eslint": "^3.5.1",
     "@vue/cli-service": "^3.5.3",
     "autoprefixer": "^9.5.1",
+    "@vue/test-utils": "^1.0.0-beta.29",
+    "babel-bridge": "^1.12.11",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.6.0",
     "cors": "^2.8.5",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.2",
     "esm": "^3.2.22",
+    "eslint-plugin-jest": "^22.4.1",
     "express": "^4.16.4",
+    "jest": "^24.6.0",
     "monaco-editor-webpack-plugin": "^1.7.0",
     "node-sass": "^4.11.0",
     "postcss-import": "^12.0.1",
     "raw-loader": "^1.0.0",
     "sass-loader": "^7.1.0",
     "tailwindcss": "^0.7.4",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "vue-jest": "^3.0.4"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest",
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    }
   },
   "eslintConfig": {
     "root": true,
     "env": {
       "node": true
     },
+    "plugins": [
+      "jest"
+    ],
     "extends": [
       "plugin:vue/essential",
       "eslint:recommended"
