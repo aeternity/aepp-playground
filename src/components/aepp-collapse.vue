@@ -89,7 +89,6 @@ export default {
   @apply uppercase;
   @apply select-none;
 
-  // color: #EDF3F7;
   font-size: rem(10px);
   height: 42px;
   background: #343746;
