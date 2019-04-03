@@ -10,18 +10,18 @@
       <aepp-views>
         <aepp-editor
           @init="(e) => this.editor = e"
-          :value="require('!raw-loader!../../assets/templates/identity.aes')"
+          :value="require('!raw-loader!./sample.aes')"
         />
         <!-- TODO: Work on the console -->
         <aepp-collapse name="console">
           <template slot="bar">
             Console
           </template>
-          <aepp-scrollbar>
-            <code class="aepp-editor-console">{{ JSON.stringify({instance, callStaticFn, callFunction}, null, 2) }}</code>
-          </aepp-scrollbar>
+<!--          <aepp-scrollbar>-->
+<!--            <code class="aepp-editor-console">{{ JSON.stringify({instance, callStaticFn, callFunction}, null, 2) }}</code>-->
+<!--          </aepp-scrollbar>-->
+          <aepp-terminal></aepp-terminal>
         </aepp-collapse>
-        <!--<aepp-terminal></aepp-terminal>-->
         <div class="aepp-editor-settings">
           <!-- TODO: Compiler Selection is hidden, work on fixing it later -->
           <aepp-select class="w-5/6 mr-2" label="Compiler Version" v-if="false">
