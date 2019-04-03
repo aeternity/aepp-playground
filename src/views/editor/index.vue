@@ -13,14 +13,14 @@
           :value="require('!raw-loader!./sample.aes')"
         />
         <!-- TODO: Work on the console -->
-        <aepp-collapse name="console">
+        <aepp-collapse name="console" @toggle.passive="help">
           <template slot="bar">
             Console
           </template>
 <!--          <aepp-scrollbar>-->
 <!--            <code class="aepp-editor-console">{{ JSON.stringify({instance, callStaticFn, callFunction}, null, 2) }}</code>-->
 <!--          </aepp-scrollbar>-->
-          <aepp-terminal></aepp-terminal>
+          <aepp-terminal ref="terminal" />
         </aepp-collapse>
         <div class="aepp-editor-settings">
           <!-- TODO: Compiler Selection is hidden, work on fixing it later -->
@@ -258,10 +258,10 @@ import AeppEditor from '../../components/aepp-editor'
 import AeppInput from '../../components/aepp-input'
 import AeppSelect from '../../components/aepp-select'
 import AeppScrollbar from '../../components/aepp-scrollbar'
-import AeppTerminal from '../../components/aepp-terminal'
 import AeppTextarea from '../../components/aepp-textarea'
 
 import AeppSidebar from '../../sections/aepp-sidebar'
+import AeppTerminal from '../../sections/aepp-terminal'
 import AeppToolbar from '../../sections/aepp-toolbar'
 import AeppToolbarTab from '../../sections/aepp-toolbar-tab'
 import AeppViews from '../../sections/aepp-views'
@@ -333,9 +333,9 @@ export default {
     AeppInput,
     AeppSelect,
     AeppScrollbar,
-    AeppTerminal,
     AeppTextarea,
     AeppSidebar,
+    AeppTerminal,
     AeppToolbar,
     AeppToolbarTab,
     AeppViews,
@@ -360,6 +360,11 @@ export default {
     }
   },
   methods: {
+    help() {
+      console.log(this.$refs.terminal)
+      this.$refs.terminal.fit()
+    },
+
     /**
      * A function to create an instance
      * for the smartContract/source code
