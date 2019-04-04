@@ -239,7 +239,6 @@
 import { mapState, mapGetters } from 'vuex'
 import MemoryAccount from '@aeternity/aepp-sdk/es/account/memory'
 import Wallet from '@aeternity/aepp-sdk/es/ae/wallet'
-import Contract from '@aeternity/aepp-sdk/es/ae/contract'
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
 import AeppButton from '../../components/aepp-button'
@@ -279,6 +278,11 @@ export default {
         gas: 1000000,
         callData: ''
       },
+
+      /**
+       * Contract Instance
+       */
+      instance: {},
 
       /**
        * Compile Placeholders
@@ -359,11 +363,20 @@ export default {
       this.$wait.start('compiling')
 
       try {
+        // create contract instance
+        Object.assign(
+          this.instance,
+          await this
+          .client
+          .getContractInstance(code)
+        )
+
+        // compile contract
         Object.assign(
           this.compiled,
           await this
-          .client
-          .contractCompile(code)
+          .instance
+          .compile(code)
         )
 
         this.$store.commit('createNotification', {
@@ -416,7 +429,7 @@ export default {
        */
       return this
       .compiled
-      .deploy(Object.assign(this.deployConfig, {
+      .deploy([], Object.assign(this.deployConfig, {
         owner: this.getAccountAddress,
         code: this.editor.getValue()
       }))
@@ -662,9 +675,10 @@ export default {
    */
   async mounted() {
     try {
-      this.client = await Wallet.compose(Contract)({
+      this.client = await Wallet({
         url: this.getNodeUrl,
         internalUrl: this.getNodeInternalUrl,
+        // TODO: Refactor this
         compilerUrl: 'https://compiler.aepps.com',
         accounts: [MemoryAccount({ keypair: this.getAccountKeyPair })],
         address: this.getAccountAddress,
