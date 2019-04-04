@@ -665,6 +665,7 @@ export default {
       this.client = await Wallet.compose(Contract)({
         url: this.getNodeUrl,
         internalUrl: this.getNodeInternalUrl,
+        compilerUrl: 'https://compiler.aepps.com',
         accounts: [MemoryAccount({ keypair: this.getAccountKeyPair })],
         address: this.getAccountAddress,
         onChain: (method, params, {id}) => {
