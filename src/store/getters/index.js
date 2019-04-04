@@ -47,7 +47,7 @@ export default {
   },
 
   /**
-   * Returns the config Node URL
+   * Returns the configs.node URL
    *
    * @param state {Object}
    * @return {String}
@@ -57,7 +57,7 @@ export default {
   },
 
   /**
-   * Returns the config Node Internal URL
+   * Returns the configs.node Internal URL
    *
    * @param state {Object}
    * @return {String}
@@ -67,7 +67,17 @@ export default {
   },
 
   /**
-   * Returns the config Node Network ID
+   * Returns the configs.node Compiler URL
+   *
+   * @param state {Object}
+   * @return {String}
+   */
+  getCompilerUrl(state) {
+    return state.configs.node.compilerUrl
+  },
+
+  /**
+   * Returns the configs.node Network ID
    *
    * @param state {Object}
    * @return {String}

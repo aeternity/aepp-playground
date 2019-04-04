@@ -348,6 +348,7 @@ export default {
       'getAccountKeyPair',
       'getNodeUrl',
       'getNodeInternalUrl',
+      'getCompilerUrl',
       'getNodeNetworkId'
     ]),
   },
@@ -678,8 +679,7 @@ export default {
       this.client = await Wallet({
         url: this.getNodeUrl,
         internalUrl: this.getNodeInternalUrl,
-        // TODO: Refactor this
-        compilerUrl: 'https://compiler.aepps.com',
+        compilerUrl: this.getCompilerUrl,
         accounts: [MemoryAccount({ keypair: this.getAccountKeyPair })],
         address: this.getAccountAddress,
         onChain: (method, params, {id}) => {
