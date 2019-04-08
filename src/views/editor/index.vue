@@ -28,8 +28,12 @@
             <option value="1.0.1">Roma v1.0.1</option>
             <option value="1.0.0">Roma v1.0.0</option>
           </aepp-select>
-          <aepp-button class="w-full" @click.native="compile(editor.getValue())" :disabled="$wait.is('compiling')">
-            <template v-if="$wait.is('compiling')">
+          <aepp-button
+            class="w-full"
+            :disabled="$wait.is(['getContractInstance', 'compile'])"
+            @click.native="compile(editor.getValue())"
+          >
+            <template v-if="$wait.is(['getContractInstance', 'compile'])">
               Compiling...
             </template>
             <template v-else>
@@ -354,17 +358,15 @@ export default {
   },
   methods: {
     /**
-     * Function to compile Contract code
-     * returns byteCode from contract.
+     * A function to create an instance
+     * for the smartContract/source code
      *
-     * @param code {String}
-     * @return {String}
+     * @return {*}
      */
-    async compile(code) {
-      this.$wait.start('compiling')
+    async contract(code) {
+      this.$wait.start('getContractInstance')
 
       try {
-        // create contract instance
         Object.assign(
           this.instance,
           await this
@@ -372,13 +374,42 @@ export default {
           .getContractInstance(code)
         )
 
-        // compile contract
-        Object.assign(
-          this.compiled,
-          await this
-          .instance
-          .compile(code)
-        )
+        this.$wait.end('getContractInstance')
+      } catch (e) {
+        this.$wait.end('getContractInstance')
+
+        return this
+        .$store
+        .commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
+      }
+    },
+
+    /**
+     * Function to compile Contract code
+     * and appends the contract data to $data.compiled
+     *
+     * @param code {String}
+     * @return {*}
+     */
+    async compile(code) {
+      this.$wait.start('compile')
+
+      try {
+        await this.contract(code)
+
+        if (!Object.keys(this.instance.compiled).length) {
+          return this.$store.commit('createNotification', {
+            time: Date.now(),
+            type: 'error',
+            text: 'No instance of the contract found.'
+          })
+        }
+
+        await this.instance.compile()
 
         this.$store.commit('createNotification', {
           time: Date.now(),
@@ -386,9 +417,9 @@ export default {
           text: 'Contract compiled successfully!'
         })
 
-        this.$wait.end('compiling')
+        this.$wait.end('compile')
       } catch (e) {
-        this.$wait.end('compiling')
+        this.$wait.end('compile')
 
         return this
         .$store
@@ -406,9 +437,6 @@ export default {
      * @return {Promise<*>}
      */
     async deploy() {
-      /**
-       * Check if deploy function is available
-       */
       if (typeof this.compiled.deploy !== 'function') {
         return this.$store.commit('createNotification', {
           time: Date.now(),
