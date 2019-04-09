@@ -18,7 +18,7 @@
             Console
           </template>
           <aepp-scrollbar>
-            <code class="aepp-editor-console" >{{ JSON.stringify({ compiled, deployed, callStaticFn, callFunction}, null, 2) }}</code>
+            <code class="aepp-editor-console" >{{ JSON.stringify({ instance, callStaticFn, callFunction}, null, 2) }}</code>
           </aepp-scrollbar>
         </aepp-collapse>
         <div class="aepp-editor-settings">
@@ -30,10 +30,10 @@
           </aepp-select>
           <aepp-button
             class="w-full"
-            :disabled="$wait.is(['getContractInstance', 'compile'])"
+            :disabled="$wait.is(['contract', 'compile'])"
             @click.native="compile(editor.getValue())"
           >
-            <template v-if="$wait.is(['getContractInstance', 'compile'])">
+            <template v-if="$wait.is(['contract', 'compile'])">
               Compiling...
             </template>
             <template v-else>
@@ -56,7 +56,7 @@
               <aepp-input class="mb-2" label="Network ID" :value="getNodeNetworkId" readonly/>
             </form>
           </aepp-collapse>
-          <aepp-collapse name="deploy-contract" :open="Boolean(compiled.bytecode)">
+          <aepp-collapse name="deploy-contract" :open="Boolean(instance.compiled)">
             <template slot="bar">
               Deploy Contract
             </template>
@@ -64,7 +64,7 @@
               <aepp-textarea
                 class="mb-2"
                 label="Byte Code"
-                :value="compiled.bytecode"
+                :value="instance.compiled"
                 readonly
               />
               <aepp-input
@@ -113,8 +113,8 @@
                 value="callData"
                 v-model="deployConfig.callData"
               />
-              <aepp-button type="submit" :disabled="$wait.is('deploying')" extend>
-                <template v-if="$wait.is('deploying')">
+              <aepp-button type="submit" :disabled="$wait.is('deploy')" extend>
+                <template v-if="$wait.is('deploy')">
                   Deploying...
                 </template>
                 <template v-else>
@@ -123,7 +123,7 @@
               </aepp-button>
             </form>
           </aepp-collapse>
-          <aepp-collapse name="call-static" :open="Boolean(deployed.address)">
+          <aepp-collapse name="call-static" :open="contractAddress">
             <template slot="bar">
               Call Static Function
             </template>
@@ -157,7 +157,7 @@
               </aepp-button>
             </form>
           </aepp-collapse>
-          <aepp-collapse name="call-function" :open="Boolean(deployed.address)">
+          <aepp-collapse name="call-function" :open="contractAddress">
             <template slot="bar">
               Call Function
             </template>
@@ -272,6 +272,11 @@ export default {
       editor: null,
 
       /**
+       * Contract Instance
+       */
+      instance: {},
+
+      /**
        * Deploy configuration
        */
       deployConfig: {
@@ -282,23 +287,6 @@ export default {
         gas: 1000000,
         callData: ''
       },
-
-      /**
-       * Contract Instance
-       */
-      instance: {},
-
-      /**
-       * Compile Placeholders
-       */
-      compiled: {
-        bytecode: null
-      },
-
-      /**
-       * After deployed
-       */
-      deployed: {},
 
       /**
        * Data State/store for callStaticFn
@@ -355,6 +343,12 @@ export default {
       'getCompilerUrl',
       'getNodeNetworkId'
     ]),
+    contractAddress() {
+      return Boolean((this.instance
+        && this.instance.deployInfo)
+        && this.instance.deployInfo.address
+      )
+    }
   },
   methods: {
     /**
@@ -364,7 +358,7 @@ export default {
      * @return {*}
      */
     async contract(code) {
-      this.$wait.start('getContractInstance')
+      this.$wait.start('contract')
 
       try {
         Object.assign(
@@ -374,9 +368,9 @@ export default {
           .getContractInstance(code)
         )
 
-        this.$wait.end('getContractInstance')
+        this.$wait.end('contract')
       } catch (e) {
-        this.$wait.end('getContractInstance')
+        this.$wait.end('contract')
 
         return this
         .$store
@@ -401,15 +395,12 @@ export default {
       try {
         await this.contract(code)
 
-        if (!Object.keys(this.instance.compiled).length) {
-          return this.$store.commit('createNotification', {
-            time: Date.now(),
-            type: 'error',
-            text: 'No instance of the contract found.'
-          })
-        }
-
-        await this.instance.compile()
+        Object.assign(
+          this.instance,
+          await this
+          .instance
+          .compile()
+        )
 
         this.$store.commit('createNotification', {
           time: Date.now(),
@@ -437,7 +428,7 @@ export default {
      * @return {Promise<*>}
      */
     async deploy() {
-      if (typeof this.compiled.deploy !== 'function') {
+      if (typeof this.instance.deploy !== 'function') {
         return this.$store.commit('createNotification', {
           time: Date.now(),
           type: 'error',
@@ -445,36 +436,16 @@ export default {
         })
       }
 
-      this.$wait.start('deploying')
+      this.$wait.start('deploy')
 
-      /**
-       * Through the compiled contract code
-       * add the ability to deploy the contract
-       *
-       * - Deploy the contract
-       * - Assign its response to `$data.deployed`
-       * - Reset deploy configuration
-       * - Catch any errors
-       */
       return this
-      .compiled
-      .deploy([], Object.assign(this.deployConfig, {
-        owner: this.getAccountAddress,
-        code: this.editor.getValue()
-      }))
-      .then((deployed) => {
-        /**
-         * Return deployed contract details
-         */
-        Object.assign(this.deployed, deployed)
+      .instance
+      .deploy([], Object
+      .assign(this.deployConfig, {
+        owner: this.getAccountAddress
+      })).then((deployed) => {
+        Object.assign(this.instance, deployed)
 
-        /**
-         * Reset to defaultConfigs. Reasoning behind this
-         * is that, when we callFunctions/Deploy we want to
-         * input different arguments etc...
-         *
-         * TODO: Maybe not a good idea?
-         */
         Object.assign(this.deployConfig, {
           deposit: 0,
           gasPrice: 1000000000,
@@ -483,20 +454,12 @@ export default {
           gas: 1000000,
           callData: ''
         })
-        /**
-         * Reset CallStaticFn when user-redeploys
-         *
-         * TODO: Abstract this into another function
-         */
         Object.assign(this.callStaticFn, {
           functionName: null,
           functionArgs: null,
           fnReturnType: null,
           staticResult: {}
         })
-        /**
-         * Reset callFunction when user-redeploys
-         */
         Object.assign(this.callFunction, {
           functionName: null,
           functionArgs: null,
@@ -505,26 +468,22 @@ export default {
             deposit: 0,
             gasPrice: 1000000000,
             amount: 0,
-            fee: null, // sdk will automatically select this
+            fee: null,
             gas: 1000000,
             callData: ''
           },
           callFnResult: {}
         })
 
-        /**
-         * Notify user contract has deployed
-         */
         this.$store.commit('createNotification', {
           time: Date.now(),
           type: 'success',
-          text: `Contract: ${deployed.address} has been deployed!`
+          text: `Contract: ${deployed.deployInfo.address} has been deployed!`
         })
 
-        this.$wait.end('deploying')
-      })
-      .catch((e) => {
-        this.$wait.end('deploying')
+        this.$wait.end('deploy')
+      }).catch((e) => {
+        this.$wait.end('deploy')
 
         return this.$store.commit('createNotification', {
           time: Date.now(),
@@ -549,19 +508,7 @@ export default {
       this.$wait.start('callStaticFn')
 
       try {
-        response = await this
-        .client
-        .contractCallStatic(
-          /**
-           * Address of the contract
-           */
-          this.deployed.address,
-
-          /**
-           * Type of call
-           */
-          'sophia-address',
-
+        response = await this.instance.call(
           /**
            * Function to call
            */
@@ -570,11 +517,12 @@ export default {
           /**
            * Pass Static Function arguments
            */
-          {
-            args: args.functionArgs ?
-              `(${args.functionArgs})` :
-              '()'
-          }
+          args.functionArgs ? args.functionArgs.split(',') : [],
+
+          /**
+           * Pass CallStatic Options
+           */
+          { callStatic: true }
         )
 
         this.$wait.end('callStaticFn')
@@ -632,7 +580,7 @@ export default {
           /**
            * Address of the contract
            */
-          this.deployed.address,
+          this.instance.deployInfo.address,
 
           /**
            * Function to call
