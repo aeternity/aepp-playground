@@ -18,7 +18,7 @@
             Console
           </template>
           <aepp-scrollbar>
-            <code class="aepp-editor-console" >{{ JSON.stringify({ instance, callStaticFn, callFunction}, null, 2) }}</code>
+            <code class="aepp-editor-console">{{ JSON.stringify({instance, callStaticFn, callFunction}, null, 2) }}</code>
           </aepp-scrollbar>
         </aepp-collapse>
         <div class="aepp-editor-settings">
@@ -52,6 +52,7 @@
               <aepp-input class="mb-2" label="Private Key" :value="getAccountSecretKey" readonly/>
               <aepp-input class="mb-2" label="Public Key" :value="getAccountPublicKey" readonly/>
               <aepp-input class="mb-2" label="Internal URL" :value="getNodeInternalUrl" readonly/>
+              <aepp-input class="mb-2" label="Compiler URL" :value="getCompilerUrl" readonly/>
               <aepp-input class="mb-2" label="URL" :value="getNodeUrl" readonly/>
               <aepp-input class="mb-2" label="Network ID" :value="getNodeNetworkId" readonly/>
             </form>
@@ -131,21 +132,23 @@
               <aepp-input
                 label="Function Name"
                 class="mb-2"
+                placeholder="main"
                 v-model="callStaticFn.functionName"
-                placeholder="function"
+                required
               />
               <aepp-input
                 label="Arguments"
                 class="mb-2"
+                placeholder="Comma separated values"
                 v-model="callStaticFn.functionArgs"
-                placeholder="()"
+                required
               />
               <aepp-input
                 label="Return Type"
                 class="mb-2"
-                v-model="callStaticFn.fnReturnType"
                 placeholder="Sophia Type"
-                value="int"
+                v-model="callStaticFn.fnReturnType"
+                required
               />
               <aepp-button type="submit" :disabled="$wait.is('callStaticFn')" extend>
                 <template v-if="$wait.is('callStaticFn')">
@@ -165,20 +168,23 @@
               <aepp-input
                 label="Function Name"
                 class="mb-2"
-                placeholder="function"
+                placeholder="main"
                 v-model="callFunction.functionName"
+                required
               />
               <aepp-input
                 label="Arguments"
                 class="mb-2"
-                placeholder="()"
+                placeholder="Comma separated values"
                 v-model="callFunction.functionArgs"
+                required
               />
               <aepp-input
                 label="Return Type"
                 class="mb-2"
                 placeholder="Sophia Type"
                 v-model="callFunction.fnReturnType"
+                required
               />
               <aepp-input
                 label="Deposit"
@@ -311,7 +317,7 @@ export default {
           amount: 0,
           fee: null, // sdk will automatically select this
           gas: 1000000,
-          callData: ''
+          callData: '',
         },
         callFnResult: {}
       }
@@ -566,22 +572,7 @@ export default {
       this.$wait.start('callFunction')
 
       try {
-        response = await this.client.contractCall(
-          /**
-           * Contract byte code
-           */
-          this.compiled.bytecode,
-
-          /**
-           * Type of call
-           */
-          'sophia',
-
-          /**
-           * Address of the contract
-           */
-          this.instance.deployInfo.address,
-
+        response = await this.instance.call(
           /**
            * Function to call
            */
@@ -590,22 +581,14 @@ export default {
           /**
            * Pass Static Function arguments
            */
-          {
-            /**
-             * Function Arguments
-             */
-            args: args.functionArgs ?
-              `(${args.functionArgs})` :
-              '()',
+          args.functionArgs ? args.functionArgs.split(',') : [],
 
-            /**
-             * Executor context
-             */
-            options: Object.assign({
-              owner: this.getAccountAddress,
-              code: this.editor.getValue()
-            }, args.callFnConfig)
-          }
+          /**
+           * Pass CallFunction Options
+           */
+          Object.assign(args.callFnConfig, {
+            skipArgsConvert: true
+          })
         )
 
         this.$wait.end('callFunction')

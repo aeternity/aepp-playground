@@ -4,7 +4,6 @@
       {{ label }}
     </span>
     <input
-      type="text"
       class="aepp-input-element"
       @input="propagateEventValue"
       :value="value"
