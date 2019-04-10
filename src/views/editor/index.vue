@@ -317,7 +317,7 @@ export default {
           amount: 0,
           fee: null, // sdk will automatically select this
           gas: 1000000,
-          callData: '',
+          callData: ''
         },
         callFnResult: {}
       }
