@@ -141,8 +141,9 @@ export default {
      * instance.
      */
     node: {
-      internalUrl: process.env.VUE_APP_NODE_INTERNAL_URL,
       url: process.env.VUE_APP_NODE_URL,
+      internalUrl: process.env.VUE_APP_NODE_INTERNAL_URL,
+      compilerUrl: process.env.VUE_APP_COMPILER_URL,
       networkId: process.env.VUE_APP_NODE_NETWORK_ID
     }
   }

@@ -24,6 +24,7 @@ import Aepp from './aepp.vue'
 import store from './store'
 import router from './router'
 import wait from './wait'
+
 import * as editor from './plugins/editor'
 import * as wallet from './plugins/wallet'
 
