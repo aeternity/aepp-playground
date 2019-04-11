@@ -15,20 +15,23 @@ import '@aeternity/aepp-components/dist/ae-icon/ae-icon.css'
  * Import Vue Library
  */
 import Vue from 'vue'
-import Aepp from './aepp.vue'
+import VueBar from 'vuebar'
 
 /**
  * Import local configuration for vue.
  */
+import Aepp from './aepp.vue'
 import store from './store'
 import router from './router'
 import wait from './wait'
+
 import * as editor from './plugins/editor'
 import * as wallet from './plugins/wallet'
 
 /**
  * Install plugins in Vue
  */
+Vue.use(VueBar)
 Vue.use(editor)
 Vue.use(wallet)
 

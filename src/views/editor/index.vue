@@ -13,22 +13,27 @@
           :value="require('!raw-loader!../../assets/templates/identity.aes')"
         />
         <!-- TODO: Work on the console -->
-        <aepp-collapse v-if="false">
+        <aepp-collapse name="console">
           <template slot="bar">
             Console
           </template>
-          <code class="aepp-editor-console">
-            {{ this.compiled }}
-          </code>
+          <aepp-scrollbar>
+            <code class="aepp-editor-console">{{ JSON.stringify({instance, callStaticFn, callFunction}, null, 2) }}</code>
+          </aepp-scrollbar>
         </aepp-collapse>
         <div class="aepp-editor-settings">
-          <aepp-select class="w-5/6 mr-2" style="display: none; visibility: hidden;" label="Compiler Version">
+          <!-- TODO: Compiler Selection is hidden, work on fixing it later -->
+          <aepp-select class="w-5/6 mr-2" label="Compiler Version" v-if="false">
             <option value="1.0.2">Roma v1.0.2</option>
             <option value="1.0.1">Roma v1.0.1</option>
             <option value="1.0.0">Roma v1.0.0</option>
           </aepp-select>
-          <aepp-button class="w-full" @click.native="compile(editor.getValue())" :disabled="$wait.is('compiling')">
-            <template v-if="$wait.is('compiling')">
+          <aepp-button
+            class="w-full"
+            :disabled="$wait.is(['contract', 'compile'])"
+            @click.native="compile(editor.getValue())"
+          >
+            <template v-if="$wait.is(['contract', 'compile'])">
               Compiling...
             </template>
             <template v-else>
@@ -38,8 +43,8 @@
         </div>
       </aepp-views>
       <aepp-sidebar>
-        <aepp-accordion>
-          <aepp-collapse opened>
+        <aepp-scrollbar>
+          <aepp-collapse name="configs">
             <template slot="bar">
               Configs Details
             </template>
@@ -47,11 +52,12 @@
               <aepp-input class="mb-2" label="Private Key" :value="getAccountSecretKey" readonly/>
               <aepp-input class="mb-2" label="Public Key" :value="getAccountPublicKey" readonly/>
               <aepp-input class="mb-2" label="Internal URL" :value="getNodeInternalUrl" readonly/>
+              <aepp-input class="mb-2" label="Compiler URL" :value="getCompilerUrl" readonly/>
               <aepp-input class="mb-2" label="URL" :value="getNodeUrl" readonly/>
               <aepp-input class="mb-2" label="Network ID" :value="getNodeNetworkId" readonly/>
             </form>
           </aepp-collapse>
-          <aepp-collapse v-if="compiled.bytecode">
+          <aepp-collapse name="deploy-contract" :open="Boolean(instance.compiled)">
             <template slot="bar">
               Deploy Contract
             </template>
@@ -59,7 +65,7 @@
               <aepp-textarea
                 class="mb-2"
                 label="Byte Code"
-                :value="compiled.bytecode"
+                :value="instance.compiled"
                 readonly
               />
               <aepp-input
@@ -108,8 +114,8 @@
                 value="callData"
                 v-model="deployConfig.callData"
               />
-              <aepp-button type="submit" :disabled="$wait.is('deploying')" extend>
-                <template v-if="$wait.is('deploying')">
+              <aepp-button type="submit" :disabled="$wait.is('deploy')" extend>
+                <template v-if="$wait.is('deploy')">
                   Deploying...
                 </template>
                 <template v-else>
@@ -118,7 +124,123 @@
               </aepp-button>
             </form>
           </aepp-collapse>
-        </aepp-accordion>
+          <aepp-collapse name="call-static" :open="contractAddress">
+            <template slot="bar">
+              Call Static Function
+            </template>
+            <form @submit.prevent="() => onCallStaticFn(callStaticFn)" class="pl-2 pr-2 pb-2">
+              <aepp-input
+                label="Function Name"
+                class="mb-2"
+                placeholder="main"
+                v-model="callStaticFn.functionName"
+                required
+              />
+              <aepp-input
+                label="Arguments"
+                class="mb-2"
+                placeholder="Comma separated values"
+                v-model="callStaticFn.functionArgs"
+                required
+              />
+              <aepp-input
+                label="Return Type"
+                class="mb-2"
+                placeholder="Sophia Type"
+                v-model="callStaticFn.fnReturnType"
+                required
+              />
+              <aepp-button type="submit" :disabled="$wait.is('callStaticFn')" extend>
+                <template v-if="$wait.is('callStaticFn')">
+                  Calling...
+                </template>
+                <template v-else>
+                  Call Static
+                </template>
+              </aepp-button>
+            </form>
+          </aepp-collapse>
+          <aepp-collapse name="call-function" :open="contractAddress">
+            <template slot="bar">
+              Call Function
+            </template>
+            <form @submit.prevent="() => onCallFunction(callFunction)" class="pl-2 pr-2 pb-2">
+              <aepp-input
+                label="Function Name"
+                class="mb-2"
+                placeholder="main"
+                v-model="callFunction.functionName"
+                required
+              />
+              <aepp-input
+                label="Arguments"
+                class="mb-2"
+                placeholder="Comma separated values"
+                v-model="callFunction.functionArgs"
+                required
+              />
+              <aepp-input
+                label="Return Type"
+                class="mb-2"
+                placeholder="Sophia Type"
+                v-model="callFunction.fnReturnType"
+                required
+              />
+              <aepp-input
+                label="Deposit"
+                class="mb-2"
+                type="number"
+                min="0"
+                placeholder="deposit"
+                v-model.number="callFunction.callFnConfig.deposit"
+              />
+              <aepp-input
+                label="Gas Price"
+                class="mb-2"
+                type="number"
+                min="1000000"
+                placeholder="gas price"
+                v-model.number="callFunction.callFnConfig.gasPrice"
+              />
+              <aepp-input
+                label="Amount"
+                class="mb-2"
+                type="number"
+                min="0"
+                placeholder="amount"
+                v-model.number="callFunction.callFnConfig.amount"
+              />
+              <aepp-input
+                label="Fee"
+                class="mb-2"
+                type="number"
+                placeholder="auto"
+                v-model.number="callFunction.callFnConfig.fee"
+              />
+              <aepp-input
+                label="Gas Limit"
+                class="mb-2"
+                type="number"
+                min="0"
+                placeholder="gas"
+                v-model.number="callFunction.callFnConfig.gas"
+              />
+
+              <!-- Hidden input -->
+              <input v-model="callFunction.callFnConfig.callData" type="hidden" value="callData">
+
+              <!-- Submit Button -->
+              <aepp-button type="submit" :disabled="$wait.is('callFunction')" extend>
+                <template v-if="$wait.is('callFunction')">
+                  Calling...
+                </template>
+                <template v-else>
+                  Call Function
+                </template>
+              </aepp-button>
+            </form>
+          </aepp-collapse>
+        </aepp-scrollbar>
       </aepp-sidebar>
     </div>
   </aepp-views>
@@ -127,15 +249,14 @@
 import { mapState, mapGetters } from 'vuex'
 import MemoryAccount from '@aeternity/aepp-sdk/es/account/memory'
 import Wallet from '@aeternity/aepp-sdk/es/ae/wallet'
-import Contract from '@aeternity/aepp-sdk/es/ae/contract'
 import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
-import AeppAccordion from '../../components/aepp-accordion'
 import AeppButton from '../../components/aepp-button'
 import AeppCollapse from '../../components/aepp-collapse'
 import AeppEditor from '../../components/aepp-editor'
 import AeppInput from '../../components/aepp-input'
 import AeppSelect from '../../components/aepp-select'
+import AeppScrollbar from '../../components/aepp-scrollbar'
 import AeppTextarea from '../../components/aepp-textarea'
 
 import AeppSidebar from '../../sections/aepp-sidebar'
@@ -157,6 +278,11 @@ export default {
       editor: null,
 
       /**
+       * Contract Instance
+       */
+      instance: {},
+
+      /**
        * Deploy configuration
        */
       deployConfig: {
@@ -169,26 +295,42 @@ export default {
       },
 
       /**
-       * Compile Placeholders
+       * Data State/store for callStaticFn
        */
-      compiled: {
-        bytecode: null
+      callStaticFn: {
+        functionName: null,
+        functionArgs: null,
+        fnReturnType: null,
+        staticResult: {}
       },
 
       /**
-       * After deployed
+       * Data State/store for function calls
        */
-      deployed: {}
+      callFunction: {
+        functionName: null,
+        functionArgs: null,
+        fnReturnType: null,
+        callFnConfig: {
+          deposit: 0,
+          gasPrice: 1000000000,
+          amount: 0,
+          fee: null, // sdk will automatically select this
+          gas: 1000000,
+          callData: ''
+        },
+        callFnResult: {}
+      }
     }
   },
   components: {
     AeIcon,
-    AeppAccordion,
     AeppButton,
     AeppCollapse,
     AeppEditor,
     AeppInput,
     AeppSelect,
+    AeppScrollbar,
     AeppTextarea,
     AeppSidebar,
     AeppToolbar,
@@ -204,32 +346,78 @@ export default {
       'getAccountKeyPair',
       'getNodeUrl',
       'getNodeInternalUrl',
+      'getCompilerUrl',
       'getNodeNetworkId'
     ]),
+    contractAddress() {
+      return Boolean((this.instance
+        && this.instance.deployInfo)
+        && this.instance.deployInfo.address
+      )
+    }
   },
   methods: {
     /**
-     * Function to compile Contract code
-     * returns byteCode from contract.
+     * A function to create an instance
+     * for the smartContract/source code
      *
-     * @param code {String}
-     * @return {String}
+     * @return {*}
      */
-    async compile(code) {
-      /**
-       * Start Vue Wait loading
-       */
-      this.$wait.start('compiling')
+    async contract(code) {
+      this.$wait.start('contract')
 
       try {
-        Object.assign(this.compiled, await this.client.contractCompile(code))
+        Object.assign(
+          this.instance,
+          await this
+          .client
+          .getContractInstance(code)
+        )
 
-        /**
-         * End load waiting after completion
-         */
-        this.$wait.end('compiling')
+        this.$wait.end('contract')
       } catch (e) {
-        this.$wait.end('compiling')
+        this.$wait.end('contract')
+
+        return this
+        .$store
+        .commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
+      }
+    },
+
+    /**
+     * Function to compile Contract code
+     * and appends the contract data to $data.compiled
+     *
+     * @param code {String}
+     * @return {*}
+     */
+    async compile(code) {
+      this.$wait.start('compile')
+
+      try {
+        await this.contract(code)
+
+        Object.assign(
+          this.instance,
+          await this
+          .instance
+          .compile()
+        )
+
+        this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'success',
+          text: 'Contract compiled successfully!'
+        })
+
+        this.$wait.end('compile')
+      } catch (e) {
+        this.$wait.end('compile')
+
         return this
         .$store
         .commit('createNotification', {
@@ -246,10 +434,7 @@ export default {
      * @return {Promise<*>}
      */
     async deploy() {
-      /**
-       * Check if deploy function is available
-       */
-      if (typeof this.compiled.deploy !== 'function') {
+      if (typeof this.instance.deploy !== 'function') {
         return this.$store.commit('createNotification', {
           time: Date.now(),
           type: 'error',
@@ -257,65 +442,181 @@ export default {
         })
       }
 
-      /**
-       * Start Vue Wait loading
-       */
-      this.$wait.start('deploying')
+      this.$wait.start('deploy')
 
-      /**
-       * Through the compiled contract code
-       * add the ability to deploy the contract
-       *
-       * - Deploy the contract
-       * - Assign its response to `$data.deployed`
-       * - Reset deploy configuration
-       * - Catch any errors
-       */
-      try {
-        return this
-        .compiled
-        .deploy(Object.assign(this.deployConfig, {
-          owner: this.getAccountAddress,
-          code: this.editor.getValue()
-        }))
-        .then((deployed) => {
-          /**
-           * Return deployed contract details
-           */
-          Object.assign(this.deployed, deployed)
+      return this
+      .instance
+      .deploy([], Object
+      .assign(this.deployConfig, {
+        owner: this.getAccountAddress
+      })).then((deployed) => {
+        Object.assign(this.instance, deployed)
 
-          /**
-           * Reset to defaultConfigs. Reasoning behind this
-           * is that, when we callFunctions/Deploy we want to
-           * input different arguments etc...
-           *
-           * TODO: Maybe not a good idea?
-           */
-          Object.assign(this.deployConfig, {
+        Object.assign(this.deployConfig, {
+          deposit: 0,
+          gasPrice: 1000000000,
+          amount: 0,
+          fee: null,
+          gas: 1000000,
+          callData: ''
+        })
+        Object.assign(this.callStaticFn, {
+          functionName: null,
+          functionArgs: null,
+          fnReturnType: null,
+          staticResult: {}
+        })
+        Object.assign(this.callFunction, {
+          functionName: null,
+          functionArgs: null,
+          fnReturnType: null,
+          callFnConfig: {
             deposit: 0,
             gasPrice: 1000000000,
             amount: 0,
             fee: null,
             gas: 1000000,
             callData: ''
-          })
+          },
+          callFnResult: {}
+        })
+
+        this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'success',
+          text: `Contract: ${deployed.deployInfo.address} has been deployed!`
+        })
+
+        this.$wait.end('deploy')
+      }).catch((e) => {
+        this.$wait.end('deploy')
+
+        return this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
+      })
+    },
+
+    /**
+     * Call a contract static function given:
+     *
+     * @param args.functionName {String}
+     * @param args.functionArgs {String}
+     * @param args.fnReturnType {String}
+     *
+     * @return {Object}
+     */
+    async onCallStaticFn(args) {
+      let response
+
+      this.$wait.start('callStaticFn')
+
+      try {
+        response = await this.instance.call(
+          /**
+           * Function to call
+           */
+          args.functionName,
 
           /**
-           * Notify user contract has deployed
+           * Pass Static Function arguments
            */
-          this.$store.commit('createNotification', {
-            time: Date.now(),
-            type: 'success',
-            text: `Contract: ${deployed.address} has been deployed!`
-          })
+          args.functionArgs ? args.functionArgs.split(',') : [],
 
           /**
-           * End load waiting after completion
+           * Pass CallStatic Options
            */
-          this.$wait.end('deploying')
+          { callStatic: true }
+        )
+
+        this.$wait.end('callStaticFn')
+      } catch (e) {
+        this.$wait.end('callStaticFn')
+
+        return this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
+      }
+
+      /**
+       * Results of the Static call
+       *
+       * @return {Object}.decode
+       * @return {Object}.result
+       */
+      try {
+        this.$set(this.callStaticFn, 'staticResult', {
+          decode: await response.decode(args.fnReturnType),
+          result: response.result
         })
       } catch (e) {
-        this.$wait.end('deploying')
+        return this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
+      }
+    },
+
+    /**
+     * Return the result of the function
+     * call to the smart contract
+     */
+    async onCallFunction(args) {
+      let response
+
+      this.$wait.start('callFunction')
+
+      try {
+        response = await this.instance.call(
+          /**
+           * Function to call
+           */
+          args.functionName,
+
+          /**
+           * Pass Static Function arguments
+           */
+          args.functionArgs ? args.functionArgs.split(',') : [],
+
+          /**
+           * Pass CallFunction Options
+           */
+          Object.assign(args.callFnConfig, {
+            skipArgsConvert: true
+          })
+        )
+
+        this.$wait.end('callFunction')
+      } catch (e) {
+        this.$wait.end('callFunction')
+
+        return this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: e.message
+        })
+      }
+
+      /**
+       * Results of the call
+       *
+       * @return {Object}.decode
+       * @return {Object}.result
+       */
+      try {
+        this.$set(this.callFunction, 'callFnResult', {
+          decode: await this.client.contractDecodeData(
+            args.fnReturnType,
+            response.result.returnValue
+          ),
+          result: response.result
+        })
+      } catch (e) {
         return this.$store.commit('createNotification', {
           time: Date.now(),
           type: 'error',
@@ -334,9 +635,10 @@ export default {
    */
   async mounted() {
     try {
-      this.client = await Wallet.compose(Contract)({
+      this.client = await Wallet({
         url: this.getNodeUrl,
         internalUrl: this.getNodeInternalUrl,
+        compilerUrl: this.getCompilerUrl,
         accounts: [MemoryAccount({ keypair: this.getAccountKeyPair })],
         address: this.getAccountAddress,
         onChain: (method, params, {id}) => {
@@ -397,20 +699,27 @@ export default {
 }
 
 .aepp-editor-console {
-  // TODO: this does not work
   @apply flex;
-  @apply flex-auto;
+  @apply flex-no-grow;
   @apply flex-shrink;
-  @apply flex-grow;
-  @apply text-white;
-  @apply bg-black;
   @apply whitespace-pre-wrap;
-  @apply break-words;
-  @apply p-3;
+  @apply text-neutral;
+  @apply bg-custom-black;
   @apply w-full;
-  @apply overflow-hidden;
+  @apply p-3;
+  @apply overflow-x-hidden;
+  @apply overflow-y-auto;
 
   overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+  hyphens: auto;
+
+  width: 100%;
+  font-size: rem(12px);
+  min-height: 369px;
+  max-height: 500px;
+  max-width: 100%;
 }
 
 .aepp-editor-settings {

@@ -1,0 +1,41 @@
+/**
+ * This is the `vue-bar` package css.
+ *
+ * We locally import this to apply the
+ * styles for the scroll bar.
+ */
+
+.vb > .vb-dragger {
+  width: 16px;
+  right: 0;
+  z-index: 5;
+}
+
+.vb > .vb-dragger > .vb-dragger-styler {
+  display: block;
+  background-color: rgba(121, 121, 121, .2);
+  margin: 2px;
+  border-radius: 0;
+  height: calc(100% - 4px);
+  transform: rotate3d(0, 0, 0, 0);
+  transition: background-color 100ms ease-out,
+              margin 100ms ease-out,
+              height 100ms ease-out;
+  backface-visibility: hidden;
+}
+
+.vb.vb-scrolling-phantom > .vb-dragger > .vb-dragger-styler {
+  background-color: rgba(121, 121, 121, 0.4);
+}
+
+.vb > .vb-dragger:hover > .vb-dragger-styler {
+  background-color: rgba(121, 121, 121, 0.6);
+}
+
+.vb.vb-dragging > .vb-dragger > .vb-dragger-styler {
+  background-color: rgba(121, 121, 121, 0.6);
+}
+
+.vb.vb-dragging-phantom > .vb-dragger > .vb-dragger-styler {
+  background-color: rgba(121, 121, 121, 0.6);
+}

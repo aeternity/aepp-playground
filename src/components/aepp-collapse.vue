@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" class="aepp-collapse" :class="[{ opened }]">
+  <div :id="id" class="aepp-collapse" :class="[{ visible }]">
     <div class="aepp-collapse-bar" @click="toggle">
       <ae-icon name="left-more"/>
       <slot name="bar"/>
@@ -14,28 +14,51 @@ import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
 
 export default {
   name: 'aepp-collapse',
-  data: function () {
-    return { opened: false }
-  },
-  props: {
-    id: String
-  },
   components: {
     AeIcon
   },
+  data: function () {
+    return { visible: false }
+  },
+  props: {
+    name: {
+      type: String,
+      required: true
+    },
+    open: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    id() {
+      return this
+      .name
+      .replace(/\s+/g, '-')
+      .toLowerCase()
+    }
+  },
   methods: {
     toggle() {
-      this.opened = !this.opened
+      const toggleVisibility = !this.visible
+      this.visible = toggleVisibility
+      this.$emit('toggle', {
+        name: this.name,
+        visible: toggleVisibility
+      })
     }
   },
   watch: {
-    opened(opened) {
-      this.$emit('toggle', { id: this.id, opened })
+    open() {
+      this.visible = this.open
     }
   },
   mounted() {
-    this.$emit('init', { id: this.id, opened: this.opened })
-  },
+    this.$emit('init', {
+      name: this.name,
+      visible: this.visible
+    })
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -43,11 +66,11 @@ export default {
   @apply flex;
   @apply flex-col;
 
-  &.opened > .aepp-collapse-container {
+  &.visible > .aepp-collapse-container {
     @apply flex;
     @apply visible;
   }
-  &.opened .aepp-collapse-bar > .ae-icon {
+  &.visible .aepp-collapse-bar > .ae-icon {
     transform: rotate(90deg);
   }
 }
@@ -59,13 +82,13 @@ export default {
   @apply items-center;
   @apply w-full;
   @apply font-sans;
+  @apply text-neutral-positive-2;
   @apply pl-3;
   @apply pr-3;
   @apply cursor-pointer;
   @apply uppercase;
   @apply select-none;
 
-  color: #EDF3F7;
   font-size: rem(10px);
   height: 42px;
   background: #343746;
