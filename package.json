@@ -3,11 +3,6 @@
   "name": "aepp-playground",
   "version": "0.1.0",
   "scripts": {
-    "tailwind": "npx tailwind build ./src/assets/styles/tailwind.css -o ./public/output.css -c ./tailwind.js",
-    "faucet": "node -r esm ./faucet/index.js",
-    "example": "cd examples && npm run serve",
-    "node:up": "docker-compose up -d",
-    "node:down": "docker-compose down -v",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
