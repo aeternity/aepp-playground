@@ -69,6 +69,19 @@
                 readonly
               />
               <aepp-input
+                label="Function Name"
+                class="mb-2"
+                placeholder="init"
+                v-model="deployInit.name"
+                readonly
+              />
+              <aepp-input
+                label="Arguments"
+                class="mb-2"
+                placeholder="Comma separated values"
+                v-model="deployInit.args"
+              />
+              <aepp-input
                 class="mb-2"
                 label="Deposit"
                 type="number"
@@ -141,7 +154,6 @@
                 class="mb-2"
                 placeholder="Comma separated values"
                 v-model="callStaticFn.functionArgs"
-                required
               />
               <aepp-input
                 label="Return Type"
@@ -177,7 +189,6 @@
                 class="mb-2"
                 placeholder="Comma separated values"
                 v-model="callFunction.functionArgs"
-                required
               />
               <aepp-input
                 label="Return Type"
@@ -281,6 +292,15 @@ export default {
        * Contract Instance
        */
       instance: {},
+
+      /**
+       * Deploy `init` construct function
+       * configuration details
+       */
+      deployInit: {
+        name: 'init',
+        args: null
+      },
 
       /**
        * Deploy configuration
@@ -446,7 +466,7 @@ export default {
 
       return this
       .instance
-      .deploy([], Object
+      .deploy(this.deployInit.args ? this.deployInit.args.split(',') : [], Object
       .assign(this.deployConfig, {
         owner: this.getAccountAddress
       })).then((deployed) => {
