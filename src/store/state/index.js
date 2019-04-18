@@ -128,7 +128,7 @@ export default {
      * set up globally in the entire aepp.
      */
     account: {
-      address: process.env.VUE_APP_ACC_PUBLIC_KEY,
+      address: process.env.VUE_APP_ACCOUNT_PUBLIC_KEY,
       keypair: {
         secretKey: process.env.VUE_APP_ACCOUNT_SECRET_KEY,
         publicKey: process.env.VUE_APP_ACCOUNT_PUBLIC_KEY
