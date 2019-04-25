@@ -16,9 +16,7 @@
           <template slot="bar">
             Terminal
           </template>
-          <div class="aepp-editor-terminal">
-            <aepp-terminal />
-          </div>
+          <aepp-terminal/>
         </aepp-collapse>
         <div class="aepp-editor-settings">
           <!-- TODO: Compiler Selection is hidden, work on fixing it later -->
@@ -706,10 +704,6 @@ export default {
   @apply w-full;
   @apply h-full;
   @apply overflow-hidden;
-}
-
-.aepp-editor-terminal {
-  height: 369px;
 }
 
 .aepp-editor-settings {

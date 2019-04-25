@@ -24,6 +24,6 @@ export default {
    * @param {*} line
    */
   createLine(state, line) {
-    state.lines.push(`# ${line}`)
+    state.lines.push(`~ ${line}`)
   }
 }

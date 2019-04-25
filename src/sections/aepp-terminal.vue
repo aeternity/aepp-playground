@@ -30,7 +30,19 @@ Terminal.applyAddon(fit)
  */
 export default {
   name: 'aepp-terminal',
-  data: () => ({ terminal: null }),
+  data: function () {
+    return {
+      terminal: null,
+      defaultOptions: {
+        cursorBlink: true,
+        disableStdin: true,
+        fontSize: 13,
+        theme: {
+          background: '#191A21'
+        }
+      }
+    }
+  },
   computed: {
     ...mapState('terminal', [
       'lines',
@@ -39,19 +51,25 @@ export default {
   },
   watch: {
     visible(isVisible) {
-      return setTimeout(() => {
-        if (isVisible) {
-          this.terminal.open(this.$el)
-          this.terminal.fit()
-          this.terminal.refresh(0, this.terminal.rows - 1)
-          this.terminal.focus()
-        } else {
-          this.terminal.destroy()
-        }
-      }, 0)
+      if (isVisible) {
+        this.terminal.open(this.$el)
+
+        Object.keys(this.defaultOptions)
+              .forEach((key) => this
+              .terminal
+              .setOption(key, this.defaultOptions[key]))
+
+        this.terminal.fit()
+        this.terminal.refresh(0, this.terminal.rows - 1)
+        this.terminal.focus()
+      } else {
+        this.terminal.destroy()
+      }
     },
     lines(lines) {
+      console.log(lines)
       this.terminal.writeln(lines[lines.length - 1])
+      this.terminal.scrollToBottom()
     }
   },
   mounted() {
@@ -60,6 +78,7 @@ export default {
      * @type {module:xterm.Terminal}
      */
     if (!this.terminal) this.terminal = new Terminal({
+      ...this.defaultOptions,
       rows: 10,
       cols: 10
     })
@@ -92,7 +111,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .aepp-terminal {
-  @apply w-full;
-  @apply h-full;
+  @apply m-2;
+
+  height: 369px;
 }
 </style>
