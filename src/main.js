@@ -26,14 +26,12 @@ import router from './router'
 import wait from './wait'
 
 import * as editor from './plugins/editor'
-import * as wallet from './plugins/wallet'
 
 /**
  * Install plugins in Vue
  */
 Vue.use(VueBar)
 Vue.use(editor)
-Vue.use(wallet)
 
 /**
  * Export Aepp-Playground Instance

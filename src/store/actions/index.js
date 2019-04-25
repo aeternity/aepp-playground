@@ -1,8 +1,11 @@
 /**
  * Importing Global Libraries
+ *
+ * @example
+ *
+ * import Wallet from '@aeternity/aepp-sdk/es/ae/wallet'
+ *
  */
-import axios from 'axios'
-import Wallet from '@aeternity/aepp-sdk/es/ae/wallet'
 
 /**
  * Actions are asynchronous methods/functions that interact
@@ -35,18 +38,13 @@ import Wallet from '@aeternity/aepp-sdk/es/ae/wallet'
  */
 export default {
   /**
-   * Top-up an account with AE.
-   * @param context {Object}
-   * @param address {String}
-   * @return {Promise<void>}
+   * Example Store Action
+   * @param {Object} state
+   * @param {Function} commit
+   * @param {*} args
+   * @return {Promise<any>}
    */
-  async postFaucet ({ state }, address) {
-    return await axios.post(`${state.faucet}/account/${address}`)
-  },
-  async getAccount ({ commit }, address) {},
-  async getAccountBalance () {},
-  async getTransaction () {},
-  async getTransactions () {},
-  async postTransaction () {},
-  async postTransactions () {}
+  async getExampleFunction({ state, commit }, args) {
+    return Promise.resolve({ state, commit, args })
+  }
 }
