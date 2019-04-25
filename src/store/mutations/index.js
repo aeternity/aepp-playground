@@ -37,48 +37,6 @@ export default {
   },
 
   /**
-   * Updates the faucet url endpoint
-   * @param state {Object}
-   * @param url {String}
-   */
-  updateFaucet(state, url) {
-    state.faucet = url
-  },
-
-  /**
-   * Creates / Inserts an account into the accounts array
-   * @param state {Object}
-   * @param account {Object}
-   */
-  createAccount(state, account) {
-    state.accounts.push(account)
-  },
-
-  /**
-   * Updates account based on the address
-   * @param state {Object}
-   * @param updatedAccount {Object}
-   */
-  updateAccount(state, updatedAccount) {
-    state.accounts = state.accounts.map(
-      (account) => updatedAccount.address === account.address ?
-        Object.assign(account, updatedAccount) :
-        account
-    )
-  },
-
-  /**
-   * Deletes an account from the accounts array list
-   * @param state {Object}
-   * @param address {String}
-   */
-  deleteAccount(state, address) {
-    state.accounts = state.accounts.filter(
-      (account) => account.address !== address
-    )
-  },
-
-  /**
    * Updates the config values
    * @param state {Object}
    * @param configs {Object}

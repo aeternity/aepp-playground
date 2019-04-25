@@ -19,60 +19,6 @@ export default {
   name: 'aepp-playground',
 
   /**
-   * Endpoint of the faucet.
-   *
-   * - http://localhost:9090
-   * - https://testnet.faucet.aepps.com
-   * - https://edge-faucet.aepps.com
-   *
-   * @param faucet {String}
-   */
-  faucet: 'http://localhost:9090',
-
-  /**
-   * The default account being used to interact with
-   * the blockchain
-   * @param account {Object}
-   * @param account.address {String}
-   * @param account.keypair {Object}
-   * @param account.keypair.privateKey {String}
-   * @param account.keypair.publicKey {String}
-   */
-  account: {
-    /**
-     * Address of the account
-     */
-    address: String,
-
-    /**
-     * Public & private key of the account
-     */
-    keypair: {
-      privateKey: String,
-      publicKey: String
-    }
-  },
-
-  /**
-   * List of aeternity accounts
-   * @param {Array}
-   */
-  accounts: [{
-    /**
-     * Address of the account
-     */
-    address: String,
-
-    /**
-     * Public & private key of the account
-     */
-    keypair: {
-      pubKey: String,
-      privKey: String
-    }
-  }],
-
-  /**
    * List of notifications thrown by the application
    *
    * @param notifications [Object]
@@ -81,27 +27,6 @@ export default {
    * @param notifications.text {String}
    */
   notifications: [],
-
-  /**
-   * List of Guard Actions:
-   * - onTx
-   * - onChain
-   * - onAccount
-   * - onContract
-   */
-  guards: [],
-
-  /**
-   * List of raw outputs:
-   * - API Errors
-   * - API Response
-   *
-   * @param console {Array}
-   * @param console[index].time {String}
-   * @param console[index].type {String}
-   * @param console[index].text {String}
-   */
-  console: [],
 
   /**
    * Global Playground Configuration Object

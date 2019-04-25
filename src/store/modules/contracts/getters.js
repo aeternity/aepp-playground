@@ -1,4 +1,0 @@
-/**
- * Exporting Getters
- */
-export default {}

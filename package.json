@@ -10,7 +10,6 @@
   "dependencies": {
     "@aeternity/aepp-components": "git+https://github.com/aeternity/aepp-components.git#develop",
     "@aeternity/aepp-sdk": "^2.4.1",
-    "axios": "^0.18.0",
     "monaco-editor": "^0.15.6",
     "normalize.css": "^8.0.1",
     "vue": "^2.6.10",
