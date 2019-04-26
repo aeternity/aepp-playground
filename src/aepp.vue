@@ -2,7 +2,7 @@
   <div id="aepp" class="aepp-container">
     <!-- Notifications -->
     <aepp-notification :type="n.type" visible v-for="(n, i) in notifications" :key="i">
-      {{ i }} - {{ n.text }}
+      {{ n.text }}
       <button type="button" class="text-white" @click="deleteNotification(i)">
         <ae-icon name="close"/>
       </button>

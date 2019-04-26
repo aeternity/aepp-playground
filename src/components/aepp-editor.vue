@@ -111,7 +111,7 @@ export default {
     /**
      * Watch the value property change
      */
-    value (newValue) {
+    value(newValue) {
       if (this.instance) {
         if (newValue !== this.instance.getValue()) {
           this.instance.setValue(newValue)
