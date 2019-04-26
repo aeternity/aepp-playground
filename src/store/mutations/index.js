@@ -1,8 +1,7 @@
 /**
  * Mutations directly modify the Vuex state.
  * The API/Interface for the functions need to follow
- * the following guidelines when adding more
- * functionality.
+ * the current guidelines when adding more functionality.
  *
  * Each function has one of the following prefixes:
  * - create // When you're adding/creating new data

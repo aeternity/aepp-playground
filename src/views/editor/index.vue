@@ -12,14 +12,11 @@
           @init="(e) => this.editor = e"
           :value="require('!raw-loader!../../assets/templates/identity.aes')"
         />
-        <!-- TODO: Work on the console -->
-        <aepp-collapse name="console">
+        <aepp-collapse @init="onTerminalOpen" @toggle="onTerminalOpen" name="terminal">
           <template slot="bar">
-            Console
+            Terminal
           </template>
-          <aepp-scrollbar>
-            <code class="aepp-editor-console">{{ JSON.stringify({instance, callStaticFn, callFunction}, null, 2) }}</code>
-          </aepp-scrollbar>
+          <aepp-terminal/>
         </aepp-collapse>
         <div class="aepp-editor-settings">
           <!-- TODO: Compiler Selection is hidden, work on fixing it later -->
@@ -271,6 +268,7 @@ import AeppScrollbar from '../../components/aepp-scrollbar'
 import AeppTextarea from '../../components/aepp-textarea'
 
 import AeppSidebar from '../../sections/aepp-sidebar'
+import AeppTerminal from '../../sections/aepp-terminal'
 import AeppToolbar from '../../sections/aepp-toolbar'
 import AeppToolbarTab from '../../sections/aepp-toolbar-tab'
 import AeppViews from '../../sections/aepp-views'
@@ -353,6 +351,7 @@ export default {
     AeppScrollbar,
     AeppTextarea,
     AeppSidebar,
+    AeppTerminal,
     AeppToolbar,
     AeppToolbarTab,
     AeppViews
@@ -378,6 +377,16 @@ export default {
   },
   methods: {
     /**
+     * Then the collapse component opens,
+     * execute and run the Terminal
+     *
+     * @param {Object} event
+     */
+    onTerminalOpen(event) {
+      this.$store.commit('terminal/toggleVisible', event.visible)
+    },
+
+    /**
      * A function to create an instance
      * for the smartContract/source code
      *
@@ -400,11 +409,7 @@ export default {
 
         return this
         .$store
-        .commit('createNotification', {
-          time: Date.now(),
-          type: 'error',
-          text: e.message
-        })
+        .commit('terminal/createLine', e.message)
       }
     },
 
@@ -440,11 +445,7 @@ export default {
 
         return this
         .$store
-        .commit('createNotification', {
-          time: Date.now(),
-          type: 'error',
-          text: e.message
-        })
+        .commit('terminal/createLine', e.message)
       }
     },
 
@@ -455,11 +456,12 @@ export default {
      */
     async deploy() {
       if (typeof this.instance.deploy !== 'function') {
-        return this.$store.commit('createNotification', {
-          time: Date.now(),
-          type: 'error',
-          text: 'You dont seem to have compiled the contract, please try again...'
-        })
+        return this
+        .$store
+        .commit(
+          'terminal/createLine',
+          'You dont seem to have compiled the contract, please try again...'
+        )
       }
 
       this.$wait.start('deploy')
@@ -501,21 +503,17 @@ export default {
           callFnResult: {}
         })
 
-        this.$store.commit('createNotification', {
-          time: Date.now(),
-          type: 'success',
-          text: `Contract: ${deployed.deployInfo.address} has been deployed!`
-        })
+        this
+        .$store
+        .commit('terminal/createLine', `Contract: ${deployed.deployInfo.address} has been deployed!`)
 
         this.$wait.end('deploy')
       }).catch((e) => {
         this.$wait.end('deploy')
 
-        return this.$store.commit('createNotification', {
-          time: Date.now(),
-          type: 'error',
-          text: e.message
-        })
+        return this
+        .$store
+        .commit('terminal/createLine', e.message)
       })
     },
 
@@ -555,11 +553,9 @@ export default {
       } catch (e) {
         this.$wait.end('callStaticFn')
 
-        return this.$store.commit('createNotification', {
-          time: Date.now(),
-          type: 'error',
-          text: e.message
-        })
+        return this
+        .$store
+        .commit('terminal/createLine', e.message)
       }
 
       /**
@@ -574,11 +570,9 @@ export default {
           result: response.result
         })
       } catch (e) {
-        return this.$store.commit('createNotification', {
-          time: Date.now(),
-          type: 'error',
-          text: e.message
-        })
+        return this
+        .$store
+        .commit('terminal/createLine', e.message)
       }
     },
 
@@ -615,11 +609,9 @@ export default {
       } catch (e) {
         this.$wait.end('callFunction')
 
-        return this.$store.commit('createNotification', {
-          time: Date.now(),
-          type: 'error',
-          text: e.message
-        })
+        return this
+        .$store
+        .commit('terminal/createLine', e.message)
       }
 
       /**
@@ -637,11 +629,9 @@ export default {
           result: response.result
         })
       } catch (e) {
-        return this.$store.commit('createNotification', {
-          time: Date.now(),
-          type: 'error',
-          text: e.message
-        })
+        return this
+        .$store
+        .commit('terminal/createLine', e.message)
       }
     }
   },
@@ -679,11 +669,9 @@ export default {
         }
       })
     } catch (e) {
-      return this.$store.commit('createNotification', {
-        time: Date.now(),
-        type: 'error',
-        text: e.message
-      })
+      return this
+      .$store
+      .commit('terminal/createLine', e.message)
     }
   }
 }
@@ -716,30 +704,6 @@ export default {
   @apply w-full;
   @apply h-full;
   @apply overflow-hidden;
-}
-
-.aepp-editor-console {
-  @apply flex;
-  @apply flex-no-grow;
-  @apply flex-shrink;
-  @apply whitespace-pre-wrap;
-  @apply text-neutral;
-  @apply bg-custom-black;
-  @apply w-full;
-  @apply p-3;
-  @apply overflow-x-hidden;
-  @apply overflow-y-auto;
-
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-all;
-  hyphens: auto;
-
-  width: 100%;
-  font-size: rem(12px);
-  min-height: 369px;
-  max-height: 500px;
-  max-width: 100%;
 }
 
 .aepp-editor-settings {

@@ -35,8 +35,8 @@ export default [{
   component: index,
 
   /*
-  * Route redirect
-  */
+   * Route redirect
+   */
   redirect: {
     name: 'views/editor'
   },
