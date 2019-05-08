@@ -17,13 +17,8 @@
   </div>
 </template>
 <script>
-import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
-
 export default {
   name: 'aepp-iframe',
-  components: {
-    AeIcon
-  },
   data: function () {
     return { url: process.env.VUE_APP_AEPP_EXAMPLE_APP }
   }

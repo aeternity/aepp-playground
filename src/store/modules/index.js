@@ -1,11 +1,11 @@
 /**
  * Importing Vuex Modules
  */
-import contracts from './contracts'
+import terminal from './terminal'
 
 /**
  * Export Modules
  */
 export default {
-  contracts
+  terminal
 }

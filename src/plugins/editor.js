@@ -8,10 +8,9 @@ import * as monaco from 'monaco-editor'
  * The method will be called with the Vue constructor
  * as the first argument, along with possible options:
  * @param Vue {Object|Vue}
- * @param options {Object}
  * @link https://vuejs.org/v2/guide/plugins.html
  */
-export const install = function (Vue, options) {
+export const install = function (Vue) {
   /**
    * Setting up a theme
    */
