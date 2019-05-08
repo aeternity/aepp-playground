@@ -11,7 +11,7 @@
     "@aeternity/aepp-components-3": "^3.0.0-alpha.9",
     "@aeternity/aepp-sdk": "^3.1.0",
     "axios": "^0.18.0",
-    "monaco-editor": "^0.16.2",
+    "monaco-editor": "^0.17.0",
     "normalize.css": "^8.0.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
