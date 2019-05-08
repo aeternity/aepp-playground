@@ -257,7 +257,7 @@
 import { mapState, mapGetters } from 'vuex'
 import MemoryAccount from '@aeternity/aepp-sdk/es/account/memory'
 import Wallet from '@aeternity/aepp-sdk/es/ae/wallet'
-import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
+import AeIcon from '@aeternity/aepp-components-3/dist/ae-icon'
 
 import AeppButton from '../../components/aepp-button'
 import AeppCollapse from '../../components/aepp-collapse'
