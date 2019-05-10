@@ -1,7 +1,5 @@
 # Aepp Playground
 
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/aeternity/aepp-playground.svg?columns=all)](https://waffle.io/aeternity/aepp-playground)
-
 Aepp Playground will be comprised of single purpose application modules, in the image below, you'll see
 the high level overview of aepp-playground. 
 
