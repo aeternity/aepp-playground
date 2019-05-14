@@ -633,16 +633,13 @@ export default {
        */
       try {
         this.$set(this.callFunction, 'callFnResult', {
-          decode: await this.client.contractDecodeData(
-            args.fnReturnType,
-            response.result.returnValue
-          ),
+          decode: await response.decode(args.fnReturnType),
           result: response.result
         })
-
+       
         return this
         .$store
-        .commit('terminal/createLine', `Result from call: ${this.callStaticFn.staticResult.decode}`)
+        .commit('terminal/createLine', `Result from call: ${this.callFunction.callFnResult.decode}`)
 
       } catch (e) {
         return this
