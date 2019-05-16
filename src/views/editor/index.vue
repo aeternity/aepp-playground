@@ -440,6 +440,12 @@ export default {
         })
 
         this.$wait.end('compile')
+        return this
+        .$store
+        .commit(
+          'terminal/createLine',
+          'Contract compiled successfully'
+        )
       } catch (e) {
         this.$wait.end('compile')
 
@@ -569,6 +575,11 @@ export default {
           decode: await response.decode(args.fnReturnType),
           result: response.result
         })
+     
+       return this
+        .$store
+        .commit('terminal/createLine', `Result from call static: ${this.callStaticFn.staticResult.decode}`)
+
       } catch (e) {
         return this
         .$store
@@ -622,12 +633,14 @@ export default {
        */
       try {
         this.$set(this.callFunction, 'callFnResult', {
-          decode: await this.client.contractDecodeData(
-            args.fnReturnType,
-            response.result.returnValue
-          ),
+          decode: await response.decode(args.fnReturnType),
           result: response.result
         })
+       
+        return this
+        .$store
+        .commit('terminal/createLine', `Result from call: ${this.callFunction.callFnResult.decode}`)
+
       } catch (e) {
         return this
         .$store
