@@ -18,7 +18,7 @@ export default {
        * that can be overwritten later
        */
       defaultOptions: {
-        language: 'javascript',
+        language: 'sophia',
         theme: 'aeternity-dark',
         automaticLayout: true
       }
