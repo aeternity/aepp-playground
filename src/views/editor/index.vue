@@ -257,7 +257,7 @@
 import { mapState, mapGetters } from 'vuex'
 import MemoryAccount from '@aeternity/aepp-sdk/es/account/memory'
 import Wallet from '@aeternity/aepp-sdk/es/ae/wallet'
-import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
+import AeIcon from '@aeternity/aepp-components-3/dist/ae-icon'
 
 import AeppButton from '../../components/aepp-button'
 import AeppCollapse from '../../components/aepp-collapse'
@@ -440,6 +440,12 @@ export default {
         })
 
         this.$wait.end('compile')
+        return this
+        .$store
+        .commit(
+          'terminal/createLine',
+          'Contract compiled successfully'
+        )
       } catch (e) {
         this.$wait.end('compile')
 
@@ -569,6 +575,11 @@ export default {
           decode: await response.decode(args.fnReturnType),
           result: response.result
         })
+     
+       return this
+        .$store
+        .commit('terminal/createLine', `Result from call static: ${this.callStaticFn.staticResult.decode}`)
+
       } catch (e) {
         return this
         .$store
@@ -622,12 +633,14 @@ export default {
        */
       try {
         this.$set(this.callFunction, 'callFnResult', {
-          decode: await this.client.contractDecodeData(
-            args.fnReturnType,
-            response.result.returnValue
-          ),
+          decode: await response.decode(args.fnReturnType),
           result: response.result
         })
+       
+        return this
+        .$store
+        .commit('terminal/createLine', `Result from call: ${this.callFunction.callFnResult.decode}`)
+
       } catch (e) {
         return this
         .$store

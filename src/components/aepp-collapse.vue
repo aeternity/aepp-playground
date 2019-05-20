@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
+import AeIcon from '@aeternity/aepp-components-3/dist/ae-icon'
 
 export default {
   name: 'aepp-collapse',

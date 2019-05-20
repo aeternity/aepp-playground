@@ -2,16 +2,17 @@
   "private": true,
   "name": "aepp-playground",
   "version": "0.1.0",
+  "author": "Sadi Qevani <inaveq@gmail.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@aeternity/aepp-components": "git+https://github.com/aeternity/aepp-components.git#develop",
-    "@aeternity/aepp-sdk": "^3.1.0",
+    "@aeternity/aepp-components-3": "^3.0.0-alpha.9",
+    "@aeternity/aepp-sdk": "^3.3.0",
     "axios": "^0.18.0",
-    "monaco-editor": "^0.16.2",
+    "monaco-editor": "^0.17.0",
     "normalize.css": "^8.0.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
@@ -35,7 +36,7 @@
     "monaco-editor-webpack-plugin": "^1.7.0",
     "node-sass": "^4.12.0",
     "postcss-import": "^12.0.1",
-    "raw-loader": "^2.0.0",
+    "raw-loader": "^1.0.0",
     "sass-loader": "^7.1.0",
     "tailwindcss": "^0.7.4",
     "vue-template-compiler": "^2.6.10"

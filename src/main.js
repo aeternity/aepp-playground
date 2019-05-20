@@ -8,8 +8,8 @@ import './assets/styles/tailwind.css'
 /**
  * Import aepp-components styles and components
  */
-import '@aeternity/aepp-components/dist/aepp.fonts.css'
-import '@aeternity/aepp-components/dist/ae-icon/ae-icon.css'
+import '@aeternity/aepp-components-3/dist/aepp.fonts.css'
+import '@aeternity/aepp-components-3/dist/ae-icon/ae-icon.css'
 
 /**
  * Import Vue Library

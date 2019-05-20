@@ -13,7 +13,7 @@
   </label>
 </template>
 <script>
-import { mixins } from '@aeternity/aepp-components'
+import { mixins } from '@aeternity/aepp-components-3'
 
 export default {
   name: 'aepp-input',

@@ -10,7 +10,7 @@
   </aepp-views>
 </template>
 <script>
-import AeIcon from '@aeternity/aepp-components/dist/ae-icon'
+import AeIcon from '@aeternity/aepp-components-3/dist/ae-icon'
 
 import AeppToolbar from '../../sections/aepp-toolbar'
 import AeppToolbarTab from '../../sections/aepp-toolbar-tab'

@@ -22,3 +22,9 @@ yarn-error.log*
 
 # Custom
 /log
+
+# Yarn lock file
+yarn.lock
+
+# Package lock file
+package-lock.json
