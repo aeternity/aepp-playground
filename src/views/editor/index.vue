@@ -657,7 +657,6 @@ export default {
      * Function used to create and updatea client properties
      */
     async setClient() {
-      console.log("KYP")
       try {
         this.client = await Wallet({
           url: this.getNodeUrl,
