@@ -508,12 +508,11 @@ export default {
           },
           callFnResult: {}
         })
-
+      
+        this.$wait.end('deploy')
         this
         .$store
-        .commit('terminal/createLine', `Contract: ${deployed.deployInfo.address} has been deployed!`)
-
-        this.$wait.end('deploy')
+        .commit('terminal/createLine', `Deployment info:  ${JSON.stringify(deployed.deployInfo)}`)
       }).catch((e) => {
         this.$wait.end('deploy')
 
@@ -556,6 +555,9 @@ export default {
         )
 
         this.$wait.end('callStaticFn')
+        this
+        .$store
+        .commit('terminal/createLine', `Result from call static: ${JSON.stringify(response.result)}`)
       } catch (e) {
         this.$wait.end('callStaticFn')
 
@@ -575,10 +577,10 @@ export default {
           decode: await response.decode(args.fnReturnType),
           result: response.result
         })
-     
+       
        return this
         .$store
-        .commit('terminal/createLine', `Result from call static: ${this.callStaticFn.staticResult.decode}`)
+        .commit('terminal/createLine', `Decoded return value from call static: ${this.callStaticFn.staticResult.decode}`)
 
       } catch (e) {
         return this
@@ -617,6 +619,9 @@ export default {
         )
 
         this.$wait.end('callFunction')
+        this
+        .$store
+        .commit('terminal/createLine', `Result from call: ${JSON.stringify(response.result)}`)
       } catch (e) {
         this.$wait.end('callFunction')
 
@@ -639,7 +644,7 @@ export default {
        
         return this
         .$store
-        .commit('terminal/createLine', `Result from call: ${this.callFunction.callFnResult.decode}`)
+        .commit('terminal/createLine', `Decoded return value from call: ${this.callFunction.callFnResult.decode} \n `)
 
       } catch (e) {
         return this
