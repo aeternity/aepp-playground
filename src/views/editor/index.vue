@@ -421,6 +421,7 @@ export default {
      * @return {*}
      */
     async compile(code) {
+      await this.setClient()
       this.$wait.start('compile')
 
       try {
@@ -432,6 +433,8 @@ export default {
           .instance
           .compile()
         )
+        
+         this.$wait.end('compile')
 
         this.$store.commit('createNotification', {
           time: Date.now(),
@@ -439,7 +442,7 @@ export default {
           text: 'Contract compiled successfully!'
         })
 
-        this.$wait.end('compile')
+       
         return this
         .$store
         .commit(
@@ -461,6 +464,7 @@ export default {
      * @return {Promise<*>}
      */
     async deploy() {
+      await this.setClient()
       if (typeof this.instance.deploy !== 'function') {
         return this
         .$store
@@ -534,6 +538,7 @@ export default {
      */
     async onCallStaticFn(args) {
       let response
+      await this.setClient()
 
       this.$wait.start('callStaticFn')
 
@@ -593,6 +598,7 @@ export default {
      */
     async onCallFunction(args) {
       let response
+      await this.setClient()
 
       this.$wait.start('callFunction')
 
@@ -646,8 +652,44 @@ export default {
         .$store
         .commit('terminal/createLine', e.message)
       }
+    },
+    /**
+     * Function used to create and updatea client properties
+     */
+    async setClient() {
+      try {
+        this.client = await Wallet({
+          url: this.getNodeUrl,
+          internalUrl: this.getNodeInternalUrl,
+          compilerUrl: this.getCompilerUrl,
+          accounts: [MemoryAccount({ keypair: this.getAccountKeyPair })],
+          address: this.getAccountAddress,
+          onChain: (method, params, {id}) => {
+            console.log('onChain', method, params, {id})
+            return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
+          },
+          onTx: (method, params, {id}) => {
+            console.log('onTx', method, params, {id})
+            return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
+          },
+          onAccount: (method, params, {id}) => {
+            console.log('onAccount', method, params, {id})
+            return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
+          },
+          onContract: (method, params, {id}) => {
+            console.log('onContract', method, params, {id})
+            return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
+          }
+        })
+      } catch (e) {
+        return this
+        .$store
+        .commit('terminal/createLine', e.message)
+      }
     }
   },
+  
+    
 
   /**
    * When the component is mounted
@@ -657,35 +699,7 @@ export default {
    * @return {Promise<void>}
    */
   async mounted() {
-    try {
-      this.client = await Wallet({
-        url: this.getNodeUrl,
-        internalUrl: this.getNodeInternalUrl,
-        compilerUrl: this.getCompilerUrl,
-        accounts: [MemoryAccount({ keypair: this.getAccountKeyPair })],
-        address: this.getAccountAddress,
-        onChain: (method, params, {id}) => {
-          console.log('onChain', method, params, {id})
-          return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
-        },
-        onTx: (method, params, {id}) => {
-          console.log('onTx', method, params, {id})
-          return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
-        },
-        onAccount: (method, params, {id}) => {
-          console.log('onAccount', method, params, {id})
-          return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
-        },
-        onContract: (method, params, {id}) => {
-          console.log('onContract', method, params, {id})
-          return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
-        }
-      })
-    } catch (e) {
-      return this
-      .$store
-      .commit('terminal/createLine', e.message)
-    }
+   await this.setClient()
   }
 }
 </script>
