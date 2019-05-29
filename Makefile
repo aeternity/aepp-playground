@@ -7,6 +7,8 @@ DOCKER_IMAGE = aepp-playground
 DOCKER_TAG = $(shell git describe --always --tags)
 # k8s
 K8S_NAMESPACE = testing
+VUE_APP_NODE_URL = https://sdk-testnet.aepps.com
+
 
 .PHONY: list
 list:
@@ -40,4 +42,4 @@ deploy-k8s:
 	@echo deploy k8s done
 
 debug-start:
-	VUE_APP_NODE_INTERNAL_URL='$(NODE_URL)' VUE_APP_NODE_URL='$(NODE_URL)' yarn start:dev
+	VUE_APP_NODE_INTERNAL_URL='$(VUE_APP_NODE_URL)' VUE_APP_NODE_URL='$(VUE_APP_NODE_URL)' yarn start:dev
