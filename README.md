@@ -1,6 +1,18 @@
 # Aepp Playground
 
+_Brief description of the project (what is the playground, what is used for etc.)_
 
+## Requirements
+
+_If there are any requirements for the project_
+
+## Functionality
+
+_Description of the current functionalities (editor, configs)_
+
+## Examples
+
+_Some examples and how to use the application_
 
 ## Project setup
 ```
