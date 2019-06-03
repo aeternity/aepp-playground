@@ -421,6 +421,7 @@ export default {
      * @return {*}
      */
     async compile(code) {
+      await this.setClient()
       this.$wait.start('compile')
 
       try {
@@ -432,6 +433,8 @@ export default {
           .instance
           .compile()
         )
+        
+         this.$wait.end('compile')
 
         this.$store.commit('createNotification', {
           time: Date.now(),
@@ -439,7 +442,7 @@ export default {
           text: 'Contract compiled successfully!'
         })
 
-        this.$wait.end('compile')
+       
         return this
         .$store
         .commit(
@@ -461,6 +464,7 @@ export default {
      * @return {Promise<*>}
      */
     async deploy() {
+      await this.setClient()
       if (typeof this.instance.deploy !== 'function') {
         return this
         .$store
@@ -508,12 +512,11 @@ export default {
           },
           callFnResult: {}
         })
-
+      
+        this.$wait.end('deploy')
         this
         .$store
-        .commit('terminal/createLine', `Contract: ${deployed.deployInfo.address} has been deployed!`)
-
-        this.$wait.end('deploy')
+        .commit('terminal/createLine', `Deployment info:  ${JSON.stringify(deployed.deployInfo)}`)
       }).catch((e) => {
         this.$wait.end('deploy')
 
@@ -534,6 +537,7 @@ export default {
      */
     async onCallStaticFn(args) {
       let response
+      await this.setClient()
 
       this.$wait.start('callStaticFn')
 
@@ -556,6 +560,9 @@ export default {
         )
 
         this.$wait.end('callStaticFn')
+        this
+        .$store
+        .commit('terminal/createLine', `Result from call static: ${JSON.stringify(response.result)}`)
       } catch (e) {
         this.$wait.end('callStaticFn')
 
@@ -575,10 +582,10 @@ export default {
           decode: await response.decode(args.fnReturnType),
           result: response.result
         })
-     
+       
        return this
         .$store
-        .commit('terminal/createLine', `Result from call static: ${this.callStaticFn.staticResult.decode}`)
+        .commit('terminal/createLine', `Decoded return value from call static: ${this.callStaticFn.staticResult.decode}`)
 
       } catch (e) {
         return this
@@ -593,6 +600,7 @@ export default {
      */
     async onCallFunction(args) {
       let response
+      await this.setClient()
 
       this.$wait.start('callFunction')
 
@@ -617,6 +625,9 @@ export default {
         )
 
         this.$wait.end('callFunction')
+        this
+        .$store
+        .commit('terminal/createLine', `Result from call: ${JSON.stringify(response.result)}`)
       } catch (e) {
         this.$wait.end('callFunction')
 
@@ -639,8 +650,42 @@ export default {
        
         return this
         .$store
-        .commit('terminal/createLine', `Result from call: ${this.callFunction.callFnResult.decode}`)
+        .commit('terminal/createLine', `Decoded return value from call: ${this.callFunction.callFnResult.decode} \n `)
 
+      } catch (e) {
+        return this
+        .$store
+        .commit('terminal/createLine', e.message)
+      }
+    },
+    /**
+     * Function used to create and updatea client properties
+     */
+    async setClient() {
+      try {
+        this.client = await Wallet({
+          url: this.getNodeUrl,
+          internalUrl: this.getNodeInternalUrl,
+          compilerUrl: this.getCompilerUrl,
+          accounts: [MemoryAccount({ keypair: this.getAccountKeyPair })],
+          address: this.getAccountAddress,
+          onChain: (method, params, {id}) => {
+            console.log('onChain', method, params, {id})
+            return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
+          },
+          onTx: (method, params, {id}) => {
+            console.log('onTx', method, params, {id})
+            return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
+          },
+          onAccount: (method, params, {id}) => {
+            console.log('onAccount', method, params, {id})
+            return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
+          },
+          onContract: (method, params, {id}) => {
+            console.log('onContract', method, params, {id})
+            return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
+          }
+        })
       } catch (e) {
         return this
         .$store
@@ -648,6 +693,8 @@ export default {
       }
     }
   },
+  
+    
 
   /**
    * When the component is mounted
@@ -657,35 +704,7 @@ export default {
    * @return {Promise<void>}
    */
   async mounted() {
-    try {
-      this.client = await Wallet({
-        url: this.getNodeUrl,
-        internalUrl: this.getNodeInternalUrl,
-        compilerUrl: this.getCompilerUrl,
-        accounts: [MemoryAccount({ keypair: this.getAccountKeyPair })],
-        address: this.getAccountAddress,
-        onChain: (method, params, {id}) => {
-          console.log('onChain', method, params, {id})
-          return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
-        },
-        onTx: (method, params, {id}) => {
-          console.log('onTx', method, params, {id})
-          return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
-        },
-        onAccount: (method, params, {id}) => {
-          console.log('onAccount', method, params, {id})
-          return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
-        },
-        onContract: (method, params, {id}) => {
-          console.log('onContract', method, params, {id})
-          return Promise.resolve(window.confirm(`User ${id} wants to run ${method} ${params}`))
-        }
-      })
-    } catch (e) {
-      return this
-      .$store
-      .commit('terminal/createLine', e.message)
-    }
+   await this.setClient()
   }
 }
 </script>
