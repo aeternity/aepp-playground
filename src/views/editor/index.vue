@@ -335,7 +335,8 @@ export default {
           amount: 0,
           fee: null, // sdk will automatically select this
           gas: 1000000,
-          callData: ''
+          callData: '',
+          verify: true
         },
         callFnResult: {}
       }
@@ -490,7 +491,8 @@ export default {
           amount: 0,
           fee: null,
           gas: 1000000,
-          callData: ''
+          callData: '',
+          verify: true
         })
         Object.assign(this.callStaticFn, {
           functionName: null,
