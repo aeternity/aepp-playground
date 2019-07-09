@@ -1,123 +1,44 @@
 # Aepp Playground
+æpp Playground is a full-featured Integrated Development Environment (IDE) built for the `æternity blockchain`.
 
-Aepp Playground will be comprised of single purpose application modules, in the image below, you'll see
-the high level overview of aepp-playground. 
+Blockchains and Development of Blockchain based applications (called DApps) have specific requirements when it comes
+to developing on top of them. Coming from a traditional development style, its quite hard to wrap your head around
+some concepts that exist solely on blockchains. Things like smart-contracts, protocols, RPC, nodes, Transactions, 
+cryptography are all difficult things to grasp on their own, imagine trying to figure things out all together.
 
-In the image below you'll notice that the structure follows a tree, the root it's the application `aepp-playground` and the
-leafs are its modules, and the leafs of the modules are the specifications and functionality of that specific module.
+Our aim with æpp Playground is to not only create a IDE, but at the same time have in-app learning journeys, where we
+take the developer from knowing nothing about blockchains to developing full fledged (production ready) applications 
+on top of æternity.
 
-_I've termed the parts of the app as `modules` instead of `components` to not confuse it with Vue Components._
+## Requirements
+List of requirements that you'll need to have to run the application locally.
 
----
+- nodejs
+- docker
+
+## Functionality
+As of now not all the features we have in plan on developing are available, as time goes on, we'll add more
+functionality to the application, but for now, functionality that you can use are as following:
+
+#### Editor
+The `Editor` is your go to place to develop and deploy `Sophia` Contracts, as of now is has code highlighting,
+a small console that logs are outputted (but with more functionality to come), and a sidebar that you can modify
+deployment variables.
+
+#### Browser
+The `browser` is a tool that will help you test and run DApps, it automatically interfaces between your DApp, and
+the account you have setup in the `æpp Playground`, in this way you can deploy and debug your transactions
+and many more things.
+
+#### Config
+The config is your go-to place to setup your account, or other configuration variables that the tools are using,
+in this way you can have the flexibility of a truly config.json, but at the same time, you can share these configurations
+with other developers, so you can replicate the same state if the tool is used for debugging.
+
+## Visual Roadmap
 ![Architecture Overview](./architecture.png)
----
 
-#### Identity Provider
-The identity provider is an internal business logic within aepp-playground that lets the user:
-
-- Create an Aeternity account
-- Import an Aeternity account
-- Export an Aeternity account
-
-This module of the application will be connected with other modules of the application to make sure that user can:
-
-- View Balances
-- Sign transactions
-- Deploy contracts
-
-##### Create Account
-With this functionality the user will be able to generate accounts from within the application.
-
-##### Import Account
-The user will have the ability to import his Aeternity account from multiple sources:
-
-- QR Code Scan
-  - AirGap Vault
-- Chrome Ext
-- Base App
-- Import keystore.json file
-- Ledger Connection
-
-##### Export Account
-Ability to export the accounts as:
-
-- keystore.json file
-- QR Code
-
-##### Manage Account
-Give the ability to the user of the application to view some information related to the accounts:
-
-- Topup account with Faucet
-- View balance
-- View sub accounts
-
-#### Contract Editor
-The contracts Editor, manages contracts internally and externally within the application.
-
-With the contract editor, the developer can write Aeternity Smart Contracts, save them locally within the browser, 
-compile them, and deploy the contract.
-
-The contract editor emphasis is on:
-
-- Sophia syntax highlighting
-- Sophia code auto-completion
-- File Browser
-- File Versioning
-- File Sync
-- Create contract code
-- Save contract code
-- Delete Contract code
-- Compile Contracts
-- Deploy Contracts
-
-The contract editor can also sync with local files, we can create a local http server that syncs `forgae` `contracts/` 
-folder with `aepp-playground` contracts browser.
-
-#### Contract Executor
-The contract executor, helps manage and debug Aeternity Smart Contracts.
-
-With the contract executor, every contract you ever compile and deploy is going to be saved locally within the app.
-
-With this ability, the contract executor, you can:
-
-- Add Contract address
-- List All Deployed contracts
-- View contract details:
-  - IF there is a local file attached, show contract code
-  - Byte code
-  - Static Functions
-  - Functions
-- Execute: Call Functions & Static Functions
-- Execute: Output of the function results will be printed on a terminal, or output log placeholder.
-
-#### DApp Browser
-App Browser is an iframe instance that communicates with the Aepp iframe provider/protocol.
-
-#### Inspector
-Collection of tools to inspect transactions, hashes, and everything that needs encoding / decoding.
-
-#### State Channel Debugger
-Work in progress.
-
-#### Shareable Configs
-A global configuration object that applies global changes to the entire application.
-
-#### Console
-A REPL console that injects AE-JS-SDK, AECLI and other CLI tools that help communicate with the blockchain.
-
-#### Explorer
-A tiny blockchain explorer to see what's happening with Aeternity.
-
-#### Under the Hood
-- æternity middleware
-  - https://github.com/aeternity/aepp-middleware
-- Standalone Sophia Compiler
-  - A micro service with Sophia compiler, that if a message is sent, replies with the byte code of the contract.
-  - https://github.com/aeternity/aesophia
-- Faucet (testnet, unstable)
-  - https://faucet.aepps.com
-
----
+##### Read more about our _[Roadmap](./ROADMAP.md)_
 
 ## Project setup
 ```
