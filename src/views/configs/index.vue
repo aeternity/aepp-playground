@@ -58,9 +58,7 @@ export default {
      */
     saveConfiguration () {
       try {
-        this.$store.commit('updateConfigs', JSON.parse(
-          this.editor.getValue())
-        )
+        this.$store.commit('updateConfigs', JSON.parse(this.editor.getValue()))
       } catch (e) {
         return this.$store.commit('createNotification', {
           time: Date.now(),
