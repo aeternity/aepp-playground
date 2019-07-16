@@ -434,7 +434,7 @@ export default {
           .instance
           .compile()
         )
-        
+
          this.$wait.end('compile')
 
         this.$store.commit('createNotification', {
@@ -443,7 +443,6 @@ export default {
           text: 'Contract compiled successfully!'
         })
 
-       
         return this
         .$store
         .commit(
@@ -514,7 +513,7 @@ export default {
           },
           callFnResult: {}
         })
-      
+
         this.$wait.end('deploy')
         this
         .$store
@@ -584,7 +583,7 @@ export default {
           decode: await response.decode(args.fnReturnType),
           result: response.result
         })
-       
+
        return this
         .$store
         .commit('terminal/createLine', `Decoded return value from call static: ${this.callStaticFn.staticResult.decode}`)
@@ -649,7 +648,7 @@ export default {
           decode: await response.decode(args.fnReturnType),
           result: response.result
         })
-       
+
         return this
         .$store
         .commit('terminal/createLine', `Decoded return value from call: ${this.callFunction.callFnResult.decode} \n `)
@@ -695,8 +694,8 @@ export default {
       }
     }
   },
-  
-    
+
+
 
   /**
    * When the component is mounted
