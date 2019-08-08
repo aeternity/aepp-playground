@@ -18,4 +18,4 @@ contract Identity =
    * Pellentesque sit amet diam **x** and **y** porttitor,
    * interdum sapien ultrices, scelerisque.
    */
-  function main(x : int) = x
+  entrypoint main(x : int) = x
