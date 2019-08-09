@@ -476,17 +476,20 @@ export default {
           'You dont seem to have compiled the contract, please try again...'
         )
       }
-      if(!await this.canSubmitDeploy()) {
+
+      try {
+       await this.canSubmitDeploy() 
+      }
+      catch(e) {
         this
         .$store
-        .commit('terminal/createLine', `A deploy transaction has not been executed successfully!`)
+        .commit(`terminal/createLine`, `Deploy transaction reverted with ${e.message}`)
 
         this.$store.commit('createNotification', {
           time: Date.now(),
           type: 'error',
-          text: 'You do not have sufficient amount to deploy the contract!'
+          text: 'A deploy transaction has not been executed successfully!!'
         })
-
         return
       }
       this.$wait.start('deploy')
@@ -717,9 +720,7 @@ export default {
       }
     },
     async canSubmitDeploy() {
-      let accountBalance
       let ownerId
-      let gasCost
       let defaults =  {
         deposit: 0,
         gasPrice: 1000000000, // min gasPrice 1e9
@@ -743,8 +744,13 @@ export default {
               pubKey: ownerId
           }]
       })
+      this.checkResponse(response.results[0])
       
-      return response.results[0].result == this.NODE_RESPONSE.OK ? true : false
+    },
+    checkResponse(res) {
+      console.log(res)
+      if( res.result != this.NODE_RESPONSE.OK) 
+        throw new Error(res.reason)
     }
   },
 
