@@ -428,14 +428,10 @@ export default {
       try {
         await this.contract(code)
 
-        Object.assign(
-          this.instance,
-          await this
-          .instance
-          .compile()
-        )
-
-         this.$wait.end('compile')
+        let bytecode = await this.instance.compile()
+        this.instance.compiled = bytecode
+        
+        this.$wait.end('compile')
 
         this.$store.commit('createNotification', {
           time: Date.now(),
@@ -517,7 +513,15 @@ export default {
         this.$wait.end('deploy')
         this
         .$store
-        .commit('terminal/createLine', `Deployment info:  ${JSON.stringify(deployed.deployInfo)}`)
+        .commit('terminal/createLine', `Deployment info:  ${JSON.stringify({
+          created: deployed.createdAt,
+          publicKey: deployed.owner,
+          txHash: deployed.transaction,
+          status: deployed.result.returnType,
+          gasPrice: deployed.result.gasPrice,
+          gasUsed: deployed.result.gasUsed,
+          result: deployed.address
+        })}`)
       }).catch((e) => {
         this.$wait.end('deploy')
 
