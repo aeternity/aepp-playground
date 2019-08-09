@@ -301,6 +301,13 @@ export default {
       },
 
       /**
+        * We need to receive 'ok' as result response from the node in order to allow the deploy transaction to be executed.
+       */
+      NODE_RESPONSE: {
+        OK: 'ok'
+      },
+
+      /**
        * Deploy configuration
        */
       deployConfig: {
@@ -430,7 +437,7 @@ export default {
 
         let bytecode = await this.instance.compile()
         this.instance.compiled = bytecode
-        
+
         this.$wait.end('compile')
 
         this.$store.commit('createNotification', {
@@ -469,7 +476,19 @@ export default {
           'You dont seem to have compiled the contract, please try again...'
         )
       }
+      if(!await this.canSubmitDeploy()) {
+        this
+        .$store
+        .commit('terminal/createLine', `A deploy transaction has not been executed successfully!`)
 
+        this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: 'You do not have sufficient amount to deploy the contract!'
+        })
+
+        return
+      }
       this.$wait.start('deploy')
 
       return this
@@ -696,6 +715,36 @@ export default {
         .$store
         .commit('terminal/createLine', e.message)
       }
+    },
+    async canSubmitDeploy() {
+      let accountBalance
+      let ownerId
+      let gasCost
+      let defaults =  {
+        deposit: 0,
+        gasPrice: 1000000000, // min gasPrice 1e9
+        amount: 0,
+        gas: 1600000 - 21000,
+        
+      }
+      
+      ownerId = this.getAccountAddress
+      
+      let code = this.instance.compiled
+      const callData = await this.client.contractEncodeCall(this.instance.source, 'init')
+      const txFromAPI = await this.client.contractCreateTx({
+          callData, code, ownerId,  ...defaults
+      })
+      
+      let response = await this.client.api.dryRunTxs({
+          txs: [txFromAPI.tx],
+          accounts: [{
+              amount: 0,
+              pubKey: ownerId
+          }]
+      })
+      
+      return response.results[0].result == this.NODE_RESPONSE.OK ? true : false
     }
   },
 
