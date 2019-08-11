@@ -748,13 +748,10 @@ export default {
       
     },
     checkResponse(res) {
-      console.log(res)
       if( res.result != this.NODE_RESPONSE.OK) 
         throw new Error(res.reason)
     }
   },
-
-
 
   /**
    * When the component is mounted
