@@ -301,6 +301,13 @@ export default {
       },
 
       /**
+        * We need to receive 'ok' as result response from the node in order to allow the deploy transaction to be executed.
+       */
+      NODE_RESPONSE: {
+        OK: 'ok'
+      },
+
+      /**
        * Deploy configuration
        */
       deployConfig: {
@@ -428,14 +435,10 @@ export default {
       try {
         await this.contract(code)
 
-        Object.assign(
-          this.instance,
-          await this
-          .instance
-          .compile()
-        )
+        let bytecode = await this.instance.compile()
+        this.instance.compiled = bytecode
 
-         this.$wait.end('compile')
+        this.$wait.end('compile')
 
         this.$store.commit('createNotification', {
           time: Date.now(),
@@ -474,6 +477,21 @@ export default {
         )
       }
 
+      try {
+       await this.canSubmitDeploy() 
+      }
+      catch(e) {
+        this
+        .$store
+        .commit(`terminal/createLine`, `Deploy transaction reverted with ${e.message}`)
+
+        this.$store.commit('createNotification', {
+          time: Date.now(),
+          type: 'error',
+          text: 'A deploy transaction has not been executed successfully!!'
+        })
+        return
+      }
       this.$wait.start('deploy')
 
       return this
@@ -517,7 +535,15 @@ export default {
         this.$wait.end('deploy')
         this
         .$store
-        .commit('terminal/createLine', `Deployment info:  ${JSON.stringify(deployed.deployInfo)}`)
+        .commit('terminal/createLine', `Deployment info:  ${JSON.stringify({
+          created: deployed.createdAt,
+          publicKey: deployed.owner,
+          txHash: deployed.transaction,
+          status: deployed.result.returnType,
+          gasPrice: deployed.result.gasPrice,
+          gasUsed: deployed.result.gasUsed,
+          result: deployed.address
+        })}`)
       }).catch((e) => {
         this.$wait.end('deploy')
 
@@ -692,10 +718,40 @@ export default {
         .$store
         .commit('terminal/createLine', e.message)
       }
+    },
+    async canSubmitDeploy() {
+      let ownerId
+      let defaults =  {
+        deposit: 0,
+        gasPrice: 1000000000, // min gasPrice 1e9
+        amount: 0,
+        gas: 1600000 - 21000,
+        
+      }
+      
+      ownerId = this.getAccountAddress
+      
+      let code = this.instance.compiled
+      const callData = await this.client.contractEncodeCall(this.instance.source, 'init')
+      const txFromAPI = await this.client.contractCreateTx({
+          callData, code, ownerId,  ...defaults
+      })
+      
+      let response = await this.client.api.dryRunTxs({
+          txs: [txFromAPI.tx],
+          accounts: [{
+              amount: 0,
+              pubKey: ownerId
+          }]
+      })
+      this.checkResponse(response.results[0])
+      
+    },
+    checkResponse(res) {
+      if( res.result != this.NODE_RESPONSE.OK) 
+        throw new Error(res.reason)
     }
   },
-
-
 
   /**
    * When the component is mounted
