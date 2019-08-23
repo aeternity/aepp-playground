@@ -437,7 +437,6 @@ export default {
 
         let bytecode = await this.instance.compile()
         this.instance.compiled = bytecode
-
         this.$wait.end('compile')
 
         this.$store.commit('createNotification', {
