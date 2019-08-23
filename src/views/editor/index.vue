@@ -478,7 +478,7 @@ export default {
       }
 
       try {
-       await this.canSubmitDeploy() 
+       await this.canSubmitDeploy()
       }
       catch(e) {
         this
@@ -732,11 +732,12 @@ export default {
       ownerId = this.getAccountAddress
       
       let code = this.instance.compiled
-      const callData = await this.client.contractEncodeCall(this.instance.source, 'init')
+      let args = this.parseArguments()
+      const callData = await this.client.contractEncodeCall(this.instance.source, 'init', args)
       const txFromAPI = await this.client.contractCreateTx({
           callData, code, ownerId,  ...defaults
       })
-      
+
       let response = await this.client.api.dryRunTxs({
           txs: [txFromAPI.tx],
           accounts: [{
@@ -745,7 +746,24 @@ export default {
           }]
       })
       this.checkResponse(response.results[0])
-      
+    },
+    parseArguments() {
+        let argsStr = this.deployInit.args ? this.deployInit.args.split(',') : []
+
+        if(!argsStr) 
+          return
+
+        let res = []
+
+        argsStr.forEach(element => {
+            if (!isNaN(element)) {
+                res.push(`${element}`)
+            } else {
+                res.push(`\"${element}\"`)
+            }
+        })
+
+        return res
     },
     checkResponse(res) {
       if( res.result != this.NODE_RESPONSE.OK) 
