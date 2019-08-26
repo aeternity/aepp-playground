@@ -6,7 +6,7 @@
         aepp.dronegraffiti.com
       </aepp-toolbar-tab>
     </aepp-toolbar>
-    <aepp-window/>
+    <aepp-window />
   </aepp-views>
 </template>
 <script>
