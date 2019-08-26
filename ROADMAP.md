@@ -70,7 +70,7 @@ The contract editor emphasis is on:
 - Compile Contracts
 - Deploy Contracts
 
-The contract editor can also sync with local files, we can create a local http server that syncs `forgae` `contracts/` 
+The contract editor can also sync with local files, we can create a local http server that syncs `aeproject` `contracts/` 
 folder with `aepp-playground` contracts browser.
 
 #### Contract Executor

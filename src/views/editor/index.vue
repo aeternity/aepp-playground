@@ -752,17 +752,17 @@ export default {
         if(!argsStr) 
           return
 
-        let res = []
+        let argsArr = []
 
         argsStr.forEach(element => {
             if (!isNaN(element)) {
-                res.push(`${element}`)
+                argsArr.push(`${element}`)
             } else {
-                res.push(`\"${element}\"`)
+                argsArr.push(`\"${element}\"`)
             }
         })
 
-        return res
+        return argsArr
     },
     checkResponse(res) {
       if( res.result != this.NODE_RESPONSE.OK) 
