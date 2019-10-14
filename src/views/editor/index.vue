@@ -737,14 +737,14 @@ export default {
           callData, code, ownerId,  ...defaults
       })
 
-      let response = await this.client.api.dryRunTxs({
-          txs: [txFromAPI.tx],
-          accounts: [{
-              amount: 0,
-              pubKey: ownerId
-          }]
-      })
-      this.checkResponse(response.results[0])
+      // let response = await this.client.api.dryRunTxs({
+      //     txs: [txFromAPI.tx],
+      //     accounts: [{
+      //         amount: 0,
+      //         pubKey: ownerId
+      //     }]
+      // })
+      // this.checkResponse(response.results[0])
     },
     parseArguments() {
         let argsStr = this.deployInit.args ? this.deployInit.args.split(',') : []
