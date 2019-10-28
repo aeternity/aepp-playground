@@ -15,12 +15,12 @@ export default {
   /*
    * Route name
    */
-  name: 'views/identity',
+  name: 'views/crypto-hamster',
 
   /*
    * Route path
    */
-  path: 'identity',
+  path: 'crypto-hamster',
 
   /*
    * Route component

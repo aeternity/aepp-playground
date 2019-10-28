@@ -3,14 +3,14 @@
     <aepp-toolbar>
       <aepp-toolbar-tab to="#">
         <ae-icon name="grid"/>
-        identity.aes
+        cryptohamster.aes
       </aepp-toolbar-tab>
     </aepp-toolbar>
     <div class="aepp-editor-container">
       <aepp-views>
         <aepp-editor
           @init="(e) => this.editor = e"
-          :value="require('!raw-loader!../../assets/templates/identity.aes')"
+          :value="require('!raw-loader!../../assets/templates/cryptohamster.aes')"
         />
         <aepp-collapse @init="onTerminalOpen" @toggle="onTerminalOpen" name="terminal">
           <template slot="bar">

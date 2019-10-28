@@ -1,12 +1,12 @@
 <template>
-  <aepp-views class="aepp-identity">
+  <aepp-views class="aepp-crypto-hamster">
     <aepp-toolbar>
-      <aepp-toolbar-tab to="identity">
+      <aepp-toolbar-tab to="cryoto-hamster">
         <ae-icon name="search"/>
-        Identity
+        Crypto Hamster
       </aepp-toolbar-tab>
     </aepp-toolbar>
-    <h1>Identity</h1>
+    <h1>Crypto Hamster</h1>
   </aepp-views>
 </template>
 <script>
@@ -17,7 +17,7 @@ import AeppToolbarTab from '../../sections/aepp-toolbar-tab'
 import AeppViews from '../../sections/aepp-views'
 
 export default {
-  name: 'identity',
+  name: 'crypto-hamster',
   components: {
     AeIcon,
     AeppToolbar,
@@ -27,5 +27,5 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.aepp-identity {}
+.aepp-crypto-hamster {}
 </style>
