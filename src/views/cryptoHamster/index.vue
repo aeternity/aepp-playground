@@ -17,7 +17,7 @@ import AeppToolbarTab from '../../sections/aepp-toolbar-tab'
 import AeppViews from '../../sections/aepp-views'
 
 export default {
-  name: 'crypto-hamster',
+  name: 'cryptoHamster',
   components: {
     AeIcon,
     AeppToolbar,
