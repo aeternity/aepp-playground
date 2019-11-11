@@ -38,10 +38,10 @@ export const install = function (Vue) {
       background: '#343746'
     }],
     colors: {
-      'editor.foreground': '#282A36',
+      'editor.foreground': '#A9A9A9',
       'editor.background': '#282A36',
       'editor.lineHighlightBackground': '#343746',
-      'editorLineNumber.foreground': '#343746'
+      'editorLineNumber.foreground': '#A9A9A9'
     }
   })
 
@@ -100,6 +100,7 @@ export const install = function (Vue) {
       'hash',
       'Chain',
       'String',
+      'public',
       'private',
       'external',
       'inherited',
