@@ -100,6 +100,7 @@ export const install = function (Vue) {
       'hash',
       'Chain',
       'String',
+      'private',
       'external',
       'inherited',
       'payable',
