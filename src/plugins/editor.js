@@ -1,7 +1,23 @@
+//@ts-nocheck
 /**
  * Importing Global Libraries
  */
 import * as monaco from 'monaco-editor'
+
+let languageId = 'sophia'
+let configuration = {
+  comments: {
+    lineComment: '//',
+    blockComment: ['/*', '*/'],
+  },
+  brackets: [['{', '}'], ['[', ']'], ['(', ')'], ['<', '>']],
+  autoClosingPairs: [
+    { open: '"', close: '"', notIn: ['string', 'comment'] },
+    { open: '{', close: '}', notIn: ['string', 'comment'] },
+    { open: '[', close: ']', notIn: ['string', 'comment'] },
+    { open: '(', close: ')', notIn: ['string', 'comment'] }
+  ]
+}
 
 /**
  * A Vue.js plugin should expose an install method.
@@ -25,13 +41,18 @@ export const install = function (Vue) {
       'editor.background': '#282A36',
       'editor.lineHighlightBackground': '#343746',
       'editorLineNumber.foreground': '#343746'
-    }
+    },
+    
+      
   })
 
   /**
    * Register sophia language
    */
   monaco.languages.register({ id: 'sophia' })
+
+  monaco.languages.setLanguageConfiguration(
+    languageId, configuration)
 
   monaco.languages.setMonarchTokensProvider('sophia', {
     defaultToken: '',

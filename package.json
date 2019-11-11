@@ -12,7 +12,7 @@
     "@aeternity/aepp-components-3": "^3.0.0-alpha.9",
     "@aeternity/aepp-sdk": "5.0.0",
     "axios": "^0.19.0",
-    "monaco-editor": "^0.17.1",
+    "monaco-editor": "^0.18.1",
     "normalize.css": "^8.0.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.7",
