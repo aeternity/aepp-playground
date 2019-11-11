@@ -15,7 +15,8 @@ let configuration = {
     { open: '"', close: '"', notIn: ['string', 'comment'] },
     { open: '{', close: '}', notIn: ['string', 'comment'] },
     { open: '[', close: ']', notIn: ['string', 'comment'] },
-    { open: '(', close: ')', notIn: ['string', 'comment'] }
+    { open: '(', close: ')', notIn: ['string', 'comment'] },
+    { open: `'`, close: `'`, notIn: ['string', 'comment'] }
   ]
 }
 
@@ -41,9 +42,7 @@ export const install = function (Vue) {
       'editor.background': '#282A36',
       'editor.lineHighlightBackground': '#343746',
       'editorLineNumber.foreground': '#343746'
-    },
-    
-      
+    }
   })
 
   /**
