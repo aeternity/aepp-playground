@@ -100,8 +100,6 @@ export const install = function (Vue) {
       'hash',
       'Chain',
       'String',
-      'private',
-      'public',
       'external',
       'inherited',
       'payable',
@@ -150,7 +148,7 @@ export const install = function (Vue) {
       '==', '<=', '>=', '!=', '&&', '||', '++', '--',
       '+', '-', '*', '/', '&', '|', '^', '%', '<<',
       '>>', '>>>', '+=', '-=', '*=', '/=', '&=', '|=',
-      '^=', '%=', '<<=', '>>=', '>>>='
+      '^=', '%=', '<<=', '>>=', '>>>=', '::'
     ],
 
     // we include these common regular expressions
