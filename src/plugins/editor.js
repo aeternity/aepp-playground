@@ -1,8 +1,8 @@
-//@ts-nocheck
 /**
  * Importing Global Libraries
  */
 import * as monaco from 'monaco-editor'
+import { createDependencyProposals } from './dependencyProposals'
 
 let languageId = 'sophia'
 let configuration = {
@@ -52,6 +52,21 @@ export const install = function (Vue) {
 
   monaco.languages.setLanguageConfiguration(
     languageId, configuration)
+
+
+
+  monaco.languages.registerCompletionItemProvider('sophia', {
+    provideCompletionItems: function (model, position) {
+      var contractContent = model.getValueInRange({ startLineNumber: 1, startColumn: 1, endLineNumber: position.lineNumber, endColumn: position.column });
+      var match = contractContent.match(/[\s\w]+/)
+
+      let suggestions = match ? createDependencyProposals(contractContent) : []
+      
+      return {
+        suggestions
+      }
+    }
+  })
 
   monaco.languages.setMonarchTokensProvider('sophia', {
     defaultToken: '',
@@ -115,8 +130,6 @@ export const install = function (Vue) {
       'switch',
       'if',
       'elif',
-      'else',
-      'for',
       'else',
       'for',
       'while',
