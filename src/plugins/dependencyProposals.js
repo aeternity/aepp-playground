@@ -59,7 +59,6 @@ const sophiaKeyWords = [
     'revoke',
     'Contract',
     'creator',
-    'address',
     'balance'
     ]
 
