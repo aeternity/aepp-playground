@@ -53,14 +53,10 @@ export const install = function (Vue) {
   monaco.languages.setLanguageConfiguration(
     languageId, configuration)
 
-
-
   monaco.languages.registerCompletionItemProvider('sophia', {
     provideCompletionItems: function (model, position) {
-      var contractContent = model.getValueInRange({ startLineNumber: 1, startColumn: 1, endLineNumber: position.lineNumber, endColumn: position.column });
-      var match = contractContent.match(/[\s\w]+/)
-
-      let suggestions = match ? createDependencyProposals(contractContent) : []
+      let contractContent = model.getValueInRange({ startLineNumber: 1, startColumn: 1, endLineNumber: position.lineNumber, endColumn: position.column })
+      let suggestions = createDependencyProposals(contractContent) 
       
       return {
         suggestions
