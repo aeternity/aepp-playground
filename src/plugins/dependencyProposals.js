@@ -44,6 +44,7 @@ const sophiaKeyWords = [
     'datatype',
     'put',
     'Call',
+    'caller',
     'value',
     'Chain',
     'Oracle',
@@ -56,7 +57,10 @@ const sophiaKeyWords = [
     'claim',
     'transfer',
     'revoke',
-    'Contract'
+    'Contract',
+    'creator',
+    'address',
+    'balance'
     ]
 
 function getReservedWordsFromContract(contractContent) {
