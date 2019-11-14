@@ -45,10 +45,6 @@ const sophiaKeyWords = [
     'put',
     'Call',
     'value',
-    'origin',
-    'caller',
-    'gas_price',
-    'gas_left',
     'Chain',
     'Oracle',
     'oracle',
@@ -60,15 +56,7 @@ const sophiaKeyWords = [
     'claim',
     'transfer',
     'revoke',
-    'Contract',
-    'creator',
-    'balance',
-    'block_hash',
-    'block_height',
-    'coinbase',
-    'timestamp',
-    'difficulty',
-    'gas_limit'
+    'Contract'
     ]
 
 function getReservedWordsFromContract(contractContent) {
