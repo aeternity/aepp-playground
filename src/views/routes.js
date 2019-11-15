@@ -12,7 +12,7 @@ import configs from './configs/routes'
 import editor from './editor/routes'
 import executor from './executor/routes'
 import explorer from './explorer/routes'
-import identity from './identity/routes'
+import cryptoHamster from './cryptoHamster/routes'
 import inspector from './inspector/routes'
 
 /**
@@ -50,7 +50,7 @@ export default [{
     editor,
     executor,
     explorer,
-    identity,
+    cryptoHamster,
     inspector
   ]
 }]
