@@ -1,3 +1,6 @@
+## This repository has been archived on 20.02.2023
+The reason for the retirement is that the IDE is not used anymore.
+
 # Aepp Playground
 æpp Playground is a full-featured Integrated Development Environment (IDE) built for the `æternity blockchain`.
 
